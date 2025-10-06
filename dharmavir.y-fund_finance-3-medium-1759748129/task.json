@@ -61,8 +61,7 @@
       {
         "name": "find_instrument_entities",
         "arguments": {
-          "name": "Jackson Inc Ltd",
-           "ticker": "SLL5"
+          "name": "Jackson Inc Ltd"
         },
         "output": {
           "count": 1,
@@ -127,6 +126,14 @@
         "connection": {
           "output": "first_name, email",
           "input": "first_name, email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "validate_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
         }
       },
       {
@@ -197,6 +204,6 @@
     "outputs": [
       "2501"
     ],
-    "num_edges": 9
+    "num_edges": 10
   }
 }
