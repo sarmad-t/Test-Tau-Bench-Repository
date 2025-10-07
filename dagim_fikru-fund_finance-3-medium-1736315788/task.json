@@ -311,7 +311,7 @@
                 "from": "find_user_entities",
                 "to": "validate_approval",
                 "connection": {
-                    "output": "output.results[0].email",
+                    "output": "results[0].email",
                     "input": "requester_email"
                 }
             },
@@ -337,7 +337,7 @@
                 "from": "find_billing_entities",
                 "to": "register_new_audit_trail",
                 "connection": {
-                    "output": "output.results[0].status",
+                    "output": "results[0].status",
                     "input": "old_value"
                 }
             },
@@ -378,7 +378,7 @@
                 "from": "find_investment_flow_entities",
                 "to": "manipulate_payment",
                 "connection": {
-                    "output": "output.results[0].subscription_id",
+                    "output": "results[0].subscription_id",
                     "input": "payment_data.subscription_id"
                 }
             }
