@@ -7,7 +7,7 @@
     "interface_num": 3,
     "task": {
         "user_id": "4",
-        "instruction": "You are Anthony Robinson (anthonyrobinson734@outlook.com), a fund manager. You want to initiate a USD 2,000,000 redemption request for existing investor Hodges Ltd (email hodges2130@outlook.com) into the open fund 'Sanchez, Terry and Turner Strategic Fund', subject to compliance review with the request date of 2025-09-28.",
+        "instruction": "You are Anthony Robinson (email: anthonyrobinson734@outlook.com), a fund manager. You want to initiate a USD 2,000,000 redemption request for investor 'Hodges Ltd' (email: hodges2130@outlook.com) into the open fund 'Sanchez, Terry and Turner Strategic Fund', subject to compliance review with the request date of 2025-09-28.",
         "actions": [
             {
                 "name": "find_user_entities",
@@ -18,7 +18,7 @@
                         "role": "fund_manager"
                     }
                 },
-                "output": {
+                "output": {                                     
                     "count": 1,
                     "entity_type": "users",
                     "results": [
@@ -133,7 +133,7 @@
                         "request_date": "2025-09-28",
                         "compliance_review": true,
                         "fund_manager_approval": true,
-                        "request_assigned_to": "200"
+                        "request_assigned_to": "4"
                     }
                 },
                 "output": {
@@ -144,7 +144,7 @@
                         "approval_date": null,
                         "fund_id": "28",
                         "investor_id": "1",
-                        "request_assigned_to": "200",
+                        "request_assigned_to": "4",
                         "request_date": "2025-09-28",
                         "status": "pending",
                         "redemption_id": "1",
@@ -175,10 +175,26 @@
         ],
         "edges": [
             {
+                "from": "find_fund_entities",
+                "to": "find_investment_flow_entities",
+                "connection": {
+                    "output": "results[0].fund_id",
+                    "input": "filters.fund_id"
+                }
+            },
+            {
+                "from": "find_investor_entities",
+                "to": "find_investment_flow_entities",
+                "connection": {
+                    "output": "results[0].investor_id",
+                    "input": "filters.investor_id"
+                }
+            },
+            {
                 "from": "instruction",
                 "to": "find_user_entities",
                 "connection": {
-                    "output": "entity_type, email, role",
+                    "output": "entity_type, filters.email, filters.role",
                     "input": "entity_type, filters.email, filters.role"
                 }
             },
@@ -186,7 +202,7 @@
                 "from": "instruction",
                 "to": "find_investor_entities",
                 "connection": {
-                    "output": "entity_type, name, contact_email",
+                    "output": "entity_type, filters.name, filters.contact_email",
                     "input": "entity_type, filters.name, filters.contact_email"
                 }
             },
@@ -194,31 +210,31 @@
                 "from": "instruction",
                 "to": "find_fund_entities",
                 "connection": {
-                    "output": "entity_type, name, status",
+                    "output": "entity_type, filters.name, filters.status",
                     "input": "entity_type, filters.name, filters.status"
-                }
-            },
-            {
-                "from": "find_fund_entities",
-                "to": "validate_approval",
-                "connection": {
-                    "output": "output.results[0].manager_id",
-                    "input": "requester_email"
                 }
             },
             {
                 "from": "find_user_entities",
                 "to": "validate_approval",
                 "connection": {
-                    "output": "output.results[0].email",
+                    "output": "results[0].email",
                     "input": "requester_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action",
+                    "input": "action"
                 }
             },
             {
                 "from": "instruction",
                 "to": "complete_redemption",
                 "connection": {
-                    "output": "action, amount, request_date",
+                    "output": "action, redemption_data.amount, redemption_data.request_date",
                     "input": "action, redemption_data.amount, redemption_data.request_date"
                 }
             },
@@ -226,7 +242,7 @@
                 "from": "find_fund_entities",
                 "to": "complete_redemption",
                 "connection": {
-                    "output": "output.results[0].fund_id",
+                    "output": "results[0].fund_id",
                     "input": "redemption_data.fund_id"
                 }
             },
@@ -234,7 +250,7 @@
                 "from": "find_investor_entities",
                 "to": "complete_redemption",
                 "connection": {
-                    "output": "output.results[0].investor_id",
+                    "output": "results[0].investor_id",
                     "input": "redemption_data.investor_id"
                 }
             },
@@ -242,7 +258,7 @@
                 "from": "find_user_entities",
                 "to": "complete_redemption",
                 "connection": {
-                    "output": "output.results[0].user_id",
+                    "output": "results[0].user_id",
                     "input": "redemption_data.request_assigned_to"
                 }
             },
@@ -250,7 +266,7 @@
                 "from": "complete_redemption",
                 "to": "register_new_audit_trail",
                 "connection": {
-                    "output": "output.redemption_id",
+                    "output": "redemption_id",
                     "input": "reference_id"
                 }
             },
@@ -268,6 +284,6 @@
             "28",
             "1"
         ],
-        "num_edges": 11
+        "num_edges": 13
     }
 }
