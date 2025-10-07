@@ -7,7 +7,7 @@
   "interface_num": 3,
   "task": {
     "user_id": "73",
-    "instruction": "You are Jose Richards (email: jose.richards@outlook.com), a compliance officer.You need to onboard an investor, Daniel Ross Holdings Ltd. (email: daniel.ross@investments.co), has submitted an application to onboard on December 31, 2022. The source of funds of investor is shareholder capital, country of incorporation is United Kingdom, and accredited investor.",
+    "instruction": "You are Jose Richards (email: jose.richards@outlook.com), a compliance officer.You need to onboard an investor, Daniel Ross Holdings Ltd. (email: daniel.ross@investments.co), who has submitted an application to be onboard on December 31, 2022. The source of funds for the investor is shareholder capital, country of incorporation is the United Kingdom, and the investor is accredited.",
     "actions": [
       {
         "arguments": {
@@ -135,16 +135,8 @@
         "from": "instruction",
         "to": "find_investor_entities",
         "connection": {
-          "output": "filters.name",
-          "input": "filters.name"
-        }
-      },
-      {
-        "from": "instruction",
-        "to": "find_investor_entities",
-        "connection": {
-          "output": "entity_type",
-          "input": "entity_type"
+          "output": "entity_type,filters.name",
+          "input": "entity_type,filters.name"
         }
       },
       {
@@ -180,6 +172,6 @@
         }
       }
     ],
-    "num_edges": 9
+    "num_edges": 8
   }
 }
