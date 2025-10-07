@@ -7,11 +7,11 @@
   "interface_num": 3,
   "task": {
     "user_id": "73",
-    "instruction": "You are Jose Richards (email: jose.richards@outlook.com), a compliance officer. An investor, Daniel Ross Holdings Ltd. (email: daniel.ross@investments.co), has submitted an application to onboard on December 31, 2022. The source of funds of investor is shareholder capital, country of incorporation is United Kingdom, and accredited investor.",
+    "instruction": "You are Jose Richards (email: jose.richards@outlook.com), a compliance officer.You need to onboard an investor, Daniel Ross Holdings Ltd. (email: daniel.ross@investments.co), has submitted an application to onboard on December 31, 2022. The source of funds of investor is shareholder capital, country of incorporation is United Kingdom, and accredited investor.",
     "actions": [
       {
         "arguments": {
-          "entity_type": "'users'",
+          "entity_type": "users",
           "filters": {
             "email": "jose.richards@outlook.com"
           }
@@ -87,25 +87,25 @@
         }
       },
       {
-      "name": "register_new_audit_trail",
-      "arguments": {
-        "action": "create",
-        "reference_id": "156",
-        "reference_type": "investor"
-      },
-      "output": {
-        "action": "create",
-        "audit_trail_id": "3501",
-        "created_at": "2025-10-01T00:00:00",
-        "field_name": null,
-        "new_value": null,
-        "old_value": null,
-        "reference_id": "156",
-        "reference_type": "investor"
+        "name": "register_new_audit_trail",
+        "arguments": {
+          "action": "create",
+          "reference_id": "176",
+          "reference_type": "investor"
+        },
+        "output": {
+          "action": "create",
+          "audit_trail_id": "3501",
+          "created_at": "2025-10-01T00:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "176",
+          "reference_type": "investor"
+        }
       }
-    }
     ],
-    "outputs": ["176"],
+    "outputs": ["176", "3501"],
     "edges": [
       {
         "from": "instruction",
@@ -143,16 +143,24 @@
         "from": "instruction",
         "to": "find_investor_entities",
         "connection": {
-          "output": "entity_type, investor",
-          "input": "entity_type, investor"
+          "output": "entity_type",
+          "input": "entity_type"
         }
       },
       {
         "from": "instruction",
         "to": "register_investor",
         "connection": {
-          "output": "accreditation_status,contact_email,country_of_incorporation,legal_name,source_of_funds,compliance_officer_approval,date_of_incorporation",
-          "input": "accreditation_status,contact_email,country_of_incorporation,legal_name,source_of_funds,compliance_officer_approval,date_of_incorporation"
+          "output": "accreditation_status,contact_email,country_of_incorporation,legal_name,source_of_funds,date_of_incorporation",
+          "input": "accreditation_status,contact_email,country_of_incorporation,legal_name,source_of_funds,date_of_incorporation"
+        }
+      },
+      {
+        "from": "validate_approval",
+        "to": "register_investor",
+        "connection": {
+          "output": "approval_valid",
+          "input": "compliance_officer_approval"
         }
       },
       {
@@ -171,8 +179,7 @@
           "input": "action,reference_type"
         }
       }
-      
     ],
-    "num_edges": 8
+    "num_edges": 9
   }
 }
