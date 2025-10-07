@@ -1,0 +1,274 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 3,
+    "task": {
+        "user_id": "38",
+        "instruction": "You are Natasha Decker (email: natashadecker686@yahoo.com), a fund manager. A trader, Clinton Hopkins (email: clinton.hopkins@finance.com), has requested you to execute a trade for him as he wants to buy 300 shares of the instrument (ticker: FUD5) at $300 per share for the fund 'Rivas-Kelley Income Fund' on October 7, 2025.",
+        "actions": [{
+      "name": "find_user_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "natashadecker686@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2023-12-07T20:12:01",
+            "email": "natashadecker686@yahoo.com",
+            "first_name": "Natasha",
+            "last_name": "Decker",
+            "role": "fund_manager",
+            "status": "active",
+            "timezone": "Europe/London",
+            "updated_at": "2024-06-10T19:54:53",
+            "user_id": "38"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "find_user_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "clinton.hopkins@finance.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-02-18T12:24:48",
+            "email": "clinton.hopkins@finance.com",
+            "first_name": "Clinton",
+            "last_name": "Hopkins",
+            "role": "trader",
+            "status": "active",
+            "timezone": "UTC",
+            "updated_at": "2025-01-12T12:29:28",
+            "user_id": "52"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "validate_approval",
+      "arguments": {
+        "action": "trade_execution",
+        "requester_email": "natashadecker686@yahoo.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "message": "Role 'fund_manager' is directly authorized for action 'trade_execution'"
+      }
+    },
+    {
+      "name": "find_instrument_entities",
+      "arguments": {
+        "entity_type": "instruments",
+        "filters": {
+          "ticker": "FUD5"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "instruments",
+        "results": [
+          {
+            "instrument_id": "5",
+            "instrument_type": "equities",
+            "name": "Washington-Martinez Inc",
+            "status": "active",
+            "ticker": "FUD5"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "find_fund_entities",
+      "arguments": {
+        "entity_type": "funds",
+        "filters": {
+          "name": "Rivas-Kelley Income Fund"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "funds",
+        "results": [
+          {
+            "created_at": "2024-07-04T15:34:33",
+            "fund_id": "3",
+            "fund_type": "private_equity_funds",
+            "manager_id": "108",
+            "name": "Rivas-Kelley Income Fund",
+            "size": 356209360.83,
+            "status": "open",
+            "updated_at": "2025-07-31T17:19:22"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "conduct_trade",
+      "arguments": {
+        "fund_id": "3",
+        "fund_manager_approval": true,
+        "instrument_id": "5",
+        "price": 300,
+        "quantity": 300,
+        "side": "buy",
+        "trade_date": "2025-10-07"
+      },
+      "output": {
+        "message": "Trade 2501 executed successfully",
+        "success": true,
+        "trade_data": {
+          "created_at": "2025-10-01T00:00:00",
+          "fund_id": "3",
+          "instrument_id": "5",
+          "price": 300.0,
+          "quantity": 300.0,
+          "side": "buy",
+          "status": "executed",
+          "trade_date": "2025-10-07",
+          "trade_id": "2501"
+        },
+        "trade_id": "2501"
+      }
+    },
+    {
+      "name": "register_new_audit_trail",
+      "arguments": {
+        "action": "create",
+        "reference_id": "2501",
+        "reference_type": "trade"
+      },
+      "output": {
+        "action": "create",
+        "audit_trail_id": "3501",
+        "created_at": "2025-10-01T00:00:00",
+        "field_name": null,
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "2501",
+        "reference_type": "trade"
+      }
+    }],
+        "outputs": [
+            "3501",
+            "108"
+        ],
+        "edges": [
+    {
+      "from": "instruction",
+      "to": "find_user_entities",
+      "connection": {
+        "output": "entity_type, filters.email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "find_user_entities",
+      "connection": {
+        "output": "entity_type, filters.email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "find_user_entities",
+      "to": "validate_approval",
+      "connection": {
+        "output": "output.results[0].email",
+        "input": "requester_email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "validate_approval",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "find_instrument_entities",
+      "connection": {
+        "output": "entity_type, filters.ticker",
+        "input": "entity_type, filters.ticker"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "find_fund_entities",
+      "connection": {
+        "output": "entity_type, filters.name",
+        "input": "entity_type, filters.name"
+      }
+    },
+    {
+      "from": "find_fund_entities",
+      "to": "conduct_trade",
+      "connection": {
+        "output": "output.results[0].fund_id",
+        "input": "fund_id"
+      }
+    },
+    {
+      "from": "find_instrument_entities",
+      "to": "conduct_trade",
+      "connection": {
+        "output": "output.results[0].instrument_id",
+        "input": "instrument_id"
+      }
+    },
+    {
+      "from": "validate_approval",
+      "to": "conduct_trade",
+      "connection": {
+        "output": "approval_valid",
+        "input": "fund_manager_approval"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "conduct_trade",
+      "connection": {
+        "output": "price, quantity, side, trade_date",
+        "input": "price, quantity, side, trade_date"
+      }
+    },
+    {
+      "from": "conduct_trade",
+      "to": "register_new_audit_trail",
+      "connection": {
+        "output": "trade_data.trade_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "register_new_audit_trail",
+      "connection": {
+        "output": "action, reference_type",
+        "input": "action, reference_type"
+      }
+    }],
+        "num_edges": 12
+    }
+}
