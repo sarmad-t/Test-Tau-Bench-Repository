@@ -146,15 +146,15 @@
                 "from": "instruction",
                 "to": "find_user_entities",
                 "connection": {
-                    "output": "email",
-                    "input": "email"
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
                 }
             },
             {
                 "from": "find_user_entities",
                 "to": "validate_approval",
                 "connection": {
-                    "output": "output[0].email",
+                    "output": "results[0].email",
                     "input": "requester_email"
                 }
             },
@@ -170,16 +170,32 @@
                 "from": "instruction",
                 "to": "find_investor_entities",
                 "connection": {
-                    "output": "contact_email",
-                    "input": "contact_email"
+                    "output": "entity_type, filters.contact_email",
+                    "input": "entity_type, filters.contact_email"
                 }
             },
             {
                 "from": "instruction",
                 "to": "find_fund_entities",
                 "connection": {
-                    "output": "fund_name",
-                    "input": "name"
+                    "output": "entity_type, filters.name",
+                    "input": "entity_type, filters.name"
+                }
+            },
+            {
+                "from": "find_investor_entities",
+                "to": "register_commitment",
+                "connection": {
+                    "output": "results[0].investor_id",
+                    "input": "investor_id"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "register_commitment",
+                "connection": {
+                    "output": "results[0].fund_id",
+                    "input": "fund_id"
                 }
             },
             {
@@ -188,22 +204,6 @@
                 "connection": {
                     "output": "approval_valid",
                     "input": "compliance_officer_approval"
-                }
-            },
-            {
-                "from": "find_fund_entities",
-                "to": "register_commitment",
-                "connection": {
-                    "output": "output[0].fund_id",
-                    "input": "fund_id"
-                }
-            },
-            {
-                "from": "find_investor_entities",
-                "to": "register_commitment",
-                "connection": {
-                    "output": "output[0].investor_id",
-                    "input": "investor_id"
                 }
             },
             {
@@ -232,9 +232,9 @@
             }
         ],
         "outputs": [
-            "51",
-            "2",
-            "1001",
+            "49",
+            "22",
+            "2001",
             "3501"
         ],
         "num_edges": 11
