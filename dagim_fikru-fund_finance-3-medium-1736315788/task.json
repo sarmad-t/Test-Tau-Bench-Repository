@@ -1,0 +1,394 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 3,
+    "task": {
+        "user_id": "14",
+        "instruction": "You are Kendra Galloway (email: kendragalloway@investment.com), a Finance Officer. You want to fully settle the outstanding USD 413,914.95 invoice issued on 2025-04-24 for the investor “Mcclure, Davis and Fletcher” (email: mcclure3132@investment.com) in the open fund “Hines and Sons Income Fund,” ensuring the settlement is recorded on 2025-05-10 and that all activity is compliant with internal financial controls and audit requirements.",
+
+        "actions": [
+            {
+                "name": "find_user_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "kendragalloway@investment.com",
+                        "role": "finance_officer",
+                        "status": "active"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2023-08-13T18:18:57",
+                            "email": "kendragalloway@investment.com",
+                            "first_name": "Kendra",
+                            "last_name": "Galloway",
+                            "role": "finance_officer",
+                            "status": "active",
+                            "timezone": "America/Los_Angeles",
+                            "updated_at": "2025-06-16T18:44:31",
+                            "user_id": "14"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "invoice_management",
+                    "requester_email": "kendragalloway@investment.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'finance_officer' is directly authorized for action 'invoice_management'"
+                }
+            },
+
+            {
+                "name": "find_billing_entities",
+                "arguments": {
+                    "entity_type": "invoices",
+                    "filters": {
+                        "invoice_id": "4",
+                        "status": "issued"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "invoices",
+                    "results": [
+                        {
+                            "amount": 413914.95,
+                            "commitment_id": "1367",
+                            "due_date": "2025-05-16",
+                            "invoice_date": "2025-04-24",
+                            "invoice_id": "4",
+                            "status": "issued",
+                            "updated_at": "2025-07-04T20:25:31"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+
+            {
+                "name": "manipulate_invoice",
+                "arguments": {
+                    "action": "update",
+                    "invoice_data": {
+                        "status": "paid",
+                        "finance_officer_approval": true
+                    },
+                    "invoice_id": "4"
+                },
+                "output": {
+                    "action": "update",
+                    "invoice_data": {
+                        "amount": 413914.95,
+                        "commitment_id": "1367",
+                        "due_date": "2025-05-16",
+                        "invoice_date": "2025-04-24",
+                        "invoice_id": "4",
+                        "status": "paid",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "invoice_id": "4",
+                    "message": "Invoice 4 updated successfully",
+                    "success": true
+                }
+            },
+
+            {
+                "name": "register_new_audit_trail",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "status",
+                    "new_value": "paid",
+                    "old_value": "issued",
+                    "reference_id": "4",
+                    "reference_type": "invoice"
+                },
+                "output": {
+                    "action": "update",
+                    "audit_trail_id": "3501",
+                    "created_at": "2025-10-01T00:00:00",
+                    "field_name": "status",
+                    "new_value": "paid",
+                    "old_value": "issued",
+                    "reference_id": "4",
+                    "reference_type": "invoice"
+                }
+            },
+
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "payment_processing",
+                    "requester_email": "kendragalloway@investment.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'finance_officer' is directly authorized for action 'payment_processing'"
+                }
+            },
+
+            {
+                "name": "find_investment_flow_entities",
+                "arguments": {
+                    "entity_type": "subscriptions",
+                    "filters": {
+                        "subscription_id": "1367",
+                        "status": "approved"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "subscriptions",
+                    "results": [
+                        {
+                            "amount": 2333935.63,
+                            "approval_date": "2024-01-07",
+                            "fund_id": "71",
+                            "investor_id": "120",
+                            "request_assigned_to": "122",
+                            "request_date": "2024-01-05",
+                            "status": "approved",
+                            "subscription_id": "1367",
+                            "updated_at": "2024-05-08T06:40:23"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+
+            {
+                "name": "find_billing_entities",
+                "arguments": {
+                    "entity_type": "payments",
+                    "filters": {
+                        "invoice_id": "4"
+                    }
+                },
+                "output": {
+                    "count": 0,
+                    "entity_type": "payments",
+                    "results": [],
+                    "success": true
+                }
+            },
+
+            {
+                "name": "manipulate_payment",
+                "arguments": {
+                    "action": "create",
+                    "payment_data": {
+                        "invoice_id": "4",
+                        "subscription_id": "1367",
+                        "payment_date": "2025-05-10",
+                        "amount": 413914.95,
+                        "payment_method": "bank_transfer",
+                        "status": "completed",
+                        "finance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Payment 2251 created successfully for invoice 4",
+                    "payment_data": {
+                        "amount": 413914.95,
+                        "created_at": "2025-10-01T12:00:00",
+                        "invoice_id": "4",
+                        "payment_date": "2025-05-10",
+                        "payment_id": "2251",
+                        "payment_method": "bank_transfer",
+                        "status": "completed",
+                        "subscription_id": "1367"
+                    },
+                    "payment_id": "2251",
+                    "success": true
+                }
+            },
+
+            {
+                "name": "register_new_audit_trail",
+                "arguments": {
+                    "action": "create",
+                    "reference_id": "2251",
+                    "reference_type": "payment"
+                },
+                "output": {
+                    "action": "create",
+                    "audit_trail_id": "3502",
+                    "created_at": "2025-10-01T00:00:00",
+                    "field_name": null,
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "2251",
+                    "reference_type": "payment"
+                }
+            },
+
+            {
+                "name": "find_billing_entities",
+                "arguments": {
+                    "entity_type": "invoices",
+                    "filters": {
+                        "invoice_id": "4"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "invoices",
+                    "results": [
+                        {
+                            "amount": 413914.95,
+                            "commitment_id": "1367",
+                            "due_date": "2025-05-16",
+                            "invoice_date": "2025-04-24",
+                            "invoice_id": "4",
+                            "status": "paid",
+                            "updated_at": "2025-10-01T12:00:00"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+
+            {
+                "name": "find_billing_entities",
+                "arguments": {
+                    "entity_type": "payments",
+                    "filters": {
+                        "payment_id": "2251"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "payments",
+                    "results": [
+                        {
+                            "amount": 413914.95,
+                            "created_at": "2025-10-01T12:00:00",
+                            "invoice_id": "4",
+                            "payment_date": "2025-05-10",
+                            "payment_id": "2251",
+                            "payment_method": "bank_transfer",
+                            "status": "completed",
+                            "subscription_id": "1367"
+                        }
+                    ],
+                    "success": true
+                }
+            }
+        ],
+
+        "edges": [
+                {
+                    "from": "instruction",
+                    "to": "find_user_entities",
+                    "connection": {
+                        "output": "entity_type, email, role, status",
+                        "input": "entity_type, filters.email, filters.role, filters.status"
+                    }
+                },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action",
+                    "input": "action"
+                }
+            },
+            {
+                "from": "find_user_entities",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "output.results[0].email",
+                    "input": "requester_email"
+                }
+            },
+
+            {
+                "from": "instruction",
+                "to": "find_billing_entities",
+                "connection": {
+                    "output": "entity_type, invoice_id, status",
+                    "input": "entity_type, filters.invoice_id, filters.status"
+                }
+            },
+
+            {
+                "from": "instruction",
+                "to": "manipulate_invoice",
+                "connection": {
+                    "output": "action, status, invoice_id, finance_officer_approval",
+                    "input": "action, invoice_data.status, invoice_id, invoice_data.finance_officer_approval"
+                }
+            },
+            {
+                "from": "find_billing_entities",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "output.results[0].status",
+                    "input": "old_value"
+                }
+            },
+            {
+                "from": "manipulate_invoice",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "invoice_id, invoice_data.status",
+                    "input": "reference_id, new_value"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "action, field_name, reference_type",
+                    "input": "action, field_name, reference_type"
+                }
+            },
+
+            {
+                "from": "instruction",
+                "to": "find_investment_flow_entities",
+                "connection": {
+                    "output": "entity_type, subscription_id, status",
+                    "input": "entity_type, filters.subscription_id, filters.status"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "manipulate_payment",
+                "connection": {
+                    "output": "action, invoice_id, payment_date, amount, payment_method, status, finance_officer_approval",
+                    "input": "action, payment_data.invoice_id, payment_data.payment_date, payment_data.amount, payment_data.payment_method, payment_data.status, payment_data.finance_officer_approval"
+                }
+            },
+            {
+                "from": "find_investment_flow_entities",
+                "to": "manipulate_payment",
+                "connection": {
+                    "output": "output.results[0].subscription_id",
+                    "input": "payment_data.subscription_id"
+                }
+            }
+        ],
+
+        "outputs": [
+            "4",
+            "1367",
+            "paid"
+        ],
+            "num_edges": 11
+    }
+}
