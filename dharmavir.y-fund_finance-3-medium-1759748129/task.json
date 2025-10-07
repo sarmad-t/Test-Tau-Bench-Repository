@@ -149,7 +149,7 @@
         "from": "instruction",
         "to": "find_user_entities",
         "connection": {
-          "output": "entity_type, email",
+          "output": "entity_type, filters.email",
           "input": "entity_type, filters.email"
         }
       },
@@ -173,7 +173,7 @@
         "from": "instruction",
         "to": "find_fund_entities",
         "connection": {
-          "output": "entity_type, name",
+          "output": "entity_type, filters.name",
           "input": "entity_type, filters.name"
         }
       },
@@ -189,7 +189,7 @@
         "from": "instruction",
         "to": "find_instrument_entities",
         "connection": {
-          "output": "entity_type, name",
+          "output": "entity_type, filters.name",
           "input": "entity_type, filters.name"
         }
       },
