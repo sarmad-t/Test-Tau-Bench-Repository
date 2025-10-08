@@ -1,0 +1,353 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 3,
+    "task": {
+        "user_id": "43",
+        "instruction": "You are Cynthia Ferguson (cynthiaferguson@investment.com), a compliance officer. You want to create a USD 60,000 subscription for existing investor 'Little-Stevens' (email littlestevens2160@gmail.com) into the fund 'Washington, Allen and Gonzales Strategic Fund' subject to its manager's approval dated 2025-10-07.",
+        "actions": [
+            {
+                "name": "find_user_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "cynthiaferguson@investment.com",
+                        "role": "compliance_officer"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2023-09-01T10:27:20",
+                            "email": "cynthiaferguson@investment.com",
+                            "first_name": "Cynthia",
+                            "last_name": "Ferguson",
+                            "role": "compliance_officer",
+                            "status": "active",
+                            "timezone": "America/New_York",
+                            "updated_at": "2024-01-06T08:29:55",
+                            "user_id": "18"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "subscription_management",
+                    "requester_email": "cynthiaferguson@investment.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'compliance_officer' is directly authorized for action 'subscription_management'"
+                }
+            },
+            {
+                "name": "find_investor_entities",
+                "arguments": {
+                    "entity_type": "investors",
+                    "filters": {
+                        "name": "Little-Stevens",
+                        "contact_email": "littlestevens2160@gmail.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "investors",
+                    "results": [
+                        {
+                            "accreditation_status": "accredited",
+                            "address": "821 Landry Radial Suite 647, Jamesfurt, PR 63836",
+                            "contact_email": "littlestevens2160@gmail.com",
+                            "country": "United Kingdom",
+                            "created_at": "2025-06-17T07:35:12",
+                            "date_of_incorporation": "2022-12-31",
+                            "investor_id": "2",
+                            "name": "Little-Stevens",
+                            "registration_number": 10190412,
+                            "source_of_funds": "shareholder_capital",
+                            "status": "onboarded",
+                            "tax_id": "936-95-9440"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "find_fund_entities",
+                "arguments": {
+                    "entity_type": "funds",
+                    "filters": {
+                        "name": "Washington, Allen and Gonzales Strategic Fund",
+                        "status": "open"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "funds",
+                    "results": [
+                        {
+                            "created_at": "2025-05-03T16:59:03",
+                            "fund_id": "5",
+                            "fund_type": "hedge_funds",
+                            "manager_id": "48",
+                            "name": "Washington, Allen and Gonzales Strategic Fund",
+                            "size": 237156983.89,
+                            "status": "open",
+                            "updated_at": "2025-06-26T13:20:55"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "find_user_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "user_id": "48"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2022-10-04T22:24:09",
+                            "email": "brianjones803@investment.com",
+                            "first_name": "Brian",
+                            "last_name": "Jones",
+                            "role": "fund_manager",
+                            "status": "active",
+                            "timezone": "America/New_York",
+                            "updated_at": "2024-03-01T05:40:10",
+                            "user_id": "48"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "subscription_management",
+                    "requester_email": "brianjones803@investment.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'fund_manager' is directly authorized for action 'subscription_management'"
+                }
+            },
+            {
+                "name": "find_investment_flow_entities",
+                "arguments": {
+                    "entity_type": "subscriptions",
+                    "filters": {
+                        "fund_id": "5",
+                        "investor_id": "2"
+                    }
+                },
+                "output": {
+                    "count": 0,
+                    "entity_type": "subscriptions",
+                    "results": [],
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "create",
+                    "subscription_data": {
+                        "investor_id": "2",
+                        "fund_id": "5",
+                        "amount": 60000,
+                        "request_date": "2025-10-07",
+                        "compliance_officer_approval": true,
+                        "fund_manager_approval": true,
+                        "request_assigned_to": "2"
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Subscription 2501 created successfully.",
+                    "subscription_data": {
+                        "amount": 60000,
+                        "approval_date": null,
+                        "fund_id": "5",
+                        "investor_id": "2",
+                        "request_assigned_to": "2",
+                        "request_date": "2025-10-07",
+                        "status": "pending",
+                        "subscription_id": "2501",
+                        "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "2501",
+                    "success": true
+                }
+            },
+            {
+                "name": "register_new_audit_trail",
+                "arguments": {
+                    "action": "create",
+                    "reference_id": "2501",
+                    "reference_type": "subscription"
+                },
+                "output": {
+                    "action": "create",
+                    "audit_trail_id": "3501",
+                    "created_at": "2025-10-01T00:00:00",
+                    "field_name": null,
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "2501",
+                    "reference_type": "subscription"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "find_user_entities",
+                "connection": {
+                    "output": "entity_type, filters.email, filters.role",
+                    "input": "entity_type, filters.email, filters.role"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "find_investor_entities",
+                "connection": {
+                    "output": "entity_type, filters.name, filters.contact_email",
+                    "input": "entity_type, filters.name, filters.contact_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "find_fund_entities",
+                "connection": {
+                    "output": "entity_type, filters.name, filters.status",
+                    "input": "entity_type, filters.name, filters.status"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "find_user_entities",
+                "connection": {
+                    "output": "output.results[0].manager_id",
+                    "input": "filters.user_id"
+                }
+            },
+            {
+                "from": "find_user_entities",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "output.results[0].email",
+                    "input": "requester_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action",
+                    "input": "action"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "find_investment_flow_entities",
+                "connection": {
+                    "output": "output.results[0].fund_id",
+                    "input": "filters.fund_id"
+                }
+            },
+            {
+                "from": "find_investor_entities",
+                "to": "find_investment_flow_entities",
+                "connection": {
+                    "output": "output.results[0].investor_id",
+                    "input": "filters.investor_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "find_investment_flow_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from": "find_investor_entities",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "output.results[0].investor_id",
+                    "input": "subscription_data.investor_id"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "output.results[0].fund_id",
+                    "input": "subscription_data.fund_id"
+                }
+            },
+            {
+                "from": "find_user_entities",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "output.results[0].user_id",
+                    "input": "subscription_data.request_assigned_to"
+                }
+            },
+            {
+                "from": "validate_approval",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "approval_valid, approval_valid",
+                    "input": "subscription_data.compliance_officer_approval, subscription_data.fund_manager_approval"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "action, amount, request_date",
+                    "input": "action, subscription_data.amount, subscription_data.request_date"
+                }
+            },
+            {
+                "from": "manipulate_subscription",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "output.subscription_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "action, reference_type",
+                    "input": "action, reference_type"
+                }
+            }
+        ],
+        "outputs": [
+            "5",
+            "Washington, Allen and Gonzales Strategic Fund",
+            "2",
+            "Little-Stevens",
+            "60000"
+        ],
+        "num_edges": 16
+    }
+}
