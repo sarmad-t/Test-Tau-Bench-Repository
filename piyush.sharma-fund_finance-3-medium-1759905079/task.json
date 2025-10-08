@@ -1,0 +1,439 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 3,
+    "task": {
+        "user_id": "5",
+        "instruction": "Your name is Anthony Gonzalez, a Finance Officer with the email 'anthonygonzalez@gmail.com'. You want to offboard a investor named 'Thompson and Sons' having registration_number as 81009963 due to inactivity post taking approval from Jeffery Brock.",
+        "actions": [
+            {
+                "name": "find_user_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "first_name": "Anthony",
+                        "last_name": "Gonzalez",
+                        "email": "anthonygonzalez@gmail.com",
+                        "role": "finance_officer"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2025-05-22T16:41:26",
+                        "email": "anthonygonzalez@gmail.com",
+                        "first_name": "Anthony",
+                        "last_name": "Gonzalez",
+                        "role": "finance_officer",
+                        "status": "active",
+                        "timezone": "America/Chicago",
+                        "updated_at": "2025-07-29T18:53:46",
+                        "user_id": "5"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name":"validate_approval",
+                "arguments": {
+                    "action":"investor_offboarding",
+                    "approver_email":"jefferybrock@outlook.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'compliance_officer' is directly authorized for action 'investor_offboarding'"
+                }
+            },
+            {
+                "name": "find_investor_entities",
+                "arguments": {
+                    "entity_type": "investors",
+                    "filters": {
+                        "name": "Thompson and Sons",
+                        "registration_number": 81009963
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "investors",
+                    "results": [
+                    {
+                        "accreditation_status": "non_accredited",
+                        "address": "USCGC Marshall, FPO AP 76453",
+                        "contact_email": "thompson6106@investment.com",
+                        "country": "Canada",
+                        "created_at": "2025-05-30T17:06:36",
+                        "date_of_incorporation": "2001-08-25",
+                        "investor_id": "15",
+                        "name": "Thompson and Sons",
+                        "registration_number": 81009963,
+                        "source_of_funds": "shareholder_capital",
+                        "status": "onboarded",
+                        "tax_id": "999-55-2717"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "find_investment_flow_entities",
+                "arguments": {
+                    "entity_type": "subscriptions",
+                    "filters": {
+                        "investor_id": "15",
+                        "status": "approved"
+                    }
+                },
+                "output": {
+                    "count": 5,
+                    "entity_type": "subscriptions",
+                    "results": [
+                    {
+                        "amount": 4741622.27,
+                        "approval_date": "2024-08-28",
+                        "fund_id": "95",
+                        "investor_id": "15",
+                        "request_assigned_to": "84",
+                        "request_date": "2024-01-21",
+                        "status": "approved",
+                        "subscription_id": "112",
+                        "updated_at": "2024-06-09T07:39:09"
+                    },
+                    {
+                        "amount": 1365787.39,
+                        "approval_date": "2023-10-27",
+                        "fund_id": "48",
+                        "investor_id": "15",
+                        "request_assigned_to": "15",
+                        "request_date": "2023-10-02",
+                        "status": "approved",
+                        "subscription_id": "560",
+                        "updated_at": "2024-07-21T03:09:18"
+                    },
+                    {
+                        "amount": 1275688.96,
+                        "approval_date": "2025-05-29",
+                        "fund_id": "45",
+                        "investor_id": "15",
+                        "request_assigned_to": "104",
+                        "request_date": "2024-02-13",
+                        "status": "approved",
+                        "subscription_id": "1011",
+                        "updated_at": "2025-02-23T08:24:30"
+                    },
+                    {
+                        "amount": 4636267.84,
+                        "approval_date": "2025-02-01",
+                        "fund_id": "90",
+                        "investor_id": "15",
+                        "request_assigned_to": "117",
+                        "request_date": "2024-11-23",
+                        "status": "approved",
+                        "subscription_id": "1460",
+                        "updated_at": "2025-08-13T20:46:38"
+                    },
+                    {
+                        "amount": 2788806.1,
+                        "approval_date": "2025-06-30",
+                        "fund_id": "94",
+                        "investor_id": "15",
+                        "request_assigned_to": "117",
+                        "request_date": "2024-10-29",
+                        "status": "approved",
+                        "subscription_id": "2027",
+                        "updated_at": "2025-04-26T02:16:13"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "cancel",
+                    "subscription_id": "112",
+                    "subscription_data": {
+                        "fund_manager_approval": true,
+                        "compliance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "cancel",
+                    "message": "Subscription 112 cancelled successfully.",
+                    "subscription_data": {
+                    "amount": 4741622.27,
+                    "approval_date": "2024-08-28",
+                    "fund_id": "95",
+                    "investor_id": "15",
+                    "request_assigned_to": "84",
+                    "request_date": "2024-01-21",
+                    "status": "cancelled",
+                    "subscription_id": "112",
+                    "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "112",
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "cancel",
+                    "subscription_id": "560",
+                    "subscription_data": {
+                        "fund_manager_approval": true,
+                        "compliance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "cancel",
+                    "message": "Subscription 560 cancelled successfully.",
+                    "subscription_data": {
+                    "amount": 1365787.39,
+                    "approval_date": "2023-10-27",
+                    "fund_id": "48",
+                    "investor_id": "15",
+                    "request_assigned_to": "15",
+                    "request_date": "2023-10-02",
+                    "status": "cancelled",
+                    "subscription_id": "560",
+                    "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "560",
+                    "success": true
+                }
+
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "cancel",
+                    "subscription_id": "1011",
+                    "subscription_data": {
+                        "fund_manager_approval": true,
+                        "compliance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "cancel",
+                    "message": "Subscription 1011 cancelled successfully.",
+                    "subscription_data": {
+                    "amount": 1275688.96,
+                    "approval_date": "2025-05-29",
+                    "fund_id": "45",
+                    "investor_id": "15",
+                    "request_assigned_to": "104",
+                    "request_date": "2024-02-13",
+                    "status": "cancelled",
+                    "subscription_id": "1011",
+                    "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "1011",
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "cancel",
+                    "subscription_id": "1460",
+                    "subscription_data": {
+                        "fund_manager_approval": true,
+                        "compliance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "cancel",
+                    "message": "Subscription 1460 cancelled successfully.",
+                    "subscription_data": {
+                    "amount": 4636267.84,
+                    "approval_date": "2025-02-01",
+                    "fund_id": "90",
+                    "investor_id": "15",
+                    "request_assigned_to": "117",
+                    "request_date": "2024-11-23",
+                    "status": "cancelled",
+                    "subscription_id": "1460",
+                    "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "1460",
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "cancel",
+                    "subscription_id": "2027",
+                    "subscription_data": {
+                        "fund_manager_approval": true,
+                        "compliance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "cancel",
+                    "message": "Subscription 2027 cancelled successfully.",
+                    "subscription_data": {
+                        "amount": 2788806.1,
+                        "approval_date": "2025-06-30",
+                        "fund_id": "94",
+                        "investor_id": "15",
+                        "request_assigned_to": "117",
+                        "request_date": "2024-10-29",
+                        "status": "cancelled",
+                        "subscription_id": "2027",
+                        "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "2027",
+                    "success": true
+                }
+            },
+            {
+                "name":"remove_investor",
+                "arguments": {
+                    "compliance_officer_approval": true,
+                    "investor_id":"15",
+                    "reason":"inactivity"
+                },
+                "output": {
+                    "investor_data": {
+                    "contact_email": "thompson6106@investment.com",
+                    "investor_id": "15",
+                    "name": "Thompson and Sons",
+                    "status": "offboarded"
+                    },
+                    "investor_id": "15",
+                    "message": "Investor 15 successfully offboarded",
+                    "success": true
+                }
+            },
+            {
+                "name": "register_new_audit_trail",
+                "arguments": {
+                    "action": "delete",
+                    "reference_id": "15",
+                    "reference_type": "investor"
+                },
+                "output": {
+                    "action": "delete",
+                    "audit_trail_id": "3501",
+                    "created_at": "2025-10-01T00:00:00",
+                    "field_name": null,
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "15",
+                    "reference_type": "investor"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "find_user_entities",
+                "connection": {
+                    "output": "entity_type,first_name,last_name,email,role",
+                    "input": "entity_type,filters.first_name,filters.last_name,filters.email,filters.role"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action,approver_email",
+                    "input": "action,approver_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "find_investor_entities",
+                "connection": {
+                    "output": "entity_type,name,registration_number",
+                    "input": "entity_type,filters.name,filters.registration_number"
+                }
+            },
+            {
+                "from":"instruction",
+                "to":"find_investment_flow_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from":"find_investor_entities",
+                "to":"find_investment_flow_entities",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "filters.investor_id"
+                }
+            },
+            {
+                "from": "find_investment_flow_entities",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "results[].subscription_id",
+                    "input": "subscription_id"
+                }
+            },
+            {
+                "from":"instruction",
+                "to":"manipulate_subscription",
+                "connection": {
+                    "output": "action",
+                    "input": "action"
+                }
+            },
+            {
+                "from": "validate_approval",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "approval_valid,approval_valid",
+                    "input": "subscription_data.fund_manager_approval,subscription_data.compliance_officer_approval"
+                }
+            },
+            {
+                "from":"instruction",
+                "to":"remove_investor",
+                "connection": {
+                    "output": "action, reason",
+                    "input": "action, reason"
+                }
+            },
+            {
+                "from": "find_investor_entities",
+                "to": "remove_investor",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "investor_id"
+                }
+            },
+            {
+                "from": "remove_investor",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "action,investor_id,reference_type",
+                    "input": "action,reference_id,reference_type"
+                }
+            }
+        ],
+        "outputs": [
+            "5",
+            "15",
+            "112",
+            "560",
+            "1011",
+            "1460",
+            "2027",
+            "3501"
+        ],
+        "num_edges": 11
+    }
+}
+
+ 
