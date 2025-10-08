@@ -6,7 +6,7 @@
   "temperature": 1,
   "interface_num": 2,
   "task": {
-    "user_id": "88",
+    "user_id": "17",
     "instruction": "You are Jacqueline Sutton (jsutton@finance.com), a Fund Manager. Your client, 'Hodges Ltd' (hodges2130@outlook.com), wishes to invest $1,000,000 into the 'Rivas-Kelley Income Fund on '. Now that you have secured the necessary approvals from both the Fund Manager and a Compliance Officer, please proceed to create the subscription for the full amount. Once the subscription is successfully created, send a confirmation notification to the client's registered email address.",
     "actions": [
                {
@@ -339,3 +339,4 @@
     "num_edges": 16
   }
 }
+
