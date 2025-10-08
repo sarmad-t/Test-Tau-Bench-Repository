@@ -33,3 +33,6 @@ You are Lisa Smith, a trader with the email lsmith@yahoo.com. On June 9, 2024, y
 - **Complexity:** Hard (15 edges)
 - **Total Actions:** 11
 - **Total Edges:** 15
+
+  <img width="7644" height="3017" alt="image" src="https://github.com/user-attachments/assets/319cfcd2-b178-4592-bd7d-d5b3e15177fc" />
+
