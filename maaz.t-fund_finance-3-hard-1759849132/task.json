@@ -1,0 +1,276 @@
+{
+  "env": "fund_finance",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 3,
+  "temperature": 1,
+  "interface_num": 3,
+  "task": {
+    "user_id": "73",
+    "instruction": "You are Stephen Hickman (email: stephen.hickman@outlook.com), a fund manager. An investor, Sampson-Foley (email: sampsonfoley511@investment.com), has requested you adjust the quantity of reflecting a holding portfolio from 7,894.041 to 8,000. You need to rebalance the portfolio based on the investor request so that you get an updated portfolio.",
+    "actions": [
+      {
+        "name": "find_user_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": "{'email':'stephen.hickman@outlook.com'}"
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "users",
+          "results": [
+            {
+              "created_at": "2022-12-07T19:50:46",
+              "email": "stephen.hickman@outlook.com",
+              "first_name": "Stephen",
+              "last_name": "Hickman",
+              "role": "fund_manager",
+              "status": "active",
+              "timezone": "America/Los_Angeles",
+              "updated_at": "2022-12-22T07:09:05",
+              "user_id": "73"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "validate_approval",
+        "arguments": {
+          "action": "fund_management_maintenance",
+          "requester_email": "stephen.hickman@outlook.com"
+        },
+        "output": {
+          "approval_valid": true,
+          "message": "Role 'fund_manager' is directly authorized for action 'fund_management_maintenance'"
+        }
+      },
+      {
+        "name": "find_investor_entities",
+        "arguments": {
+          "entity_type": "investors",
+          "filters": "{'contact_email':'sampsonfoley511@investment.com'}"
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "investors",
+          "results": [
+            {
+              "accreditation_status": "accredited",
+              "address": "64317 Elizabeth Row Apt. 053, Port Anne, CA 73142",
+              "contact_email": "sampsonfoley511@investment.com",
+              "country": "United States",
+              "created_at": "2023-01-17T18:10:17",
+              "date_of_incorporation": "2008-02-14",
+              "investor_id": "6",
+              "name": "Sampson-Foley",
+              "registration_number": 736343579,
+              "source_of_funds": "dividend_income",
+              "status": "onboarded",
+              "tax_id": "993-35-2904"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "find_portfolio_entities",
+        "arguments": {
+          "entity_type": "portfolios",
+          "filters": "{\"investor_id\": \"6\",}"
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "portfolios",
+          "results": [
+            {
+              "created_at": "2024-12-18T13:53:17",
+              "investor_id": "6",
+              "portfolio_id": "6",
+              "status": "active",
+              "updated_at": "2025-01-13T23:20:07"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "find_portfolio_entities",
+        "arguments": {
+          "entity_type": "portfolio_holdings",
+          "filters": "{'portfolio_id':'6', 'quantity': 7894.041}"
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "portfolio_holdings",
+          "results": [
+            {
+              "cost_basis": 427.8806,
+              "created_at": "2025-08-02T00:50:39",
+              "fund_id": "74",
+              "holding_id": "37",
+              "portfolio_id": "6",
+              "quantity": 7894.041
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "manipulate_portfolio_holdings",
+        "arguments": {
+          "action": "update",
+          "holding_data": {
+            "quantity": 8000,
+            "cost_basis": 275.5,
+            "fund_manager_approval": true
+          },
+          "holding_id": "37"
+        },
+        "output": {
+          "action": "update",
+          "holding_data": {
+            "cost_basis": 275.5,
+            "created_at": "2025-08-02T00:50:39",
+            "fund_id": "74",
+            "holding_id": "37",
+            "portfolio_id": "6",
+            "quantity": 8000
+          },
+          "holding_id": "37",
+          "message": "Portfolio holding 37 updated successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "register_new_audit_trail",
+        "arguments": {
+          "action": "update",
+          "field_name": "quantity",
+          "new_value": "8000",
+          "old_value": 7894.041,
+          "reference_id": "37",
+          "reference_type": "holding"
+        },
+        "output": {
+          "action": "update",
+          "audit_trail_id": "3501",
+          "created_at": "2025-10-01T00:00:00",
+          "field_name": "quantity",
+          "new_value": "8000",
+          "old_value": 7894.041,
+          "reference_id": "37",
+          "reference_type": "holding"
+        }
+      }
+    ],
+    "outputs": ["73", "6", "37"],
+    "edges": [
+      {
+        "from": "instruction",
+        "to": "find_user_entities",
+        "connection": {
+          "output": "entity_type, email",
+          "input": "entity_type, filters.email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "validate_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
+        }
+      },
+      {
+        "from": "find_user_entities",
+        "to": "validate_approval",
+        "connection": {
+          "output": "results[0].email",
+          "input": "requester_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "find_investor_entities",
+        "connection": {
+          "output": "entity_type, contact_email",
+          "input": "entity_type,filters.contact_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "find_portfolio_entities",
+        "connection": {
+          "output": "entity_type",
+          "input": "entity_type"
+        }
+      },
+      {
+        "from": "find_investor_entities",
+        "to": "find_portfolio_entities",
+        "connection": {
+          "output": "results[0].investor_id",
+          "input": "filters.investor_id"
+        }
+      },
+      {
+        "from": "find_portfolio_entities",
+        "to": "find_portfolio_entities",
+        "connection": {
+          "output": "results[0].portfolio_id",
+          "input": "filters.portfolio_id"
+        }
+      },
+      {
+        "from": "find_portfolio_entities",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "results[0].holding_id",
+          "input": "holding_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "quantity, cost_basis, action",
+          "input": "holding_data.quantity ,holding_data.cost_basis, action"
+        }
+      },
+      {
+        "from": "validate_approval",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "approval_valid",
+          "input": "holding_data.fund_manager_approval"
+        }
+      },
+      {
+        "from": "manipulate_portfolio_holdings",
+        "to": "register_new_audit_trail",
+        "connection": {
+          "output": "holding_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "register_new_audit_trail",
+        "connection": {
+          "output": "action, reference_type, field_name, new_value",
+          "input": "action, reference_type, field_name, new_value"
+        }
+      },
+      {
+        "from": "find_portfolio_entities",
+        "to": "register_new_audit_trail",
+        "connection": {
+          "output": "results[0].cost_basis",
+          "input": "old_value"
+        }
+      }
+    ],
+    "num_edges": 13
+  }
+}
