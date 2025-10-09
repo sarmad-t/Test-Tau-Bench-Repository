@@ -1,0 +1,245 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "3",
+        "instruction": "You are Patricia Miller, a trader, with the email patriciamiller@gmail.com. You want to update the price information for the instrument 'Torres Glover and Green Ltd' with ticker CIR7 for the date October 1, 2025. The price details should be open price $46.50, high price $49.20, low price $45.80, and close price $48.75.",
+        
+    "actions": [
+    {
+      "name": "search_user_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "patriciamiller@gmail.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-06-02T13:37:42",
+            "email": "patriciamiller@gmail.com",
+            "first_name": "Patricia",
+            "last_name": "Miller",
+            "role": "trader",
+            "status": "active",
+            "timezone": "Europe/London",
+            "updated_at": "2024-06-27T06:06:01",
+            "user_id": "3"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_instrument_entities",
+      "arguments": {
+        "entity_type": "instruments",
+        "filters": {
+          "ticker": "CIR7"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "instruments",
+        "results": [
+          {
+            "instrument_id": "2",
+            "instrument_type": "bonds",
+            "name": "Torres Glover and Green Ltd",
+            "status": "inactive",
+            "ticker": "CIR7"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "check_approval",
+      "arguments": {
+        "action": "instrument_price_updates",
+        "requester_email": "patriciamiller@gmail.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "approved_by": [
+          "fund_manager",
+          "compliance_officer"
+        ]
+      }
+    },
+    {
+      "name": "search_valuation_entities",
+      "arguments": {
+        "entity_type": "instrument_prices",
+        "filters": {
+          "instrument_id": "2",
+          "price_date_from": "2025-10-01",
+          "price_date_to": "2025-10-01"
+        }
+      },
+      "output": {
+        "count": 0,
+        "entity_type": "instrument_prices",
+        "results": [],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_instrument_price",
+      "arguments": {
+        "action": "create",
+        "price_data": {
+          "instrument_id": "2",
+          "price_date": "2025-10-01",
+          "open_price": 46.5,
+          "high_price": 49.2,
+          "low_price": 45.8,
+          "close_price": 48.75,
+          "fund_manager_approval": true,
+          "compliance_officer_approval": true
+        }
+      },
+      "output": {
+        "action": "create",
+        "message": "Instrument price 2478 created successfully for instrument 2 on 2025-10-01",
+        "price_data": {
+          "close_price": 48.75,
+          "high_price": 49.2,
+          "instrument_id": "2",
+          "low_price": 45.8,
+          "open_price": 46.5,
+          "price_date": "2025-10-01",
+          "price_id": "2478"
+        },
+        "price_id": "2478",
+        "success": true
+      }
+    },
+    {
+      "name": "add_new_audit_trail",
+      "arguments": {
+        "action": "create",
+        "reference_id": "2",
+        "reference_type": "instrument_price"
+      },
+      "output": {
+        "action": "create",
+        "audit_trail_id": "3501",
+        "created_at": "2025-10-01T00:00:00",
+        "field_name": null,
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "2",
+        "reference_type": "instrument_price"
+      }
+    }
+    ] ,
+    "output": [
+     "2478",
+     "46.50",
+     "49.20",
+     "45.80",
+     "48.75"
+        ],
+        
+    "edges": [
+    {
+      "from": "instruction",
+      "to": "search_user_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_instrument_entities",
+      "connection": {
+        "output": "entity_type, ticker",
+        "input": "entity_type, filters.ticker"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "check_approval",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "search_user_entities",
+      "to": "check_approval",
+      "connection": {
+        "output": "results[0].email",
+        "input": "requester_email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_valuation_entities",
+      "connection": {
+        "output": "entity_type, price_date, price_date",
+        "input": "entity_type, filters.price_date_from, filters.price_date_to"
+      }
+    },
+    {
+      "from": "search_instrument_entities",
+      "to": "search_valuation_entities",
+      "connection": {
+        "output": "results[0].instrument_id",
+        "input": "filters.instrument_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_instrument_price",
+      "connection": {
+        "output": "action, price_date, open_price, high_price, low_price, close_price",
+        "input": "action, price_data.price_date, price_data.open_price, price_data.high_price, price_data.low_price, price_data.close_price"
+      }
+    },
+    {
+      "from": "search_instrument_entities",
+      "to": "handle_instrument_price",
+      "connection": {
+        "output": "results[0].instrument_id",
+        "input": "price_data.instrument_id"
+      }
+    },
+    {
+      "from": "check_approval",
+      "to": "handle_instrument_price",
+      "connection": {
+        "output": "approval_valid, approval_valid",
+        "input": "price_data.fund_manager_approval, price_data.compliance_officer_approval"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "add_new_audit_trail",
+      "connection": {
+        "output": "action, reference_type",
+        "input": "action, reference_type"
+      }
+    },
+    {
+      "from": "search_instrument_entities",
+      "to": "add_new_audit_trail",
+      "connection": {
+        "output": "results[0].instrument_id",
+        "input": "reference_id"
+      }
+    }
+    ],
+    "num_edges": 11
+
+    }
+}
