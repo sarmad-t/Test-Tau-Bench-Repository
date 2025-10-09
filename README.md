@@ -35,3 +35,7 @@ You are Patricia Miller, a trader, with the email patriciamiller@gmail.com. You 
 - **Complexity:** Medium (11 edges)
 - **Total Actions:** 6
 - **Total Edges:** 11
+
+
+<img width="9385" height="2375" alt="image" src="https://github.com/user-attachments/assets/cddc311f-8f74-42ff-b867-b41a60b7ca11" />
+
