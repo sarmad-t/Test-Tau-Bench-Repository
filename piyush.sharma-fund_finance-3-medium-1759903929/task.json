@@ -7,7 +7,7 @@
     "interface_num": 3,
     "task": {
         "user_id": "2",
-        "instruction": "Your name is Jeffery Doyle working as a trader with the email 'jeffrey.doyle@investment.com'. You need place a trade for an fund named 'Rogers-Hobbs Strategic Fund' to buy shares of 'York LLC Corp' at a price of 365 , a total of 316 shares. On Approval, send out an alert email to the Jennifer Cruz, fund manager and also create audit trail.",
+        "instruction": "Your name is Jeffery Doyle working as a trader with the email 'jeffrey.doyle@investment.com'. You need place a trade for an fund named 'Rogers-Hobbs Strategic Fund' to buy shares of 'York LLC Corp' at a price of 365 , a total of 316 shares. Send out an alert email to the Jennifer Cruz, fund manager.",
         "actions": [
             {
                 "name": "find_user_entities",
@@ -16,8 +16,7 @@
                     "filters": {
                         "first_name": "Jeffrey",
                         "last_name": "Doyle",
-                        "email": "jeffrey.doyle@investment.com",
-                        "role": "trader"
+                        "email": "jeffrey.doyle@investment.com"
                     }
                 },
                 "output": {
@@ -68,7 +67,7 @@
             {
                 "name": "find_instrument_entities",
                 "arguments": {
-                    "entity_type": "intruments",
+                    "entity_type": "instruments",
                     "filters": {
                         "name": "York LLC Corp"
                     }
@@ -86,6 +85,45 @@
                     }
                     ],
                     "success": true
+                }
+            },
+            {
+                "name": "find_user_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "first_name": "Jennifer",
+                        "last_name": "Cruz"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2024-04-28T23:22:53",
+                        "email": "jennifercruz286@gmail.com",
+                        "first_name": "Jennifer",
+                        "last_name": "Cruz",
+                        "role": "fund_manager",
+                        "status": "active",
+                        "timezone": "America/Los_Angeles",
+                        "updated_at": "2024-11-04T11:34:51",
+                        "user_id": "123"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action" : "trade_execution",
+                    "requester_email": "jennifercruz286@gmail.com"
+                },
+                "output": {
+                  "approval_valid": true,
+                    "message": "Role 'fund_manager' is directly authorized for action 'trade_execution'"
                 }
             },
             {
@@ -179,7 +217,7 @@
                 "arguments": {
                     "action": "create",
                     "reference_type": "trade",
-                    "reference_id": ""
+                    "reference_id": "18"
                 },
                 "output": {
                     "action": "create",
@@ -198,8 +236,8 @@
                 "from": "instruction",
                 "to": "find_user_entities",
                 "connection": {
-                    "output": "entity_type,first_name,last_name,email,role",
-                    "input": "entity_type,filters.first_name,filters.last_name,filters.email,filters.role"
+                    "output": "entity_type,first_name,last_name,email",
+                    "input": "entity_type,filters.first_name,filters.last_name,filters.email"
                 }
             },
             {
@@ -224,6 +262,30 @@
                 "connection": {
                     "output": "entity_type,price,quantity",
                     "input": "entity_type,filters.price,filters.quantity"
+                }
+            },
+            {
+                "from":"instruction",
+                "to":"find_user_entities",
+                "connection":{
+                    "output":"entity_type,first_name,last_name",
+                    "input":"entity_type,filters.first_name,filters.last_name"
+                }
+            },
+            {
+                "from":"find_user_entities",
+                "to":"validate_approval",
+                "connection":{
+                    "output":"results.0.email",
+                    "input":"requester_email"
+                }
+            },
+            {
+                "from":"instruction",
+                "to":"validate_approval",
+                "connection":{
+                    "output":"action",
+                    "input":"action"
                 }
             },
             {
@@ -286,13 +348,10 @@
         "outputs": [
             "2",
             "18",
-            "107",
             "6",
-            "564",
-            "2502",
-            "1501",
-            "3503"
+            "123",
+            "2502"
         ],
-        "num_edges": 11
+        "num_edges": 14
     }
 }
