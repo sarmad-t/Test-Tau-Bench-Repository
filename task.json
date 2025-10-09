@@ -1,0 +1,304 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "6",
+        "instruction": "You are Tina Hale (tina86@yahoo.com), an HR Manager. You want to enroll employee Mindy Martin (martin901@gmail.com) in the 'Term Life Insurance' benefits plan effective January 1, 2025, with family coverage and add his spouse Jeffrey Sheppard as the primary beneficiary",
+       "actions": [
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "tina86@yahoo.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2024-08-21T15:10:45",
+                    "email": "tina86@yahoo.com",
+                    "first_name": "Tina",
+                    "last_name": "Hale",
+                    "mfa_enabled": true,
+                    "phone_number": "+19386024033",
+                    "role": "hr_manager",
+                    "status": "active",
+                    "updated_at": "2024-10-19T22:44:53",
+                    "user_id": "6"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "martin901@gmail.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2020-11-13T09:05:57",
+                    "email": "martin901@gmail.com",
+                    "first_name": "Mindy",
+                    "last_name": "Martin",
+                    "mfa_enabled": true,
+                    "phone_number": "+14703816281",
+                    "role": "employee",
+                    "status": "active",
+                    "updated_at": "2021-03-18T16:57:47",
+                    "user_id": "124"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "employees",
+                "filters": {
+                "user_id": "124"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "employees",
+                "results": [
+                {
+                    "address": "05385 Michelle Road Suite 527, West Eddie, IN 81823",
+                    "created_at": "2023-08-10T14:00:45",
+                    "date_of_birth": "1962-10-30",
+                    "employee_id": "78",
+                    "employment_status": "active",
+                    "hire_date": "2023-03-26",
+                    "hourly_rate": 60,
+                    "manager_id": "94",
+                    "position_id": "361",
+                    "updated_at": "2025-06-06T16:50:27",
+                    "user_id": "124"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_benefits_entities",
+            "arguments": {
+                "entity_type": "benefits_plans",
+                "filters": {
+                "plan_name": "Term Life Insurance"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "benefits_plans",
+                "results": [
+                {
+                    "created_at": "2022-09-28T00:36:52",
+                    "effective_date": "2022-10-09",
+                    "employee_cost": 0.0,
+                    "employer_cost": 45.0,
+                    "expiration_date": null,
+                    "plan_id": "22",
+                    "plan_name": "Term Life Insurance",
+                    "plan_type": "life_insurance",
+                    "provider": "Prudential",
+                    "status": "active",
+                    "updated_at": "2023-04-22T14:23:09"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_benefits_entities",
+            "arguments": {
+                "entity_type": "employee_benefits",
+                "filters": {
+                "employee_id": "78"
+                }
+            },
+            "output": {
+                "count": 3,
+                "entity_type": "employee_benefits",
+                "results": [
+                {
+                    "beneficiary_name": "Tyler Phillips",
+                    "beneficiary_relationship": "child",
+                    "coverage_level": "employee_children",
+                    "created_at": "2025-01-11T02:20:24",
+                    "employee_id": "78",
+                    "enrollment_date": "2024-02-14",
+                    "enrollment_id": "210",
+                    "plan_id": "20",
+                    "status": "active",
+                    "updated_at": "2025-04-20T01:20:50"
+                },
+                {
+                    "beneficiary_name": "Jeffrey Sheppard",
+                    "beneficiary_relationship": "spouse",
+                    "coverage_level": "family",
+                    "created_at": "2025-05-12T01:39:33",
+                    "employee_id": "78",
+                    "enrollment_date": "2024-10-16",
+                    "enrollment_id": "211",
+                    "plan_id": "8",
+                    "status": "active",
+                    "updated_at": "2025-05-22T15:01:25"
+                },
+                {
+                    "beneficiary_name": "Mindy Martin",
+                    "beneficiary_relationship": "self",
+                    "coverage_level": "employee_only",
+                    "created_at": "2025-08-25T08:48:26",
+                    "employee_id": "78",
+                    "enrollment_date": "2025-08-22",
+                    "enrollment_id": "212",
+                    "plan_id": "45",
+                    "status": "active",
+                    "updated_at": "2025-08-27T10:33:57"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "handle_employee_benefits",
+            "arguments": {
+                "action": "create",
+                "enrollment_id": "78"
+            },
+            "output": {
+                "action": "create",
+                "benefits_data": {
+                "beneficiary_name": "Jeffrey Sheppard",
+                "beneficiary_relationship": "spouse",
+                "coverage_level": "family",
+                "created_at": "2025-10-01T12:00:00",
+                "employee_id": "78",
+                "enrollment_date": "2025-01-01",
+                "enrollment_id": "271",
+                "plan_id": "22",
+                "status": "active",
+                "updated_at": "2025-10-01T12:00:00"
+                },
+                "enrollment_id": "271",
+                "message": "Employee benefits enrollment 271 created successfully",
+                "success": true
+            }
+            },
+            {
+            "name": "handle_audit_logs",
+            "arguments": {
+                "action": "create",
+                "field_name": "\"benefits\"",
+                "new_value": "Term Life Insurance",
+                "operation": "create",
+                "reference_id": "271",
+                "reference_type": "benefits_plan",
+                "user_id": "6"
+            },
+            "output": {
+                "action": "create",
+                "field_name": "\"benefits\"",
+                "log_id": "2888",
+                "new_value": "Term Life Insurance",
+                "old_value": null,
+                "reference_id": "271",
+                "reference_type": "benefits_plan",
+                "timestamp": "2025-10-01T12:00:00",
+                "user_id": "6"
+            }
+            }
+        ],
+        "outputs": ["78","22","6","22"],
+                "edges": [
+            {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "email, entity_type",
+                "input": "filters.email, entity_type"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "filters.user_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_benefits_entities",
+            "connection": {
+                "output": "plan_name, entity_type",
+                "input": "filters.plan_name, entity_type"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "search_benefits_entities",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "filters.employee_id"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_employee_benefits",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "enrollment_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "handle_employee_benefits",
+            "connection": {
+                "output": "action",
+                "input": "action"
+            }
+            },
+            {
+            "from": "handle_employee_benefits",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "enrollment_id",
+                "input": "reference_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "action, field_name, new_value, operation, reference_type",
+                "input": "action, field_name, new_value, operation, reference_type"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "user_id"
+            }
+            }
+        ],
+        "num_edges": 9
+        }
+}
