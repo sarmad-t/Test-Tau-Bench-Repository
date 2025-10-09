@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "7",
-        "instruction": "You are Lisa Smith, a trader with the email lsmith@yahoo.com. On June 9, 2024, you are managing the portfolio for investor 'Hodges Ltd' (hodges2130@outlook.com). You want to increase their holding quantity in their fund investment from 5,652.2481 units to 7,000 units while maintaining the cost basis of $95.9944 per unit, and notify the investor about this portfolio change.",
+        "instruction": "You are Lisa Smith, a trader with the email 'lsmith@yahoo.com'. On June 9, 2024, you are managing the portfolio for investor 'Hodges Ltd' ('hodges2130@outlook.com'). You want to increase their holding quantity in their fund investment from 5,652.2481 units to 7,000 units while maintaining the cost basis of $95.9944 per unit, and alert the investor about this portfolio change.",
         "actions": [
                 
         {
@@ -427,7 +427,7 @@
     "from": "instruction",
     "to": "handle_notifications",
     "connection": {
-      "output": "action, notification_type, notification_class",
+      "output": "action, type, class",
       "input": "action, type, class"
     }
   },
