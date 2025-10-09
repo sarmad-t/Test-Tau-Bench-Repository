@@ -7,7 +7,7 @@
     "interface_num":2 ,
     "task": {
         "user_id": "4",
-        "instruction": "You are a manager named Anthony Robinson (anthonyrobinson734@outlook.com). You got the request to get  performance report for investor  Wilson Inc ( wilson8509@hotmail.com) for first quarter of the year 2025 (from 01 Jan 2025 to 31 March 2025) for the fund ‘Patterson, Wood and Hunter Strategic Fund’ and its accreditation status is 'Accredited' with source of fund is from ‘asset_sale’",
+        "instruction": "You are a fund manager named Anthony Robinson (anthonyrobinson734@outlook.com). You need to get a performance report for investor  Wilson Inc ( wilson8509@hotmail.com) for the first quarter of the year 2025 for the fund  'Patterson, Wood and Hunter Strategic Fund' and it has to be accredited with the source of funds being from 'asset sale'",
         "actions": [
             {
             "name": "search_user_entities",
@@ -52,10 +52,7 @@
             "arguments": {
                 "entity_type": "investors",
                 "filters": {
-                "name": "Wilson Inc",
-                "source_of_funds": "asset_sale",
-                "contact_email": "wilson8509@hotmail.com",
-                "accreditation_status": "accredited"
+                "contact_email": "wilson8509@hotmail.com"
                 }
             },
             "output": {
