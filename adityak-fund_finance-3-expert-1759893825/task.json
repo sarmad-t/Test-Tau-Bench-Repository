@@ -1,0 +1,544 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 3,
+    "task": {
+        "user_id": "8",
+        "instruction": "You are Matthew Moore, a Finance Officer, with the email matthew.moore@investment.com. You want to onboard “Horizon Rail Partners LP” as a new accredited institutional investor and fully process their initial USD 2,500,000 commitment into the “Sanchez, Terry and Turner Strategic Fund.” Once the investor is onboarded, you want their portfolio created and their initial subscription booked against that commitment with a trade date of 2025-09-22, then issue an invoice due 2025-10-06 and record receipt of funds by wire. You also want to log compliance approvals (including KYC/AML and accreditation) under approval code KYC-7721, create audit trail entries for the onboarding and subscription, notify the fund manager and operations team by email of completion, generate an investor performance report as of 2025-09-22, and upload the onboarding packet document linked to that report.",
+        "actions": [
+            {
+                "name": "find_fund_entities",
+                "arguments": {
+                    "entity_type": "funds",
+                    "filters": {
+                        "fund_id": "28"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "funds",
+                    "results": [
+                        {
+                            "created_at": "2025-02-21T22:15:03",
+                            "fund_id": "28",
+                            "fund_type": "multi_asset_funds",
+                            "manager_id": "43",
+                            "name": "Sanchez, Terry and Turner Strategic Fund",
+                            "size": 220137570.89,
+                            "status": "open",
+                            "updated_at": "2025-07-06T00:44:50"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "register_investor",
+                "arguments": {
+                    "accreditation_status": "accredited",
+                    "compliance_officer_approval": true,
+                    "contact_email": "contact_rails@hrorizon.com",
+                    "country_of_incorporation": "USA",
+                    "date_of_incorporation": "2025-10-07",
+                    "legal_name": "Horizon Rail Partners LP",
+                    "registered_address": "Dallas",
+                    "registration_number": "HRP-772187978",
+                    "source_of_funds": "shareholder_capital",
+                    "tax_id": "HRP-7721"
+                },
+                "output": {
+                    "accreditation_status": "accredited",
+                    "address": "Dallas",
+                    "contact_email": "contact_rails@hrorizon.com",
+                    "country": "USA",
+                    "created_at": "2025-10-01T00:00:00",
+                    "date_of_incorporation": "2025-10-07",
+                    "investor_id": "177",
+                    "name": "Horizon Rail Partners LP",
+                    "registration_number": "HRP-772187978",
+                    "source_of_funds": "shareholder_capital",
+                    "status": "onboarded",
+                    "tax_id": "HRP-7721"
+                }
+            },
+            {
+                "name": "find_investor_entities",
+                "arguments": {
+                    "entity_type": "investors",
+                    "filters": {
+                        "contact_email": "contact_rails@hrorizon.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "investors",
+                    "results": [
+                        {
+                            "accreditation_status": "accredited",
+                            "address": "Dallas",
+                            "contact_email": "contact_rails@hrorizon.com",
+                            "country": "USA",
+                            "created_at": "2025-10-01T00:00:00",
+                            "date_of_incorporation": "2025-10-07",
+                            "investor_id": "177",
+                            "name": "Horizon Rail Partners LP",
+                            "registration_number": "HRP-772187978",
+                            "source_of_funds": "shareholder_capital",
+                            "status": "onboarded",
+                            "tax_id": "HRP-7721"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_portfolio",
+                "arguments": {
+                    "action": "create",
+                    "portfolio_data": {
+                        "investor_id": "177",
+                        "status": "active",
+                        "finance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Portfolio 177 created successfully for investor 177",
+                    "portfolio_data": {
+                        "created_at": "2025-10-01T12:00:00",
+                        "investor_id": "177",
+                        "portfolio_id": "177",
+                        "status": "active",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "portfolio_id": "177",
+                    "success": true
+                }
+            },
+            {
+                "name": "register_commitment",
+                "arguments": {
+                    "fund_id": "28",
+                    "investor_id": "177",
+                    "commitment_amount": 2500000,
+                    "commitment_date": "2025-09-22",
+                    "status": "pending",
+                    "compliance_officer_approval": true
+                },
+                "output": {
+                    "commitment_amount": 2500000,
+                    "commitment_date": "2025-09-22",
+                    "commitment_id": "2003",
+                    "fund_id": "28",
+                    "investor_id": "177",
+                    "status": "pending",
+                    "updated_at": "2025-10-01T00:00:00"
+                }
+            },
+            {
+                "name": "manipulate_invoice",
+                "arguments": {
+                    "action": "create",
+                    "invoice_data": {
+                        "commitment_id": "2003",
+                        "invoice_date": "2025-09-22",
+                        "due_date": "2025-10-06",
+                        "amount": 2500000,
+                        "finance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "invoice_data": {
+                        "amount": 2500000,
+                        "commitment_id": "2003",
+                        "due_date": "2025-10-06",
+                        "invoice_date": "2025-09-22",
+                        "invoice_id": "1752",
+                        "status": "issued",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "invoice_id": "1752",
+                    "message": "Invoice 1752 created successfully for commitment 2003 on 2025-09-22",
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_subscription",
+                "arguments": {
+                    "action": "create",
+                    "subscription_data": {
+                        "fund_id": "28",
+                        "investor_id": "177",
+                        "amount": 2500000,
+                        "request_assigned_to": "8",
+                        "request_date": "2025-09-22",
+                        "status": "approved",
+                        "fund_manager_approval": true,
+                        "compliance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Subscription 2502 created successfully.",
+                    "subscription_data": {
+                        "amount": 2500000,
+                        "approval_date": null,
+                        "fund_id": "28",
+                        "investor_id": "177",
+                        "request_assigned_to": "8",
+                        "request_date": "2025-09-22",
+                        "status": "approved",
+                        "subscription_id": "2502",
+                        "updated_at": "2025-10-01T00:00:00"
+                    },
+                    "subscription_id": "2502",
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_payment",
+                "arguments": {
+                    "action": "create",
+                    "payment_data": {
+                        "invoice_id": "1752",
+                        "subscription_id": "2502",
+                        "payment_date": "2025-09-22",
+                        "amount": 2500000,
+                        "payment_method": "wire",
+                        "finance_officer_approval": true
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Payment 2252 created successfully for invoice 1752",
+                    "payment_data": {
+                        "amount": 2500000,
+                        "created_at": "2025-10-01T12:00:00",
+                        "invoice_id": "1752",
+                        "payment_date": "2025-09-22",
+                        "payment_id": "2252",
+                        "payment_method": "wire",
+                        "status": "draft",
+                        "subscription_id": "2502"
+                    },
+                    "payment_id": "2252",
+                    "success": true
+                }
+            },
+            {
+                "name": "register_new_audit_trail",
+                "arguments": {
+                    "reference_id": "177",
+                    "reference_type": "investor",
+                    "action": "approve",
+                    "field_name": "kyc_code",
+                    "old_value": null,
+                    "new_value": "KYC-7721"
+                },
+                "output": {
+                    "action": "approve",
+                    "audit_trail_id": "3504",
+                    "created_at": "2025-10-01T00:00:00",
+                    "field_name": "kyc_code",
+                    "new_value": "KYC-7721",
+                    "old_value": null,
+                    "reference_id": "177",
+                    "reference_type": "investor"
+                }
+            },
+            {
+                "name": "register_new_audit_trail",
+                "arguments": {
+                    "reference_id": "2502",
+                    "reference_type": "subscription",
+                    "action": "create"
+                },
+                "output": {
+                    "action": "create",
+                    "audit_trail_id": "3505",
+                    "created_at": "2025-10-01T00:00:00",
+                    "field_name": null,
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "2502",
+                    "reference_type": "subscription"
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "invoice_management",
+                    "requester_email": "matthew.moore@investment.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'finance_officer' is directly authorized for action 'invoice_management'"
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "payment_processing",
+                    "requester_email": "matthew.moore@investment.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'finance_officer' is directly authorized for action 'payment_processing'"
+                }
+            },
+            {
+                "name": "manipulate_notifications",
+                "arguments": {
+                    "action": "create",
+                    "notification_data": {
+                        "email": "fund.manager@investment.com",
+                        "type": "alert",
+                        "class": "subscriptions",
+                        "reference_id": "2502",
+                        "status": "pending"
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Notification 1503 created successfully for fund.manager@investment.com",
+                    "notification_data": {
+                        "class": "subscriptions",
+                        "created_at": "2025-10-01T12:00:00",
+                        "email": "fund.manager@investment.com",
+                        "notification_id": "1503",
+                        "reference_id": "2502",
+                        "sent_at": null,
+                        "status": "pending",
+                        "type": "alert"
+                    },
+                    "notification_id": "1503",
+                    "success": true
+                }
+            },
+            {
+                "name": "manipulate_notifications",
+                "arguments": {
+                    "action": "create",
+                    "notification_data": {
+                        "email": "ops.team@investment.com",
+                        "type": "report",
+                        "class": "documents",
+                        "reference_id": "1752",
+                        "status": "pending"
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "message": "Notification 1504 created successfully for ops.team@investment.com",
+                    "notification_data": {
+                        "class": "documents",
+                        "created_at": "2025-10-01T12:00:00",
+                        "email": "ops.team@investment.com",
+                        "notification_id": "1504",
+                        "reference_id": "1752",
+                        "sent_at": null,
+                        "status": "pending",
+                        "type": "report"
+                    },
+                    "notification_id": "1504",
+                    "success": true
+                }
+            },
+            {
+                "name": "build_report",
+                "arguments": {
+                    "fund_id": "28",
+                    "report_date": "2025-09-22",
+                    "export_period_end": "2025-09-22",
+                    "generated_by": "8",
+                    "investor_id": "177",
+                    "report_type": "performance",
+                    "status": "pending"
+                },
+                "output": {
+                    "created_at": "2025-10-01T00:00:00",
+                    "export_period_end": "2025-09-22",
+                    "fund_id": "28",
+                    "generated_by": "8",
+                    "investor_id": "177",
+                    "report_date": "2025-09-22",
+                    "report_id": "1002",
+                    "report_type": "performance",
+                    "status": "pending"
+                }
+            },
+            {
+                "name": "submit_document",
+                "arguments": {
+                    "name": "Horizon_Rails_Onboarding_Packet.pdf",
+                    "format": "pdf",
+                    "uploaded_by": "8",
+                    "report_id": "1002",
+                    "confidentiality_level": "confidential",
+                    "status": "available"
+                },
+                "output": {
+                    "confidentiality_level": "confidential",
+                    "document_id": "1004",
+                    "format": "pdf",
+                    "name": "Horizon_Rails_Onboarding_Packet.pdf",
+                    "report_id": "1002",
+                    "size_bytes": null,
+                    "status": "available",
+                    "upload_date": "2025-10-01T00:00:00",
+                    "uploaded_by": "8"
+                }
+            }
+        ],
+        "outputs": [
+            "8",
+            "28",
+            "177",
+            "1002",
+            "1004"
+        ],
+        "edges": [
+            {
+                "from": "register_investor",
+                "to": "find_investor_entities",
+                "connection": {
+                    "output": "contact_email",
+                    "input": "filters.contact_email"
+                }
+            },
+            {
+                "from": "register_investor",
+                "to": "manipulate_portfolio",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "portfolio_data.investor_id"
+                }
+            },
+            {
+                "from": "register_investor",
+                "to": "register_commitment",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "investor_id"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "register_commitment",
+                "connection": {
+                    "output": "results[0].fund_id",
+                    "input": "fund_id"
+                }
+            },
+            {
+                "from": "register_commitment",
+                "to": "manipulate_invoice",
+                "connection": {
+                    "output": "commitment_id",
+                    "input": "invoice_data.commitment_id"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "results[0].fund_id",
+                    "input": "subscription_data.fund_id"
+                }
+            },
+            {
+                "from": "register_investor",
+                "to": "manipulate_subscription",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "subscription_data.investor_id"
+                }
+            },
+            {
+                "from": "manipulate_invoice",
+                "to": "manipulate_payment",
+                "connection": {
+                    "output": "invoice_id",
+                    "input": "payment_data.invoice_id"
+                }
+            },
+            {
+                "from": "manipulate_subscription",
+                "to": "manipulate_payment",
+                "connection": {
+                    "output": "subscription_id",
+                    "input": "payment_data.subscription_id"
+                }
+            },
+            {
+                "from": "register_investor",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "manipulate_subscription",
+                "to": "register_new_audit_trail",
+                "connection": {
+                    "output": "subscription_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "manipulate_subscription",
+                "to": "manipulate_notifications",
+                "connection": {
+                    "output": "subscription_id",
+                    "input": "notification_data.reference_id"
+                }
+            },
+            {
+                "from": "manipulate_invoice",
+                "to": "manipulate_notifications",
+                "connection": {
+                    "output": "invoice_id",
+                    "input": "notification_data.reference_id"
+                }
+            },
+            {
+                "from": "find_fund_entities",
+                "to": "build_report",
+                "connection": {
+                    "output": "results[0].fund_id",
+                    "input": "fund_id"
+                }
+            },
+            {
+                "from": "register_investor",
+                "to": "build_report",
+                "connection": {
+                    "output": "investor_id",
+                    "input": "investor_id"
+                }
+            },
+            {
+                "from": "build_report",
+                "to": "submit_document",
+                "connection": {
+                    "output": "report_id",
+                    "input": "report_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "requester_email",
+                    "input": "requester_email"
+                }
+            }
+        ],
+        "num_edges": 17
+    }
+}
