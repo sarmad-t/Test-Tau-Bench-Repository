@@ -1,0 +1,319 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num":2 ,
+    "task": {
+        "user_id": "4",
+        "instruction": "You are a fund manager named Anthony Robinson (anthonyrobinson734@outlook.com). You need to get a performance report for investor  Wilson Inc ( wilson8509@hotmail.com) for the first quarter of the year 2025 for the fund  'Patterson, Wood and Hunter Strategic Fund' and it has to be accredited with the source of funds being from asset sale",
+        "actions": [
+            {
+            "name": "search_user_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "anthonyrobinson734@outlook.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2024-10-10T04:15:12",
+                    "email": "anthonyrobinson734@outlook.com",
+                    "first_name": "Anthony",
+                    "last_name": "Robinson",
+                    "role": "fund_manager",
+                    "status": "active",
+                    "timezone": "America/Los_Angeles",
+                    "updated_at": "2025-05-31T23:28:28",
+                    "user_id": "4"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "check_approval",
+            "arguments": {
+                "action": "reporting_performance",
+                "requester_email": "anthonyrobinson734@outlook.com"
+            },
+            "output": {
+                            "approval_valid": true,
+                            "message": "Role 'fund_manager' is directly authorized for action 'reporting_performance'"
+                        }
+            },
+            {
+            "name": "search_investor_entities",
+            "arguments": {
+                "entity_type": "investors",
+                "filters": {
+                "contact_email": "wilson8509@hotmail.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "investors",
+                "results": [
+                {
+                    "accreditation_status": "accredited",
+                    "address": "5957 Henry Track, Raymondshire, DC 07598",
+                    "contact_email": "wilson8509@hotmail.com",
+                    "country": "United States",
+                    "created_at": "2025-07-01T06:03:53",
+                    "date_of_incorporation": "2012-05-20",
+                    "investor_id": "131",
+                    "name": "Wilson Inc",
+                    "registration_number": 712446179,
+                    "source_of_funds": "asset_sale",
+                    "status": "onboarded",
+                    "tax_id": "967-80-8562"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_fund_entities",
+            "arguments": {
+                "entity_type": "funds",
+                "filters": {
+                "name": "Patterson, Wood and Hunter Strategic Fund"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "funds",
+                "results": [
+                {
+                    "created_at": "2022-10-19T22:24:39",
+                    "fund_id": "30",
+                    "fund_type": "exchange_traded_funds",
+                    "manager_id": "12",
+                    "name": "Patterson, Wood and Hunter Strategic Fund",
+                    "size": 444822021.76,
+                    "status": "open",
+                    "updated_at": "2024-04-11T07:06:19"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_instrument_entities",
+            "arguments": {
+                "entity_type": "instruments",
+                "filters": {
+                "fund_id": "30",
+                "investor_id": "131",
+                "report_date": "2025-01-01",
+                "report_type": "performance",
+                "export_period_end": "2025-03-31"
+                }
+            },
+            "output": {
+                "count": 0,
+                "entity_type": "instruments",
+                "results": [],
+                "success": true
+            }
+            },
+            {
+            "name": "search_reporting_entities",
+            "arguments": {
+                "entity_type": "reports",
+                "filters": {
+                "fund_id": "30",
+                "investor_id": "131",
+                "report_type": "performance"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "reports",
+                "results": [
+                {
+                    "created_at": "2025-05-12T11:25:11",
+                    "export_period_end": "2025-02-05",
+                    "fund_id": "30",
+                    "generated_by": "54",
+                    "investor_id": "131",
+                    "report_date": "2025-02-05",
+                    "report_id": "22",
+                    "report_type": "performance",
+                    "status": "completed"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "create_report",
+            "arguments": {
+                "export_period_end": "2025-03-31",
+                "fund_id": "30",
+                "generated_by": "54",
+                "report_date": "2025-01-01",
+                "report_type": "performance"
+            },
+            "output": {
+                "created_at": "2025-10-01T00:00:00",
+                "export_period_end": "2025-03-31",
+                "fund_id": "30",
+                "generated_by": "54",
+                "investor_id": null,
+                "report_date": "2025-01-01",
+                "report_id": "1001",
+                "report_type": "performance",
+                "status": "pending"
+            }
+            },
+            {
+            "name": "add_new_audit_trail",
+            "arguments": {
+                "action": "create",
+                "reference_id": "1001",
+                "reference_type": "report"
+            },
+            "output": {
+                "action": "create",
+                "audit_trail_id": "3501",
+                "created_at": "2025-10-01T00:00:00",
+                "field_name": null,
+                "new_value": null,
+                "old_value": null,
+                "reference_id": "1001",
+                "reference_type": "report"
+            }
+            }
+        ],
+        "outputs": ["131","30","1001"],
+        "edges": [
+                    {
+      "from": "instruction",
+      "to": "search_user_entities",
+      "connection": {
+        "output": "entity_type,email",
+        "input": "entity_type,filters.email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "check_approval",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "search_user_entities",
+      "to": "check_approval",
+      "connection": {
+        "output": "results[0].email",
+        "input": "requester_email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_investor_entities",
+      "connection": {
+        "output": "name, source_of_funds, contact_email, accreditation_status",
+        "input": "name, source_of_funds, contact_email, accreditation_status"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_fund_entities",
+      "connection": {
+        "output": "entity_type,name",
+        "input": "entity_type,filters.name"
+      }
+    },
+    {
+      "from": "search_fund_entities",
+      "to": "search_instrument_entities",
+      "connection": {
+        "output": "results[0].fund_id",
+        "input": "fund_id"
+      }
+    },
+    {
+      "from": "search_investor_entities",
+      "to": "search_instrument_entities",
+      "connection": {
+        "output": "results[0].investor_id",
+        "input": "investor_id"
+      }
+    },
+    {
+      "from": "search_fund_entities",
+      "to": "search_reporting_entities",
+      "connection": {
+        "output": "results[0].fund_id",
+        "input": "fund_id"
+      }
+    },
+    {
+      "from": "search_investor_entities",
+      "to": "search_reporting_entities",
+      "connection": {
+        "output": "results[0].investor_id",
+        "input": "investor_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_reporting_entities",
+      "connection": {
+        "output": "report_date, report_type, export_period_end",
+        "input": "report_date, report_type, export_period_end"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "create_report",
+      "connection": {
+        "output": "report_type,export_period_end, report_date",
+        "input": "report_type,export_period_end, report_date"
+      }
+    },
+    {
+      "from": "search_fund_entities",
+      "to": "create_report",
+      "connection": {
+        "output": "results[0].fund_id",
+        "input": "fund_id"
+      }
+    },
+    {
+      "from": "search_user_entities",
+      "to": "create_report",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "generated_by"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "add_new_audit_trail",
+      "connection": {
+        "output": "action, reference_type",
+        "input": "action, reference_type"
+      }
+    },
+    {
+      "from": "create_report",
+      "to": "add_new_audit_trail",
+      "connection": {
+        "output": "report_id",
+        "input": "reference_id"
+      }
+    }
+        ],
+        "num_edges": 15
+    }
+}
