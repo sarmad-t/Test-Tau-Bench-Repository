@@ -6,8 +6,8 @@
     "temperature": 1,
     "interface_num": 2,
     "task": {
-        "user_id": "2",
-        "instruction": "You are Douglas Taylor, a Compliance officer. An onboarding request is received from the investor Emma Jones (emma.jones@gmail.com) on October 6, 2025. The company, incorporated in the United Kingdom on December 31, 2024 has provided all necessary documents. The investor declares their source of funds as shareholder_capital and has been verified as an accredited investor under UK regulations.",
+        "user_id": "24",
+        "instruction": "You are Douglas Taylor (dtaylor@gmail.com), a compliance officer. You need to process the onboarding request from the investor Emma Jones (emma.jones@gmail.com) received on October 6, 2025. The company, incorporated in the United Kingdom on December 31, 2024, has provided all necessary documents. The investor declares their source of funds as shareholder capital and has been verified as an accredited investor under UK regulations.",
         "actions": [
             {
                 "name":"search_user_entities",
@@ -15,8 +15,7 @@
                     "entity_type":
                     "users",
                     "filters": {
-                        "first_name": "Douglas",
-                        "last_name": "Taylor",
+                        "email": "dtaylor@gmail.com",
                         "role": "compliance_officer"
                     }
                 },
@@ -58,7 +57,7 @@
                     "investor_email": "emma.jones@gmail.com",
                     "country": "United Kingdom",
                     "incorporation_date": "2024-12-31",
-                    "source_of_funds": "shareholder_capital",
+                    "source_of_funds": "shareholder capital",
                     "accreditation_status": "accredited",
                     "compliance_officer_approval": true
                     },
@@ -72,7 +71,7 @@
                     "investor_id": "176",
                     "name": "Emma Jones",
                     "registration_number": null,
-                    "source_of_funds": "shareholder_capital",
+                    "source_of_funds": "shareholder capital",
                     "status": "onboarded",
                     "tax_id": null
                 }
@@ -102,8 +101,8 @@
                 "from": "instruction",
                 "to": "search_user_entities",
                 "connection": {
-                    "output": "entity_type, first_name, last_name, role",
-                    "input": "entity_type, filters.first_name, filters.last_name, filters.role"
+                    "output": "entity_type, email, role",
+                    "input": "entity_type, filters.email, filters.role"
                 }
             },
             {
