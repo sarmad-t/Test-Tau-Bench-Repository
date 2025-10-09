@@ -7,15 +7,14 @@
   "interface_num": 2,
   "task": {
     "user_id": "14",
-    "instruction": "You are Kendra Galloway, a finance officer. You need to review and approve Invoice INV-466, dated 2025-08-09 for 878273.87, linked to the Rivas-Kelley Income Fund, ensuring it meets the firm’s Finance Officer approval standards before it can be marked as paid.",
+    "instruction": "You are Kendra Galloway (email: kendragalloway@investment.com), a finance officer. Review and approve the invoice dated 2025-08-09 for 878273.87 linked to 'Rivas-Kelley Income Fund', and mark it as paid once everything checks out.",
     "actions": [
                 {
             "name": "search_user_entities",
             "arguments": {
                 "entity_type": "users",
                 "filters": {
-                "first_name": "Kendra",
-                "last_name": "Galloway"
+                "email": "kendragalloway@investment.com"
                 }
             },
             "output": {
@@ -68,8 +67,8 @@
             "arguments": {
                 "entity_type": "invoices",
                 "filters": {
-                "invoice_id": "466"
-                }
+                    "invoice_date": "2025-08-09",
+                    "amount": 878273.87 }
             },
             "output": {
                 "count": 1,
@@ -128,13 +127,13 @@
             {
             "name": "add_new_audit_trail",
             "arguments": {
-                "action": "approve",
+                "action": "update",
                 "field_name": "finance_officer_approval",
                 "reference_id": "466",
                 "reference_type": "invoice"
             },
             "output": {
-                "action": "approve",
+                "action": "update",
                 "audit_trail_id": "3501",
                 "created_at": "2025-10-01T00:00:00",
                 "field_name": "finance_officer_approval",
@@ -180,7 +179,7 @@
             "from": "search_user_entities",
             "to": "check_approval",
             "connection": {
-            "output": "output.results[0].email",
+            "output": "results[0].email",
             "input": "requester_email"
             }
             },
@@ -196,7 +195,7 @@
             "from": "search_billing_entities",
             "to": "handle_invoice",
             "connection": {
-            "output": "output.results[0].invoice_id",
+            "output": "results[0].invoice_id",
             "input": "invoice_id"
             }
             },
