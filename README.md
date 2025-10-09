@@ -3,6 +3,8 @@ You are Matthew Moore, a finance officer, with the email matthew.moore@investmen
 
 **Total Edges = 16**
 
+<img width="5454" height="3125" alt="image" src="https://github.com/user-attachments/assets/63941724-1503-422f-a162-48ec261095bb" />
+
 ---
 
 ## Some of the policies which had while creating a task:
@@ -40,4 +42,3 @@ You are Matthew Moore, a finance officer, with the email matthew.moore@investmen
 - **Complexity:** Expert (16 edges)
 - **Total Actions:** 6
 - **Total Edges:** 16
-<img width="5454" height="3125" alt="image" src="https://github.com/user-attachments/assets/63941724-1503-422f-a162-48ec261095bb" />
