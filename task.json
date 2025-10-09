@@ -225,7 +225,10 @@
         "arguments": {
             "action": "update",
             "reference_id": "7",
-            "reference_type": "holding"
+            "reference_type": "holding",
+            "field_name": "quantity",
+            "old_value": "5652.2481",
+            "new_value": "7000"
         },
         "output": {
             "action": "update",
@@ -236,30 +239,6 @@
             "old_value": null,
             "reference_id": "7",
             "reference_type": "holding"
-        }
-        },
-        {
-        "name": "search_portfolio_entities",
-        "arguments": {
-            "entity_type": "portfolio_holdings",
-            "filters": {
-            "holding_id": "7"
-            }
-        },
-        "output": {
-            "count": 1,
-            "entity_type": "portfolio_holdings",
-            "results": [
-            {
-                "cost_basis": 95.9944,
-                "created_at": "2024-06-09T17:26:23",
-                "fund_id": "29",
-                "holding_id": "7",
-                "portfolio_id": "1",
-                "quantity": 7000
-            }
-            ],
-            "success": true
         }
         },
         {
@@ -318,129 +297,153 @@
           "1501"
         ],
         
-    "edges": [
-  {
-    "from": "instruction",
-    "to": "search_user_entities",
-    "connection": {
-      "output": "entity_type, email",
-      "input": "entity_type, filters.email"
-    }
-  },
-  {
-    "from": "search_user_entities",
-    "to": "check_approval",
-    "connection": {
-      "output": "results[0].email",
-      "input": "requester_email"
-    }
-  },
-  {
-    "from": "instruction",
-    "to": "check_approval",
-    "connection": {
-      "output": "action",
-      "input": "action"
-    }
-  },
-  {
-    "from": "instruction",
-    "to": "search_investor_entities",
-    "connection": {
-      "output": "entity_type, investor_email",
-      "input": "entity_type, filters.contact_email"
-    }
-  },
-  {
-    "from": "search_investor_entities",
-    "to": "search_portfolio_entities",
-    "connection": {
-      "output": "results[0].investor_id",
-      "input": "investor_id"
-    }
-  },
-  {
-    "from": "instruction",
-    "to": "search_portfolio_entities",
-    "connection": {
-      "output": "entity_type, status",
-      "input": "entity_type, status"
-    }
-  },
-  {
-    "from": "search_portfolio_entities",
-    "to": "handle_portfolio_holdings",
-    "connection": {
-      "output": "results[6].holding_id",
-      "input": "holding_id"
-    }
-  },
-  {
-    "from": "check_approval",
-    "to": "handle_portfolio_holdings",
-    "connection": {
-      "output": "approval_valid",
-      "input": "fund_manager_approval"
-    }
-  },
-  {
-    "from": "instruction",
-    "to": "handle_portfolio_holdings",
-    "connection": {
-      "output": "action, new_quantity, cost_basis",
-      "input": "action, quantity, cost_basis"
-    }
-  },
-  {
-    "from": "handle_portfolio_holdings",
-    "to": "add_new_audit_trail",
-    "connection": {
-      "output": "holding_id",
-      "input": "reference_id"
-    }
-  },
-  {
-    "from": "instruction",
-    "to": "add_new_audit_trail",
-    "connection": {
-      "output": "action, reference_type",
-      "input": "action, reference_type"
-    }
-  },
-  {
-    "from": "search_investor_entities",
-    "to": "handle_notifications",
-    "connection": {
-      "output": "results[0].contact_email",
-      "input": "email"
-    }
-  },
-  {
-    "from": "search_portfolio_entities",
-    "to": "handle_notifications",
-    "connection": {
-      "output": "results[0].portfolio_id",
-      "input": "reference_id"
-    }
-  },
-  {
-    "from": "instruction",
-    "to": "handle_notifications",
-    "connection": {
-      "output": "action, type, class",
-      "input": "action, type, class"
-    }
-  },
-  {
-    "from": "handle_notifications",
-    "to": "add_new_audit_trail",
-    "connection": {
-      "output": "notification_data.reference_id",
-      "input": "reference_id"
-    }
-  }
-],
-"num_edges": 15
+      "edges": [
+      {
+        "from": "instruction",
+        "to": "search_user_entities",
+        "connection": {
+          "output": "entity_type, email",
+          "input": "entity_type, filters.email"
+        }
+      },
+      {
+        "from": "search_user_entities",
+        "to": "check_approval",
+        "connection": {
+          "output": "results[0].email",
+          "input": "requester_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "check_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "search_investor_entities",
+        "connection": {
+          "output": "entity_type, investor_email",
+          "input": "entity_type, filters.contact_email"
+        }
+      },
+      {
+        "from": "search_investor_entities",
+        "to": "search_portfolio_entities",
+        "connection": {
+          "output": "results[0].investor_id",
+          "input": "investor_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "search_portfolio_entities",
+        "connection": {
+          "output": "entity_type, status",
+          "input": "entity_type, status"
+        }
+      },
+      {
+        "from": "search_portfolio_entities",
+        "to": "handle_portfolio_holdings",
+        "connection": {
+          "output": "results[6].holding_id",
+          "input": "holding_id"
+        }
+      },
+      {
+        "from": "check_approval",
+        "to": "handle_portfolio_holdings",
+        "connection": {
+          "output": "approval_valid",
+          "input": "fund_manager_approval"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_portfolio_holdings",
+        "connection": {
+          "output": "action, new_quantity, cost_basis",
+          "input": "action, quantity, cost_basis"
+        }
+      },
+      {
+        "from": "handle_portfolio_holdings",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "holding_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "search_portfolio_entities",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "results[6].quantity",
+          "input": "old_value"
+        }
+      },
+      {
+        "from": "handle_portfolio_holdings",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "holding_data.quantity",
+          "input": "new_value"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "action, reference_type, field_name",
+          "input": "action, reference_type, field_name"
+        }
+      },
+      {
+        "from": "search_investor_entities",
+        "to": "handle_notifications",
+        "connection": {
+          "output": "results[0].contact_email",
+          "input": "email"
+        }
+      },
+      {
+        "from": "search_portfolio_entities",
+        "to": "handle_notifications",
+        "connection": {
+          "output": "results[0].portfolio_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_notifications",
+        "connection": {
+          "output": "action, type, class",
+          "input": "action, type, class"
+        }
+      },
+      {
+        "from": "handle_notifications",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "notification_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "action, reference_type",
+          "input": "action, reference_type"
+        }
+      }
+    ],
+    "num_edges": 18
 
     }
 }
