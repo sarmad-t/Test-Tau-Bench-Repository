@@ -7,7 +7,7 @@
     "interface_num":2 ,
     "task": {
         "user_id": "4",
-        "instruction": "You are a fund manager named Anthony Robinson (anthonyrobinson734@outlook.com). You need to get a performance report for investor  Wilson Inc ( wilson8509@hotmail.com) for the first quarter of the year 2025 for the fund  'Patterson, Wood and Hunter Strategic Fund' and it has to be accredited with the source of funds being from 'asset sale'",
+        "instruction": "You are a fund manager named Anthony Robinson (anthonyrobinson734@outlook.com). You need to get a performance report for investor  Wilson Inc ( wilson8509@hotmail.com) for the first quarter of the year 2025 for the fund  'Patterson, Wood and Hunter Strategic Fund' and it has to be accredited with the source of funds being from asset sale",
         "actions": [
             {
             "name": "search_user_entities",
