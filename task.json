@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "1",
-        "instruction": "You are Danielle Johnson, a compliance officer with the email danielle.johnson@investment.com. On October 1, 2025, you receive a subscription request from Hodges Ltd (hodges2130@outlook.com) to invest $2,500,000 in the 'Travis, Larson and Dodson Value Fund', which is an exchange-traded fund. This request should be assigned to yourself for processing, with the request date of October 1, 2025.",
+        "instruction": "You are Danielle Johnson, a compliance officer with the email 'danielle.johnson@investment.com'. On October 1, 2025, you receive a subscription request from 'Hodges Ltd' ('hodges2130@outlook.com') to invest $2,500,000 in the 'Travis, Larson and Dodson Value Fund', which is an exchange-traded fund, with the request date of October 1, 2025.",
     
     
     "actions": [
@@ -180,125 +180,129 @@
         "1",
         "2"
         ],
-
-
-     "edges": [
-    {
-      "from": "instruction",
-      "to": "search_user_entities",
-      "connection": {
-        "output": "email, role",
-        "input": "email, role"
-      }
-    },
-    {
-      "from": "instruction",
-      "to": "search_investor_entities",
-      "connection": {
-        "output": "entity_type, investor_email",
-        "input": "entity_type, contact_email"
-      }
-    },
-    {
-      "from": "instruction",
-      "to": "search_fund_entities",
-      "connection": {
-        "output": "entity_type, fund_name, fund_type",
-        "input": "entity_type, name, fund_type"
-      }
-    },
-    {
-      "from": "instruction",
-      "to": "check_approval",
-      "connection": {
-        "output": "action, requester_email",
-        "input": "action, requester_email"
-      }
-    },
-    {
-      "from": "search_investor_entities",
-      "to": "search_investment_flow_entities",
-      "connection": {
-        "output": "results[0].investor_id",
-        "input": "investor_id"
-      }
-    },
-    {
-      "from": "search_fund_entities",
-      "to": "search_investment_flow_entities",
-      "connection": {
-        "output": "results[0].fund_id",
-        "input": "fund_id"
-      }
-    },
-    {
-      "from": "instruction",
-      "to": "search_investment_flow_entities",
-      "connection": {
-        "output": "entity_type",
-        "input": "entity_type"
-      }
-    },
-    {
-      "from": "search_investor_entities",
-      "to": "handle_subscription",
-      "connection": {
-        "output": "results[0].investor_id",
-        "input": "investor_id"
-      }
-    },
-    {
-      "from": "search_fund_entities",
-      "to": "handle_subscription",
-      "connection": {
-        "output": "results[0].fund_id",
-        "input": "fund_id"
-      }
-    },
-    {
-      "from": "search_user_entities",
-      "to": "handle_subscription",
-      "connection": {
-        "output": "results[0].user_id",
-        "input": "request_assigned_to"
-      }
-    },
-    {
-      "from": "check_approval",
-      "to": "handle_subscription",
-      "connection": {
-        "output": "approval_valid, approval_valid",
-        "input": "fund_manager_approval, compliance_officer_approval"
-      }
-    },
-    {
-      "from": "instruction",
-      "to": "handle_subscription",
-      "connection": {
-        "output": "action, amount, request_date",
-        "input": "action, amount, request_date"
-      }
-    },
-    {
-      "from": "handle_subscription",
-      "to": "add_new_audit_trail",
-      "connection": {
-        "output": "subscription_id",
-        "input": "reference_id"
-      }
-    },
-    {
-      "from": "instruction",
-      "to": "add_new_audit_trail",
-      "connection": {
-        "output": "action, reference_type",
-        "input": "action, reference_type"
-      }
+    
+    "edges": [
+  {
+    "from": "instruction",
+    "to": "search_user_entities",
+    "connection": {
+      "output": "entity_type, email, role",
+      "input": "entity_type, filters.email, filters.role"
     }
-  ],
-  "num_edges": 14
-
-
-
+  },
+  {
+    "from": "instruction",
+    "to": "search_investor_entities",
+    "connection": {
+      "output": "entity_type, investor_email",
+      "input": "entity_type, filters.contact_email"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "search_fund_entities",
+    "connection": {
+      "output": "entity_type, fund_name, fund_type",
+      "input": "filters.entity_type, filters.name, filters.fund_type"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "check_approval",
+    "connection": {
+      "output": "action, requester_email",
+      "input": "action, requester_email"
+    }
+  },
+  {
+    "from": "search_investor_entities",
+    "to": "search_investment_flow_entities",
+    "connection": {
+      "output": "results[0].investor_id",
+      "input": "filters.investor_id"
+    }
+  },
+  {
+    "from": "search_fund_entities",
+    "to": "search_investment_flow_entities",
+    "connection": {
+      "output": "results[0].fund_id",
+      "input": "filters.fund_id"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "search_investment_flow_entities",
+    "connection": {
+      "output": "entity_type",
+      "input": "entity_type"
+    }
+  },
+  {
+    "from": "search_investor_entities",
+    "to": "handle_subscription",
+    "connection": {
+      "output": "results[0].investor_id",
+      "input": "subscription_data.investor_id"
+    }
+  },
+  {
+    "from": "search_fund_entities",
+    "to": "handle_subscription",
+    "connection": {
+      "output": "results[0].fund_id",
+      "input": "subscription_data.fund_id"
+    }
+  },
+  {
+    "from": "search_user_entities",
+    "to": "handle_subscription",
+    "connection": {
+      "output": "results[0].user_id",
+      "input": "subscription_data.request_assigned_to"
+    }
+  },
+  {
+    "from": "check_approval",
+    "to": "handle_subscription",
+    "connection": {
+      "output": "approval_valid",
+      "input": "subscription_data.fund_manager_approval"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "handle_subscription",
+    "connection": {
+      "output": "compliance_officer_approval",
+      "input": "subscription_data.compliance_officer_approval"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "handle_subscription",
+    "connection": {
+      "output": "action, amount, request_date",
+      "input": "action, subscription_data.amount, subscription_data.request_date"
+    }
+  },
+  {
+    "from": "handle_subscription",
+    "to": "add_new_audit_trail",
+    "connection": {
+      "output": "subscription_id",
+      "input": "reference_id"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "add_new_audit_trail",
+    "connection": {
+      "output": "action, reference_type",
+      "input": "action, reference_type"
+    }
+  }
+],
+"num_edges": 15
     }
 }
