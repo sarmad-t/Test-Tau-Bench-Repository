@@ -226,14 +226,22 @@
         }
       },
       {
+        "from": "search_billing_entities",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "results[0].status",
+          "input": "old_value"
+        }
+      },
+      {
         "from": "instruction",
         "to": "add_new_audit_trail",
         "connection": {
-          "output": "action, field_name, reference_type, old_value, new_value",
-          "input": "action, field_name, reference_type, old_value, new_value"
+          "output": "action, field_name, reference_type, new_value",
+          "input": "action, field_name, reference_type, new_value"
         }
       }
     ],
-    "num_edges": 10
+    "num_edges": 11
   }
 }
