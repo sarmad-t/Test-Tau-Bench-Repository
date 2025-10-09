@@ -1,0 +1,460 @@
+{
+  "env": "fund_finance",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 3,
+  "temperature": 1,
+  "interface_num": 3,
+  "task": {
+    "user_id": "4",
+    "instruction": "You are Anthony Robinson (anthonyrobinson734@outlook.com), a Fund Manager at 'Washington, Allen and Gonzales Strategic Fund'. 'Strategic Capital Partners LLC' (investments@strategiccapital.com), an accredited investor with external investment funds, wants to invest $1,500,000 in the fund. You need to get them fully onboarded and invested, including setting up their portfolio with the fund's holdings. The fund also needs to execute a buy order for 2,000 shares of 'Washington-Martinez Inc' at $125.50 on October 1st, 2025, and you'll need to prepare a performance report for the same date.",
+    "actions": [
+      {
+        "name": "find_user_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "email": "anthonyrobinson734@outlook.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "users",
+          "results": [
+            {
+              "created_at": "2024-10-10T04:15:12",
+              "email": "anthonyrobinson734@outlook.com",
+              "first_name": "Anthony",
+              "last_name": "Robinson",
+              "role": "fund_manager",
+              "status": "active",
+              "timezone": "America/Los_Angeles",
+              "updated_at": "2025-05-31T23:28:28",
+              "user_id": "4"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "validate_approval",
+        "arguments": {
+          "action": "investor_onboarding",
+          "requester_email": "anthonyrobinson734@outlook.com"
+        },
+        "output": {
+          "approval_valid": true,
+          "approved_by": "compliance_officer"
+        }
+      },
+      {
+        "name": "find_instrument_entities",
+        "arguments": {
+          "entity_type": "instruments",
+          "filters": {
+            "name": "Washington-Martinez Inc"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "instruments",
+          "results": [
+            {
+              "instrument_id": "5",
+              "instrument_type": "equities",
+              "name": "Washington-Martinez Inc",
+              "status": "active",
+              "ticker": "FUD5"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "find_fund_entities",
+        "arguments": {
+          "entity_type": "funds",
+          "filters": {
+            "name": "Washington, Allen and Gonzales Strategic Fund"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "funds",
+          "results": [
+            {
+              "created_at": "2025-05-03T16:59:03",
+              "fund_id": "5",
+              "fund_type": "hedge_funds",
+              "manager_id": "48",
+              "name": "Washington, Allen and Gonzales Strategic Fund",
+              "size": 237156983.89,
+              "status": "open",
+              "updated_at": "2025-06-26T13:20:55"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "register_investor",
+        "arguments": {
+          "accreditation_status": "accredited",
+          "compliance_officer_approval": true,
+          "contact_email": "investments@strategiccapital.com",
+          "legal_name": "Strategic Capital Partners LLC",
+          "source_of_funds": "external_investment"
+        },
+        "output": {
+          "accreditation_status": "accredited",
+          "address": null,
+          "contact_email": "investments@strategiccapital.com",
+          "country": null,
+          "created_at": "2025-10-01T00:00:00",
+          "date_of_incorporation": null,
+          "investor_id": "176",
+          "name": "Strategic Capital Partners LLC",
+          "registration_number": null,
+          "source_of_funds": "external_investment",
+          "status": "onboarded",
+          "tax_id": null
+        }
+      },
+      {
+        "name": "manipulate_portfolio",
+        "arguments": {
+          "action": "create",
+          "portfolio_data": {
+            "fund_manager_approval": true,
+            "investor_id": "176",
+            "status": "active"
+          }
+        },
+        "output": {
+          "action": "create",
+          "message": "Portfolio 176 created successfully for investor 176",
+          "portfolio_data": {
+            "created_at": "2025-10-01T12:00:00",
+            "investor_id": "176",
+            "portfolio_id": "176",
+            "status": "active",
+            "updated_at": "2025-10-01T12:00:00"
+          },
+          "portfolio_id": "176",
+          "success": true
+        }
+      },
+      {
+        "name": "manipulate_subscription",
+        "arguments": {
+          "action": "create",
+          "subscription_data": {
+            "amount": 1500000,
+            "compliance_officer_approval": true,
+            "fund_id": "5",
+            "fund_manager_approval": true,
+            "investor_id": "176",
+            "request_assigned_to": "4",
+            "request_date": "2025-10-01"
+          }
+        },
+        "output": {
+          "action": "create",
+          "message": "Subscription 2501 created successfully.",
+          "subscription_data": {
+            "amount": 1500000,
+            "approval_date": null,
+            "fund_id": "5",
+            "investor_id": "176",
+            "request_assigned_to": "4",
+            "request_date": "2025-10-01",
+            "status": "pending",
+            "subscription_id": "2501",
+            "updated_at": "2025-10-01T00:00:00"
+          },
+          "subscription_id": "2501",
+          "success": true
+        }
+      },
+      {
+        "name": "manipulate_portfolio_holdings",
+        "arguments": {
+          "action": "create",
+          "holding_data": {
+            "cost_basis": 1500000,
+            "fund_id": "5",
+            "fund_manager_approval": true,
+            "portfolio_id": "176",
+            "quantity": 1500000
+          }
+        },
+        "output": {
+          "action": "create",
+          "holding_data": {
+            "cost_basis": 1500000,
+            "created_at": "2025-10-01T12:00:00",
+            "fund_id": "5",
+            "holding_id": "1211",
+            "portfolio_id": "176",
+            "quantity": 1500000
+          },
+          "holding_id": "1211",
+          "message": "Portfolio holding 1211 created successfully for portfolio 176 with fund 5",
+          "success": true
+        }
+      },
+      {
+        "name": "conduct_trade",
+        "arguments": {
+          "fund_id": "5",
+          "fund_manager_approval": true,
+          "instrument_id": "5",
+          "price": 125.5,
+          "quantity": 2000,
+          "side": "buy",
+          "trade_date": "2025-10-01"
+        },
+        "output": {
+          "message": "Trade 2501 executed successfully",
+          "success": true,
+          "trade_data": {
+            "created_at": "2025-10-01T00:00:00",
+            "fund_id": "5",
+            "instrument_id": "5",
+            "price": 125.5,
+            "quantity": 2000.0,
+            "side": "buy",
+            "status": "executed",
+            "trade_date": "2025-10-01",
+            "trade_id": "2501"
+          },
+          "trade_id": "2501"
+        }
+      },
+      {
+        "name": "build_report",
+        "arguments": {
+          "export_period_end": "2025-10-01",
+          "fund_id": "5",
+          "generated_by": "4",
+          "report_date": "2025-10-01"
+        },
+        "output": {
+          "created_at": "2025-10-01T00:00:00",
+          "export_period_end": "2025-10-01",
+          "fund_id": "5",
+          "generated_by": "4",
+          "investor_id": null,
+          "report_date": "2025-10-01",
+          "report_id": "1001",
+          "report_type": "performance",
+          "status": "pending"
+        }
+      }
+    ],
+    "outputs": ["176", "2501", "1001"],
+    "edges": [
+      {
+        "from": "instruction",
+        "to": "find_user_entities",
+        "connection": {
+          "output": "email, entity_type",
+          "input": "filters.email, entity_type"
+        }
+      },
+      {
+        "from": "find_user_entities",
+        "to": "validate_approval",
+        "connection": {
+          "output": "results[0].email",
+          "input": "requester_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "validate_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
+        }
+      },
+      {
+        "from": "validate_approval",
+        "to": "register_investor",
+        "connection": {
+          "output": "approval_valid",
+          "input": "compliance_officer_approval"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "register_investor",
+        "connection": {
+          "output": "accreditation_status, contact_email, legal_name, source_of_funds",
+          "input": "accreditation_status, contact_email, legal_name, source_of_funds"
+        }
+      },
+      {
+        "from": "register_investor",
+        "to": "manipulate_portfolio",
+        "connection": {
+          "output": "investor_id",
+          "input": "portfolio_data.investor_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "manipulate_portfolio",
+        "connection": {
+          "output": "action, fund_manager_approval, status",
+          "input": "action, portfolio_data.fund_manager_approval, portfolio_data.status"
+        }
+      },
+      {
+        "from": "validate_approval",
+        "to": "manipulate_subscription",
+        "connection": {
+          "output": "approval_valid, approval_valid",
+          "input": "subscription_data.fund_manager_approval, subscription_data.compliance_officer_approval"
+        }
+      },
+      {
+        "from": "register_investor",
+        "to": "manipulate_subscription",
+        "connection": {
+          "output": "investor_id",
+          "input": "subscription_data.investor_id"
+        }
+      },
+      {
+        "from": "find_fund_entities",
+        "to": "manipulate_subscription",
+        "connection": {
+          "output": "results[0].fund_id",
+          "input": "subscription_data.fund_id"
+        }
+      },
+      {
+        "from": "find_user_entities",
+        "to": "manipulate_subscription",
+        "connection": {
+          "output": "results[0].user_id",
+          "input": "subscription_data.request_assigned_to"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "manipulate_subscription",
+        "connection": {
+          "output": "action, amount, request_date",
+          "input": "action, subscription_data.amount, subscription_data.request_date"
+        }
+      },
+      {
+        "from": "manipulate_portfolio",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "portfolio_id",
+          "input": "holding_data.portfolio_id"
+        }
+      },
+      {
+        "from": "find_fund_entities",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "results[0].fund_id",
+          "input": "holding_data.fund_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "action, cost_basis, quantity",
+          "input": "action, holding_data.cost_basis, holding_data.quantity"
+        }
+      },
+      {
+        "from": "validate_approval",
+        "to": "manipulate_portfolio_holdings",
+        "connection": {
+          "output": "approval_valid",
+          "input": "holding_data.fund_manager_approval"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "find_instrument_entities",
+        "connection": {
+          "output": "name, entity_type",
+          "input": "filters.name, entity_type"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "find_fund_entities",
+        "connection": {
+          "output": "name, entity_type",
+          "input": "filters.name, entity_type"
+        }
+      },
+      {
+        "from": "find_instrument_entities",
+        "to": "conduct_trade",
+        "connection": {
+          "output": "results[0].instrument_id",
+          "input": "instrument_id"
+        }
+      },
+      {
+        "from": "find_fund_entities",
+        "to": "conduct_trade",
+        "connection": {
+          "output": "results[0].fund_id",
+          "input": "fund_id"
+        }
+      },
+      {
+        "from": "validate_approval",
+        "to": "conduct_trade",
+        "connection": {
+          "output": "approval_valid",
+          "input": "fund_manager_approval"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "conduct_trade",
+        "connection": {
+          "output": "price, quantity, side, trade_date",
+          "input": "price, quantity, side, trade_date"
+        }
+      },
+      {
+        "from": "find_fund_entities",
+        "to": "build_report",
+        "connection": {
+          "output": "results[0].fund_id",
+          "input": "fund_id"
+        }
+      },
+      {
+        "from": "find_user_entities",
+        "to": "build_report",
+        "connection": {
+          "output": "results[0].user_id",
+          "input": "generated_by"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "build_report",
+        "connection": {
+          "output": "export_period_end, report_date",
+          "input": "export_period_end, report_date"
+        }
+      }
+    ],
+    "num_edges": 25
+  }
+}
