@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "8",
-        "instruction": "You are Matthew Moore, a finance officer, with the email matthew.moore@investment.com. You want to create a new NAV record for the fund 'Green-Wright Growth Fund' with a NAV value of $165.50 for the date September 30, 2025. Once the NAV record is created, you want to retrieve all NAV records for this fund from September 2025 to verify the new record was added correctly.",
+        "instruction": "You are Matthew Moore, a finance officer, with the email 'matthew.moore@investment.com'. You want to create a new NAV record for the fund 'Green-Wright Growth Fund' with a NAV value of $165.50 for the date September 30, 2025. Once the NAV record is created, you want to retrieve all NAV records for this fund from September 2025 to verify the new record was added correctly.",
     
     
     
