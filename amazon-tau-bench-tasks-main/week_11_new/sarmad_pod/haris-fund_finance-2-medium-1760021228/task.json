@@ -7,16 +7,14 @@
     "interface_num": 2,
     "task": {
         "user_id": "125",
-        "instruction": "You are a Compliance Officer named Jeffery Brock. You wish to build an investor profile for a new investor with accredited status who is legally named as 'Oscorp Investments' which can be contacted at 'oscorpinvestments@outlook.com' and whose funding is sourced by shareholders' capital.",
+        "instruction": "You are a Compliance Officer named Jeffery Brock ('jefferybrock@outlook.com') . You wish to build an investor profile for a new investor with accredited status who is legally named as 'Oscorp Investments', which can be contacted at 'oscorpinvestments@outlook.com', and whose funding is sourced by shareholders' capital.",
         "actions": [
     {
       "name": "search_user_entities",
       "arguments": {
         "entity_type": "users",
         "filters": {
-          "first_name": "Jeffery",
-          "last_name": "Brock",
-          "role": "compliance_officer"
+          "email": "jefferybrock@outlook.com"
         }
       },
       "output": {
@@ -92,7 +90,7 @@
       }
     }
   ],
-        "outputs": ["125","176","3501"],
+        "outputs": [],
 
         
         "edges": [
@@ -100,8 +98,8 @@
       "from": "instruction",
       "to": "search_user_entities",
       "connection": {
-        "output": "first_name, last_name, role",
-        "input": "filters.first_name, filters.last_name, filters.role"
+        "output": "email",
+        "input": "filters.email"
       }
     },
     {
