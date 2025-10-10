@@ -1,0 +1,437 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "7",
+        "instruction": "You are Lisa Smith, a trader with the email 'lsmith@yahoo.com'. On June 9, 2024, you are managing the portfolio for investor 'Hodges Ltd' ('hodges2130@outlook.com'). You want to increase their holding quantity in their fund investment from 5,652.2481 units to 7,000 units while maintaining the cost basis of $95.9944 per unit, and alert the investor about this portfolio change.",
+        "actions": [
+                
+        {
+        "name": "search_user_entities",
+        "arguments": {
+            "entity_type": "users",
+            "filters": {
+            "email": "lsmith@yahoo.com"
+            }
+        },
+        "output": {
+            "count": 1,
+            "entity_type": "users",
+            "results": [
+            {
+                "created_at": "2023-04-22T03:46:24",
+                "email": "lsmith@yahoo.com",
+                "first_name": "Lisa",
+                "last_name": "Smith",
+                "role": "trader",
+                "status": "active",
+                "timezone": "America/Chicago",
+                "updated_at": "2025-02-06T15:58:48",
+                "user_id": "7"
+            }
+            ],
+            "success": true
+        }
+        },
+        {
+        "name": "search_investor_entities",
+        "arguments": {
+            "entity_type": "investors",
+            "filters": {
+            "contact_email": "hodges2130@outlook.com"
+            }
+        },
+        "output": {
+            "count": 1,
+            "entity_type": "investors",
+            "results": [
+            {
+                "accreditation_status": "accredited",
+                "address": "50455 Thomas Pines, Knightburgh, GA 23447",
+                "contact_email": "hodges2130@outlook.com",
+                "country": "United States",
+                "created_at": "2023-01-19T13:08:39",
+                "date_of_incorporation": "2001-04-13",
+                "investor_id": "1",
+                "name": "Hodges Ltd",
+                "registration_number": 476496216,
+                "source_of_funds": "external_investment",
+                "status": "onboarded",
+                "tax_id": "996-93-7923"
+            }
+            ],
+            "success": true
+        }
+        },
+        {
+        "name": "search_portfolio_entities",
+        "arguments": {
+            "entity_type": "portfolios",
+            "filters": {
+            "investor_id": "1",
+            "status": "active"
+            }
+        },
+        "output": {
+            "count": 1,
+            "entity_type": "portfolios",
+            "results": [
+            {
+                "created_at": "2025-06-23T08:27:32",
+                "investor_id": "1",
+                "portfolio_id": "1",
+                "status": "active",
+                "updated_at": "2025-07-31T18:45:36"
+            }
+            ],
+            "success": true
+        }
+        },
+        {
+        "name": "search_portfolio_entities",
+        "arguments": {
+            "entity_type": "portfolio_holdings",
+            "filters": {
+            "portfolio_id": "1"
+            }
+        },
+        "output": {
+            "count": 8,
+            "entity_type": "portfolio_holdings",
+            "results": [
+            {
+                "cost_basis": 177.368,
+                "created_at": "2023-09-09T18:21:23",
+                "fund_id": "83",
+                "holding_id": "1",
+                "portfolio_id": "1",
+                "quantity": 7049.9092
+            },
+            {
+                "cost_basis": 222.6788,
+                "created_at": "2024-03-02T07:50:54",
+                "fund_id": "67",
+                "holding_id": "2",
+                "portfolio_id": "1",
+                "quantity": 6137.2655
+            },
+            {
+                "cost_basis": 169.1741,
+                "created_at": "2025-02-10T20:26:27",
+                "fund_id": "26",
+                "holding_id": "3",
+                "portfolio_id": "1",
+                "quantity": 2561.6837
+            },
+            {
+                "cost_basis": 61.5295,
+                "created_at": "2024-08-18T12:13:12",
+                "fund_id": "70",
+                "holding_id": "4",
+                "portfolio_id": "1",
+                "quantity": 6156.859
+            },
+            {
+                "cost_basis": 190.5772,
+                "created_at": "2025-06-15T13:11:10",
+                "fund_id": "43",
+                "holding_id": "5",
+                "portfolio_id": "1",
+                "quantity": 4585.2917
+            },
+            {
+                "cost_basis": 55.2269,
+                "created_at": "2025-04-27T08:23:04",
+                "fund_id": "82",
+                "holding_id": "6",
+                "portfolio_id": "1",
+                "quantity": 741.1233
+            },
+            {
+                "cost_basis": 95.9944,
+                "created_at": "2024-06-09T17:26:23",
+                "fund_id": "29",
+                "holding_id": "7",
+                "portfolio_id": "1",
+                "quantity": 5652.2481
+            },
+            {
+                "cost_basis": 491.5518,
+                "created_at": "2025-03-23T11:07:51",
+                "fund_id": "85",
+                "holding_id": "8",
+                "portfolio_id": "1",
+                "quantity": 1509.163
+            }
+            ],
+            "success": true
+        }
+        },
+        {
+        "name": "check_approval",
+        "arguments": {
+            "action": "portfolio_holding_management",
+            "requester_email": "lsmith@yahoo.com"
+        },
+        "output": {
+            "approval_valid": true,
+            "approved_by": "fund_manager"
+        }
+        },
+        {
+        "name": "handle_portfolio_holdings",
+        "arguments": {
+            "action": "update",
+            "holding_data": {
+            "quantity": 7000,
+            "cost_basis": 95.9944,
+            "fund_manager_approval": true
+            },
+            "holding_id": "7"
+        },
+        "output": {
+            "action": "update",
+            "holding_data": {
+            "cost_basis": 95.9944,
+            "created_at": "2024-06-09T17:26:23",
+            "fund_id": "29",
+            "holding_id": "7",
+            "portfolio_id": "1",
+            "quantity": 7000
+            },
+            "holding_id": "7",
+            "message": "Portfolio holding 7 updated successfully",
+            "success": true
+        }
+        },
+        {
+        "name": "add_new_audit_trail",
+        "arguments": {
+            "action": "update",
+            "reference_id": "7",
+            "reference_type": "holding",
+            "field_name": "quantity",
+            "old_value": "5652.2481",
+            "new_value": "7000"
+        },
+        "output": {
+            "action": "update",
+            "audit_trail_id": "3501",
+            "created_at": "2025-10-01T00:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "7",
+            "reference_type": "holding"
+        }
+        },
+        {
+        "name": "handle_notifications",
+        "arguments": {
+            "action": "create",
+            "notification_data": {
+            "email": "hodges2130@outlook.com",
+            "type": "alert",
+            "class": "portfolios",
+            "reference_id": "1"
+            }
+        },
+        "output": {
+            "action": "create",
+            "message": "Notification 1501 created successfully for hodges2130@outlook.com",
+            "notification_data": {
+            "class": "portfolios",
+            "created_at": "2025-10-01T12:00:00",
+            "email": "hodges2130@outlook.com",
+            "notification_id": "1501",
+            "reference_id": "1",
+            "sent_at": null,
+            "status": "pending",
+            "type": "alert"
+            },
+            "notification_id": "1501",
+            "success": true
+        }
+        },
+        {
+        "name": "add_new_audit_trail",
+        "arguments": {
+            "action": "create",
+            "reference_id": "1",
+            "reference_type": "notification"
+        },
+        "output": {
+            "action": "create",
+            "audit_trail_id": "3502",
+            "created_at": "2025-10-01T00:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "1",
+            "reference_type": "notification"
+        }
+    
+        }
+
+
+] ,
+        "output": [
+          "7000",
+          "7",
+          "1501"
+        ],
+        
+      "edges": [
+      {
+        "from": "instruction",
+        "to": "search_user_entities",
+        "connection": {
+          "output": "entity_type, email",
+          "input": "entity_type, filters.email"
+        }
+      },
+      {
+        "from": "search_user_entities",
+        "to": "check_approval",
+        "connection": {
+          "output": "results[0].email",
+          "input": "requester_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "check_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "search_investor_entities",
+        "connection": {
+          "output": "entity_type, investor_email",
+          "input": "entity_type, filters.contact_email"
+        }
+      },
+      {
+        "from": "search_investor_entities",
+        "to": "search_portfolio_entities",
+        "connection": {
+          "output": "results[0].investor_id",
+          "input": "investor_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "search_portfolio_entities",
+        "connection": {
+          "output": "entity_type, status",
+          "input": "entity_type, status"
+        }
+      },
+      {
+        "from": "search_portfolio_entities",
+        "to": "handle_portfolio_holdings",
+        "connection": {
+          "output": "results[6].holding_id",
+          "input": "holding_id"
+        }
+      },
+      {
+        "from": "check_approval",
+        "to": "handle_portfolio_holdings",
+        "connection": {
+          "output": "approval_valid",
+          "input": "fund_manager_approval"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_portfolio_holdings",
+        "connection": {
+          "output": "action, new_quantity, cost_basis",
+          "input": "action, quantity, cost_basis"
+        }
+      },
+      {
+        "from": "handle_portfolio_holdings",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "holding_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "search_portfolio_entities",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "results[6].quantity",
+          "input": "old_value"
+        }
+      },
+      {
+        "from": "handle_portfolio_holdings",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "holding_data.quantity",
+          "input": "new_value"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "action, reference_type, field_name",
+          "input": "action, reference_type, field_name"
+        }
+      },
+      {
+        "from": "search_investor_entities",
+        "to": "handle_notifications",
+        "connection": {
+          "output": "results[0].contact_email",
+          "input": "email"
+        }
+      },
+      {
+        "from": "search_portfolio_entities",
+        "to": "handle_notifications",
+        "connection": {
+          "output": "results[0].portfolio_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_notifications",
+        "connection": {
+          "output": "action, type, class",
+          "input": "action, type, class"
+        }
+      },
+      {
+        "from": "handle_notifications",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "notification_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_new_audit_trail",
+        "connection": {
+          "output": "action, reference_type",
+          "input": "action, reference_type"
+        }
+      }
+    ],
+    "num_edges": 18
+
+    }
+}
