@@ -7,22 +7,20 @@
     "interface_num": 3,
     "task": {
         "user_id": "2",
-        "instruction": "Your name is Jeffery Doyle working as a trader with the email 'jeffrey.doyle@investment.com'. You need place a trade for an fund named 'Rogers-Hobbs Strategic Fund' to buy shares of 'York LLC Corp' at a price of 365 , a total of 316 shares. Send out an alert email to the Jennifer Cruz, fund manager.",
+        "instruction": "Your name is Jeffery Doyle working as a trader with the email 'jeffrey.doyle@investment.com'. You need place a trade for an fund named 'Rogers-Hobbs Strategic Fund' to buy shares of 'York LLC Corp' at a price of 365 , a total of 316 shares. You would like to notify fund manager, Jennifer Cruz (jennifercruz286@gmail.com) about it.",
         "actions": [
             {
                 "name": "find_user_entities",
                 "arguments": {
                     "entity_type": "users",
                     "filters": {
-                        "first_name": "Jeffrey",
-                        "last_name": "Doyle",
                         "email": "jeffrey.doyle@investment.com"
                     }
                 },
                 "output": {
                     "count": 1,
-                    "entity_type" : "users",
-                    "results" : [
+                    "entity_type": "users",
+                    "results": [
                     {
                         "created_at": "2025-07-03T08:25:41",
                         "email": "jeffrey.doyle@investment.com",
@@ -88,42 +86,14 @@
                 }
             },
             {
-                "name": "find_user_entities",
-                "arguments": {
-                    "entity_type": "users",
-                    "filters": {
-                        "first_name": "Jennifer",
-                        "last_name": "Cruz"
-                    }
-                },
-                "output": {
-                    "count": 1,
-                    "entity_type": "users",
-                    "results": [
-                    {
-                        "created_at": "2024-04-28T23:22:53",
-                        "email": "jennifercruz286@gmail.com",
-                        "first_name": "Jennifer",
-                        "last_name": "Cruz",
-                        "role": "fund_manager",
-                        "status": "active",
-                        "timezone": "America/Los_Angeles",
-                        "updated_at": "2024-11-04T11:34:51",
-                        "user_id": "123"
-                    }
-                    ],
-                    "success": true
-                }
-            },
-            {
                 "name": "validate_approval",
                 "arguments": {
                     "action" : "trade_execution",
-                    "requester_email": "jennifercruz286@gmail.com"
+                    "requester_email": "jeffrey.doyle@investment.com"
                 },
                 "output": {
                   "approval_valid": true,
-                    "message": "Role 'fund_manager' is directly authorized for action 'trade_execution'"
+                    "message": "Role 'trader' is directly authorized for action 'trade_execution'"
                 }
             },
             {
@@ -236,8 +206,8 @@
                 "from": "instruction",
                 "to": "find_user_entities",
                 "connection": {
-                    "output": "entity_type,first_name,last_name,email",
-                    "input": "entity_type,filters.first_name,filters.last_name,filters.email"
+                    "output": "entity_type,email",
+                    "input": "entity_type,filters.email"
                 }
             },
             {
@@ -266,26 +236,10 @@
             },
             {
                 "from":"instruction",
-                "to":"find_user_entities",
-                "connection":{
-                    "output":"entity_type,first_name,last_name",
-                    "input":"entity_type,filters.first_name,filters.last_name"
-                }
-            },
-            {
-                "from":"find_user_entities",
                 "to":"validate_approval",
                 "connection":{
-                    "output":"results.0.email",
-                    "input":"requester_email"
-                }
-            },
-            {
-                "from":"instruction",
-                "to":"validate_approval",
-                "connection":{
-                    "output":"action",
-                    "input":"action"
+                    "output":"action,email",
+                    "input":"action,email"
                 }
             },
             {
@@ -346,12 +300,8 @@
             }
         ],
         "outputs": [
-            "2",
-            "18",
-            "6",
-            "123",
-            "2502"
+            
         ],
-        "num_edges": 14
+        "num_edges": 12
     }
 }
