@@ -1,0 +1,249 @@
+{
+    "env": "fund_finance",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num":2 ,
+    "task": {
+        "user_id": "78",
+        "instruction": "You are Cheryl Archer, a Compliance Officer ('cherylarcher@gmail.com'). You are requested to onboard 'John Wick & Associates', a non-accredited new investor whose retained earnings are the source of funds and who can be further contacted for details at 'contact@johnwickassociates.com'. You also need to add their commitment of $1,012,235 to the 'Johnson-Perez Balanced Fund' fund that they've promised to fulfil by August 21, 2025.",
+        "actions": [
+    {
+      "name": "check_approval",
+      "arguments": {
+        "action": "investor_onboarding",
+        "requester_email": "cherylarcher@gmail.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "message": "Role 'compliance_officer' is directly authorized for action 'investor_onboarding'"
+      }
+    },
+    {
+      "name": "add_investor",
+      "arguments": {
+        "accreditation_status": "non_accredited",
+        "compliance_officer_approval": true,
+        "contact_email": "contact@johnwickassociates.com",
+        "legal_name": "John Wick & Associates",
+        "source_of_funds": "retained_earnings"
+      },
+      "output": {
+        "accreditation_status": "non_accredited",
+        "address": null,
+        "contact_email": "contact@johnwickassociates.com",
+        "country": null,
+        "created_at": "2025-10-01T00:00:00",
+        "date_of_incorporation": null,
+        "investor_id": "176",
+        "name": "John Wick & Associates",
+        "registration_number": null,
+        "source_of_funds": "retained_earnings",
+        "status": "onboarded",
+        "tax_id": null
+      }
+    },
+    {
+      "name": "add_new_audit_trail",
+      "arguments": {
+        "action": "create",
+        "reference_id": "176",
+        "reference_type": "investor"
+      },
+      "output": {
+        "action": "create",
+        "audit_trail_id": "3501",
+        "created_at": "2025-10-01T00:00:00",
+        "field_name": null,
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "176",
+        "reference_type": "investor"
+      }
+    },
+    {
+      "name": "check_approval",
+      "arguments": {
+        "action": "commitments_create",
+        "requester_email": "cherylarcher@gmail.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "message": "Role 'compliance_officer' is directly authorized for action 'commitments_create'"
+      }
+    },
+    {
+      "name": "search_fund_entities",
+      "arguments": {
+        "entity_type": "funds",
+        "filters": {
+          "name": "Johnson-Perez Balanced Fund"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "funds",
+        "results": [
+          {
+            "created_at": "2023-12-30T20:15:44",
+            "fund_id": "69",
+            "fund_type": "real_estate_investment_trusts",
+            "manager_id": "111",
+            "name": "Johnson-Perez Balanced Fund",
+            "size": 273752470.66,
+            "status": "open",
+            "updated_at": "2025-04-12T18:18:00"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "add_commitment",
+      "arguments": {
+        "commitment_amount": 1012235.0,
+        "commitment_date": "2025-08-21",
+        "compliance_officer_approval": true,
+        "fund_id": "69",
+        "investor_id": "176"
+      },
+      "output": {
+        "commitment_amount": 1012235.0,
+        "commitment_date": "2025-08-21",
+        "commitment_id": "2001",
+        "fund_id": "69",
+        "investor_id": "176",
+        "status": "pending",
+        "updated_at": "2025-10-01T00:00:00"
+      }
+    },
+    {
+      "name": "add_new_audit_trail",
+      "arguments": {
+        "action": "create",
+        "reference_id": "2001",
+        "reference_type": "commitment"
+      },
+      "output": {
+        "action": "create",
+        "audit_trail_id": "3502",
+        "created_at": "2025-10-01T00:00:00",
+        "field_name": null,
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "2001",
+        "reference_type": "commitment"
+      }
+    }
+  ],
+        "outputs": [],
+        "edges": [
+  {
+    "from": "instruction",
+    "to": "check_approval",
+    "connection": {
+      "output": "action, requester_email",
+      "input": "action, requester_email"
+    }
+  },
+  {
+    "from": "check_approval",
+    "to": "add_investor",
+    "connection": {
+      "output": "approval_valid",
+      "input": "compliance_officer_approval"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "add_investor",
+    "connection": {
+      "output": "accreditation_status, contact_email, legal_name, source_of_funds",
+      "input": "accreditation_status, contact_email, legal_name, source_of_funds"
+    }
+  },
+  {
+    "from": "add_investor",
+    "to": "add_new_audit_trail",
+    "connection": {
+      "output": "investor_id",
+      "input": "reference_id"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "add_new_audit_trail",
+    "connection": {
+      "output": "action, reference_type",
+      "input": "action, reference_type"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "check_approval",
+    "connection": {
+      "output": "action, requester_email",
+      "input": "action, requester_email"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "search_fund_entities",
+    "connection": {
+      "output": "entity_type, name",
+      "input": "entity_type, filters.name"
+    }
+  },
+  {
+    "from": "check_approval",
+    "to": "add_commitment",
+    "connection": {
+      "output": "approval_valid",
+      "input": "compliance_officer_approval"
+    }
+  },
+  {
+    "from": "add_investor",
+    "to": "add_commitment",
+    "connection": {
+      "output": "investor_id",
+      "input": "investor_id"
+    }
+  },
+  {
+    "from": "search_fund_entities",
+    "to": "add_commitment",
+    "connection": {
+      "output": "results[0].fund_id",
+      "input": "fund_id"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "add_commitment",
+    "connection": {
+      "output": "commitment_amount, commitment_date",
+      "input": "commitment_amount, commitment_date"
+    }
+  },
+  {
+    "from": "add_commitment",
+    "to": "add_new_audit_trail",
+    "connection": {
+      "output": "commitment_id",
+      "input": "reference_id"
+    }
+  },
+  {
+    "from": "instruction",
+    "to": "add_new_audit_trail",
+    "connection": {
+      "output": "action, reference_type",
+      "input": "action, reference_type"
+    }
+  }
+],
+        "num_edges": 13
+    }
+}
