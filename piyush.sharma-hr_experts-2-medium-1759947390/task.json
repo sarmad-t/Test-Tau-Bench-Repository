@@ -1,0 +1,199 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "6",
+        "instruction": "You are Tina Hale, manager and you want to create new department called 'Artifical Intelligence' with an budget of 50000 USD with the approval of johnny jones.",
+        "actions": [
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "first_name": "Johnny",
+                        "last_name": "Jones"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2021-01-23T23:36:28",
+                        "email": "johnny.jones@protonmail.com",
+                        "first_name": "Johnny",
+                        "last_name": "Jones",
+                        "mfa_enabled": false,
+                        "phone_number": "+13474618830",
+                        "role": "hr_director",
+                        "status": "active",
+                        "updated_at": "2022-03-03T16:57:44",
+                        "user_id": "1"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name" : "validate_approval",
+                "arguments" : {
+                    "action" : "create_department",
+                    "requestor_email": "johnny.jones@protonmail.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'hr_director' is directly authorized for action 'create_department'"
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "first_name": "Tina",
+                        "last_name": "Hale"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2024-08-21T15:10:45",
+                        "email": "tina86@yahoo.com",
+                        "first_name": "Tina",
+                        "last_name": "Hale",
+                        "mfa_enabled": true,
+                        "phone_number": "+19386024033",
+                        "role": "hr_manager",
+                        "status": "active",
+                        "updated_at": "2024-10-19T22:44:53",
+                        "user_id": "6"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_department",
+                "arguments": {
+                    "action": "create",
+                    "department_name": "Artificial Intelligence",
+                    "budget": 50000,
+                    "manager_id": "6"
+                },
+                "output": {
+                    "department_data": {
+                    "budget": 50000,
+                    "created_at": "2025-10-01T12:00:00",
+                    "department_id": "101",
+                    "department_name": "Artificial Intelligence",
+                    "manager_id": "6",
+                    "status": "active",
+                    "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "department_id": "101",
+                    "message": "Department created successfully with ID 101",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "create",
+                    "operation": "create",
+                    "reference_id": "101",
+                    "reference_type": "departments",
+                    "user_id": "6"
+                },
+                "output": {
+                    "action": "create",
+                    "field_name": null,
+                    "log_id": "2885",
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "101",
+                    "reference_type": "departments",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output" : "entity_type, first_name, last_name",
+                    "input" : "entity_type, filters.first_name, filters.last_name"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "validate_approval",
+                "connection": {
+                    "output" : "results[0].email",
+                    "input" : "requestor_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output" : "action",
+                    "input" : "action"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output" : "entity_type, first_name, last_name",
+                    "input" : "entity_type, filters.first_name, filters.last_name"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_department",
+                "connection": {
+                    "output" : "action,department_name, budget",
+                    "input" : "action,department_name, budget"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_department",
+                "connection": {
+                    "output" : "results[0].user_id",
+                    "input" : "manager_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output" : "action,operation,departments",
+                    "input" : "action, operation, reference_type"
+                }
+            },
+            {
+                "from": "handle_department",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output" : "department_id,manager_id",
+                    "input" : "reference_id, user_id"
+                }
+            }
+        ],
+        "outputs": [
+            "1",
+            "6",
+            "101"
+        ],
+        "num_edges": 8
+    }
+}
