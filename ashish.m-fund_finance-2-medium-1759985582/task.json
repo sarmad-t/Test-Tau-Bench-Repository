@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "17",
-        "instruction": "You are Jacqueline Sutton, the Fund Manager, with the email jsutton@finance.com. Following a request from investors Johnson, Juarez, and Carter, you want to cancel their current investment in the 'Francis Group Value Fund' and ensure the cancellation is accurately reflected in the fund's records",
+        "instruction": "You are Jacqueline Sutton, the Fund Manager, with the email jsutton@finance.com. Following a request from investors Johnson, Juarez, and Carter, you want to cancel their current investment in the 'Francis Group Value Fund'",
        "actions": [
                     {
                     "name": "search_user_entities",
@@ -45,17 +45,6 @@
                     "output": {
                         "approval_valid": true,
                         "message": "Role 'fund_manager' is directly authorized for action 'subscription_management'"
-                    }
-                    },
-                    {
-                    "name": "check_approval",
-                    "arguments": {
-                        "action": "fund_management_maintenance",
-                        "requester_email": "jsutton@finance.com"
-                    },
-                    "output": {
-                        "approval_valid": true,
-                        "message": "Role 'fund_manager' is directly authorized for action 'fund_management_maintenance'"
                     }
                     },
                     {
