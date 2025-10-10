@@ -37,18 +37,6 @@
             "success": true
         }
         },
-        
-        {
-        "name": "check_approval",
-        "arguments": {
-            "action": "portfolio_holding_management",
-            "requester_email": "lsmith@yahoo.com"
-        },
-        "output": {
-            "approval_valid": true,
-            "approved_by": "fund_manager"
-        }
-        },
         {
         "name": "search_investor_entities",
         "arguments": {
