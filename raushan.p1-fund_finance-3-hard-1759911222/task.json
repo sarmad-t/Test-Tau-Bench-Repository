@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
       "user_id": "25",
-      "instruction": "You are Jose Richards (email: jose.richards@outlook.com), the compliance officer. Review the subscription for investor 'Garcia, Daniels and Dunn' into the 'Francis Group Value Fund'; if the investor is accredited and the fund is open to subscriptions, approve it and update the record to an approved amount of 1,000,000 with a request date of 2025-10-09.",
+      "instruction": "You are Jose Richards (email: jose.richards@outlook.com), the compliance officer. You need to review the subscription for investor 'Garcia, Daniels and Dunn' into the 'Francis Group Value Fund' and, if the investor qualifies as accredited and the fund is open to new subscriptions, you may approve it with an updated amount of 1,000,000 and a request date of 2025-10-09.",
       "actions": [
         {
           "name": "search_user_entities",
