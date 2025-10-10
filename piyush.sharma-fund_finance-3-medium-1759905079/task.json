@@ -7,17 +7,14 @@
     "interface_num": 3,
     "task": {
         "user_id": "5",
-        "instruction": "Your name is Anthony Gonzalez, a Finance Officer with the email 'anthonygonzalez@gmail.com'. You want to offboard a investor named 'Thompson and Sons' having registration_number as 81009963 due to inactivity post taking approval from Jeffery Brock.",
+        "instruction": "Your name is Anthony Gonzalez, a Finance Officer with the email 'anthonygonzalez@gmail.com'. You want to offboard a investor named 'Thompson and Sons' having registration_number as 81009963 due to inactivity.",
         "actions": [
             {
                 "name": "find_user_entities",
                 "arguments": {
                     "entity_type": "users",
                     "filters": {
-                        "first_name": "Anthony",
-                        "last_name": "Gonzalez",
-                        "email": "anthonygonzalez@gmail.com",
-                        "role": "finance_officer"
+                        "email": "anthonygonzalez@gmail.com"
                     }
                 },
                 "output": {
@@ -43,11 +40,11 @@
                 "name":"validate_approval",
                 "arguments": {
                     "action":"investor_offboarding",
-                    "approver_email":"jefferybrock@outlook.com"
+                    "approver_email":"anthonygonzalez@gmail.com"
                 },
                 "output": {
                     "approval_valid": true,
-                    "message": "Role 'compliance_officer' is directly authorized for action 'investor_offboarding'"
+                    "approved_by": "compliance_officer"
                 }
             },
             {
