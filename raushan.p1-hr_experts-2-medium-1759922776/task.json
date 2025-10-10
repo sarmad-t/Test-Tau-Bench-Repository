@@ -1,0 +1,209 @@
+{
+  "env": "hr_experts",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 1,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "6",
+    "instruction": "You are Tina Hale (Email: tina86@yahoo.com), an HR Manager. You need to review and approve the new hire request for the UX Designer, position code 180 to ensure it meets company HR compliance and staffing requirements before it proceeds to onboarding.",
+    "actions": [
+        {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "first_name": "Tina",
+          "last_name": "Hale"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-08-21T15:10:45",
+            "email": "tina86@yahoo.com",
+            "first_name": "Tina",
+            "last_name": "Hale",
+            "mfa_enabled": true,
+            "phone_number": "+19386024033",
+            "role": "hr_manager",
+            "status": "active",
+            "updated_at": "2024-10-19T22:44:53",
+            "user_id": "6"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_job_entities",
+      "arguments": {
+        "entity_type": "job_positions",
+        "filters": {
+          "title": "UX Designer",
+          "status": "open",
+          "position_id": "180"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "job_positions",
+        "results": [
+          {
+            "created_at": "2024-05-28T00:23:27",
+            "department_id": "40",
+            "employment_type": "full_time",
+            "hourly_rate_max": 55.0,
+            "hourly_rate_min": 35.0,
+            "job_level": "mid",
+            "position_id": "180",
+            "status": "open",
+            "title": "UX Designer",
+            "updated_at": "2024-11-03T18:33:54"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_candidate",
+      "arguments": {
+        "action": "create",
+        "email": "ava.patel@designmail.com",
+        "first_name": "Ava",
+        "last_name": "Patel",
+        "source": "job_board"
+      },
+      "output": {
+        "candidate_data": {
+          "address": null,
+          "candidate_id": "251",
+          "created_at": "2025-10-01T12:00:00",
+          "email": "ava.patel@designmail.com",
+          "first_name": "Ava",
+          "last_name": "Patel",
+          "phone_number": null,
+          "source": "job_board",
+          "status": "new",
+          "updated_at": "2025-10-01T12:00:00"
+        },
+        "candidate_id": "251",
+        "message": "Candidate 'Ava Patel' created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "validate_approval",
+      "arguments": {
+        "action": "employee_onboarding",
+        "requester_email": "tina86@yahoo.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "approved_by": [
+          "compliance_officer",
+          "hr_manager"
+        ],
+        "message": "All required approvals received from: hr_manager, compliance_officer"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "operation": "create",
+        "reference_id": "180",
+        "reference_type": "job_positions",
+        "user_id": "6"
+      },
+      "output": {
+        "action": "update",
+        "field_name": null,
+        "log_id": "2885",
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "180",
+        "reference_type": "job_positions",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "6"
+      }
+    }
+    ],
+    "outputs":[
+        "180",
+        "251",
+        "2885"
+    ],
+    "edges": [
+        {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, first_name, last_name",
+        "input": "entity_type, filters.first_name, filters.last_name"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_job_entities",
+      "connection": {
+        "output": "entity_type, title, status, position_id",
+        "input": "entity_type, filters.title, filters.status, filters.position_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_candidate",
+      "connection": {
+        "output": "action, email, first_name, last_name, source",
+        "input": "action, email, first_name, last_name, source"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "validate_approval",
+      "connection": {
+        "output": "results[0].email",
+        "input": "requester_email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "validate_approval",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "search_job_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].position_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, operation, reference_type",
+        "input": "action, operation, reference_type"
+      }
+    }
+    ],
+    "num_edges": 8
+  }
+}
+ 
