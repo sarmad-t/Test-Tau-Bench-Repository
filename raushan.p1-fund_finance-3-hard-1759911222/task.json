@@ -199,7 +199,7 @@
           "from": "search_user_entities",
           "to": "check_approval",
           "connection": {
-            "output": "output.results[0].email",
+            "output": "results[0].email",
             "input": "requester_email"
           }
         },
@@ -231,7 +231,7 @@
           "from": "search_fund_entities",
           "to": "search_investment_flow_entities",
           "connection": {
-            "output": "output.results[0].fund_id",
+            "output": "results[0].fund_id",
             "input": "filters.fund_id"
           }
         },
@@ -239,7 +239,7 @@
           "from": "search_investor_entities",
           "to": "search_investment_flow_entities",
           "connection": {
-            "output": "output.results[0].investor_id",
+            "output": "results[0].investor_id",
             "input": "filters.investor_id"
           }
         },
@@ -255,7 +255,7 @@
           "from": "search_investment_flow_entities",
           "to": "handle_subscription",
           "connection": {
-            "output": "output.results[0].subscription_id",
+            "output": "results[0].subscription_id",
             "input": "subscription_id"
           }
         },
