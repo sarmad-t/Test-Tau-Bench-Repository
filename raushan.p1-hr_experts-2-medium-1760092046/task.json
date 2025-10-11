@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "11",
-        "instruction": "You are Gina Banks (email: gina.banks@outlook.com), a recruiter. You want to setting up a technical interview on 2025-10-10 at 13:00 for the position of Design Director in Sustainability department for the candidate Kyle Robles (email: kyle.robles@yahoo.com) and you want to assign Sonya Garcia (email: sonya68@protonmail.com) as the interviewer.",
+        "instruction": "You are Gina Banks (email: gina.banks@outlook.com), a recruiter. You would like to schedule a technical interview on 2025-10-10 at 13:00 for the position of Design Director in Sustainability department with the candidate Kyle Robles (email: kyle.robles@yahoo.com) and you would like to assign Sonya Garcia (email: sonya68@protonmail.com) as the interviewer.",
         "actions": [
             {
                 "name": "search_user_employee_entities",
