@@ -1,0 +1,291 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "11",
+        "instruction": "You are Gina Banks (email: gina.banks@outlook.com), a recruiter. You would like to schedule a technical interview on 2025-10-10 at 13:00 for the position of Design Director in Sustainability department with the candidate Kyle Robles (email: kyle.robles@yahoo.com) and you would like to assign Sonya Garcia (email: sonya68@protonmail.com) as the interviewer.",
+        "actions": [
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "gina.banks@outlook.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2020-11-26T13:25:25",
+                            "email": "gina.banks@outlook.com",
+                            "first_name": "Gina",
+                            "last_name": "Banks",
+                            "mfa_enabled": true,
+                            "phone_number": "+19298421880",
+                            "role": "recruiter",
+                            "status": "active",
+                            "updated_at": "2023-05-22T14:48:47",
+                            "user_id": "11"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_recruitment_entities",
+                "arguments": {
+                    "entity_type": "candidates",
+                    "filters": {
+                        "email": "kyle.robles@yahoo.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "candidates",
+                    "results": [
+                        {
+                            "address": "82635 Megan Trafficway Suite 613, West Richardfort, MS 53920",
+                            "candidate_id": "193",
+                            "created_at": "2022-03-24T03:40:34",
+                            "email": "kyle.robles@yahoo.com",
+                            "first_name": "Kyle",
+                            "last_name": "Robles",
+                            "phone_number": "+17188869441",
+                            "source": "job_board",
+                            "status": "new",
+                            "updated_at": "2024-03-13T05:32:05"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_recruitment_entities",
+                "arguments": {
+                    "entity_type": "job_applications",
+                    "filters": {
+                        "candidate_id": "193",
+                        "recruiter_id": "10",
+                        "status": "submitted"
+                    }
+                },
+                "output": {
+                    "count": 2,
+                    "entity_type": "job_applications",
+                    "results": [
+                        {
+                            "ai_screening_score": null,
+                            "application_date": "2022-05-06",
+                            "application_id": "366",
+                            "candidate_id": "193",
+                            "created_at": "2022-05-06T21:50:32",
+                            "final_decision": null,
+                            "position_id": "355",
+                            "recruiter_id": "10",
+                            "status": "submitted",
+                            "updated_at": "2025-03-27T04:17:06"
+                        },
+                        {
+                            "ai_screening_score": null,
+                            "application_date": "2023-04-08",
+                            "application_id": "367",
+                            "candidate_id": "193",
+                            "created_at": "2023-04-08T19:12:00",
+                            "final_decision": null,
+                            "position_id": "280",
+                            "recruiter_id": "10",
+                            "status": "submitted",
+                            "updated_at": "2023-06-13T14:59:22"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "sonya68@protonmail.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2024-10-03T21:06:44",
+                            "email": "sonya68@protonmail.com",
+                            "first_name": "Sonya",
+                            "last_name": "Garcia",
+                            "mfa_enabled": true,
+                            "phone_number": "+17183431042",
+                            "role": "hiring_manager",
+                            "status": "active",
+                            "updated_at": "2025-04-01T03:24:29",
+                            "user_id": "28"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_interview",
+                "arguments": {
+                    "action": "create",
+                    "interview_data": {
+                        "application_id": "280",
+                        "interviewer_id": "28",
+                        "interview_type": "technical",
+                        "scheduled_date": "2025-10-10T13:00:00"
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "interview_data": {
+                        "application_id": "280",
+                        "communication_score": null,
+                        "created_at": "2025-10-01T12:00:00",
+                        "cultural_fit_score": null,
+                        "duration_minutes": 60,
+                        "interview_id": "348",
+                        "interview_type": "technical",
+                        "interviewer_id": "28",
+                        "overall_rating": null,
+                        "recommendation": null,
+                        "scheduled_date": "2025-10-10T13:00:00",
+                        "status": "scheduled",
+                        "technical_score": null,
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "interview_id": "348",
+                    "message": "Interview 348 scheduled successfully",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "create",
+                    "operation": "create",
+                    "reference_id": "348",
+                    "reference_type": "interviews",
+                    "user_id": "11"
+                },
+                "output": {
+                    "action": "create",
+                    "field_name": null,
+                    "log_id": "2885",
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "348",
+                    "reference_type": "interviews",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "11"
+                }
+            }
+        ],
+        "outputs": [
+            "193",
+            "280",
+            "348"
+        ],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "results[0].candidate_id",
+                    "input": "filters.candidate_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "recruiter_id, status",
+                    "input": "filters.recruiter_id, filters.status"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_interview",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "interview_data.interviewer_id"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "handle_interview",
+                "connection": {
+                    "output": "results[1].position_id",
+                    "input": "interview_data.application_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_interview",
+                "connection": {
+                    "output": "interview_type, scheduled_date",
+                    "input": "interview_data.interview_type, interview_data.scheduled_date"
+                }
+            },
+            {
+                "from": "handle_interview",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "interview_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "action, operation, reference_type",
+                    "input": "action, operation, reference_type"
+                }
+            }
+        ],
+        "num_edges": 11
+    }
+}
