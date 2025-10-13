@@ -1,0 +1,185 @@
+{
+  "env": "hr_experts",
+  "model_provider": "fireworks", 
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 3,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "1",
+    "instruction": "You are Johnny Jones (johnny.jones@protonmail.com), an HR Director. You need to create a new department named 'User Experience Research'. You have to assign Christopher Roach (christopher.roach@yahoo.com) as the manager for this new department.",
+    "actions": [
+              {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "johnny.jones@protonmail.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2021-01-23T23:36:28",
+            "email": "johnny.jones@protonmail.com",
+            "first_name": "Johnny",
+            "last_name": "Jones",
+            "mfa_enabled": false,
+            "phone_number": "+13474618830",
+            "role": "hr_director",
+            "status": "active",
+            "updated_at": "2022-03-03T16:57:44",
+            "user_id": "1"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "validate_approval",
+      "arguments": {
+        "action": "create_department",
+        "requester_email": "johnny.jones@protonmail.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "message": "Role 'hr_director' is directly authorized for action 'create_department'"
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "christopher.roach@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-04-19T05:51:19",
+            "email": "christopher.roach@yahoo.com",
+            "first_name": "Christopher",
+            "last_name": "Roach",
+            "mfa_enabled": false,
+            "phone_number": "+19386718784",
+            "role": "hiring_manager",
+            "status": "active",
+            "updated_at": "2024-07-19T18:26:26",
+            "user_id": "25"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_department",
+      "arguments": {
+        "action": "create",
+        "department_name": "User Experience Research",
+        "manager_id": "25"
+      },
+      "output": {
+        "department_data": {
+          "created_at": "2025-10-01T12:00:00",
+          "department_id": "101",
+          "department_name": "User Experience Research",
+          "manager_id": "25",
+          "status": "active",
+          "updated_at": "2025-10-01T12:00:00"
+        },
+        "department_id": "101",
+        "message": "Department created successfully with ID 101",
+        "success": true
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "create",
+        "operation": "create",
+        "reference_id": "101",
+        "reference_type": "departments",
+        "user_id": "1"
+      },
+      "output": {
+        "action": "create",
+        "field_name": null,
+        "log_id": "2885",
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "101",
+        "reference_type": "departments",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "1"
+      }
+    }          
+    ],
+    "outputs": [],
+
+    "edges": [
+        {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "validate_approval",
+      "connection": {
+        "output": "action, requester_email",
+        "input": "action, requester_email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_department",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "manager_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_department",
+      "connection": {
+        "output": "action, department_name",
+        "input": "action, department_name"
+      }
+    },
+    {
+      "from": "handle_department",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "department_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, operation, reference_type",
+        "input": "action, operation, reference_type"
+      }
+    }        
+   ],
+    "num_edges": 7
+  }
+}
+
