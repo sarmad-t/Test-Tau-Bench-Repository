@@ -1,0 +1,195 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "117",
+        "instruction": "You are Tiffany Sandoval with email tsandoval@hotmail.com. You want to update the skill name from Java to Java Springboot.",
+        "actions": [
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "tsandoval@hotmail.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2023-10-29T07:08:15",
+                        "email": "tsandoval@hotmail.com",
+                        "first_name": "Tiffany",
+                        "last_name": "Sandoval",
+                        "mfa_enabled": true,
+                        "phone_number": "+16465221064",
+                        "role": "hr_director",
+                        "status": "active",
+                        "updated_at": "2025-04-19T05:39:06",
+                        "user_id": "2"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name" : "validate_approval",
+                "arguments" : {
+                    "action" : "skills_management",
+                    "requestor_email": "tsandoval@hotmail.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'hr_director' is directly authorized for action 'skills_management'"
+                }
+            },
+            {
+                "name": "search_job_entities",
+                "arguments": {
+                    "entity_type": "skills",
+                    "filters": { 
+                        "skill_name":"Java"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "skills",
+                    "results": [
+                    {
+                        "skill_id": "2",
+                        "skill_name": "Java",
+                        "status": "active"
+                    }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_skill",
+                "arguments": {
+                    "action": "update",
+                    "skill_id": "2",
+                    "skill_name": "Java Springboot"
+                },
+                "output": {
+                    "message": "Skill with ID '2' updated successfully",
+                    "skill_data": {
+                    "skill_id": "2",
+                    "skill_name": "Java SpringBoot",
+                    "status": "active",
+                    "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "skill_id": "2",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "skill_name",
+                    "old_value": "Java",
+                    "new_value": "Java Springboot",
+                    "operation": "create",
+                    "reference_id": "2",
+                    "reference_type": "skills",
+                    "user_id": "117"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "skill_name",
+                    "log_id": "2885",
+                    "new_value": "Java Springboot",
+                    "old_value": "Java",
+                    "reference_id": "2",
+                    "reference_type": "skills",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "117"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output" : "entity_type, email",
+                    "input" : "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "validate_approval",
+                "connection": {
+                    "output" : "results[0].email",
+                    "input" : "requestor_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output" : "action",
+                    "input" : "action"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_job_entities",
+                "connection": {
+                    "output" : "entity_type, skill_name",
+                    "input" : "entity_type, filters.skill_name"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_skill",
+                "connection": {
+                    "output" : "action,skill name",
+                    "input" : "action, skill_name"
+                }
+            },
+            {
+                "from": "search_job_entities",
+                "to": "handle_skill",
+                "connection": {
+                    "output" : "results[0].skill_id",
+                    "input" : "skill_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output" : "action, action, field_name, old_value, new_value, reference_type",
+                    "input" : "action, operation , field_name, old_value, new_value, reference_type"
+                }
+            },
+            {
+                "from": "handle_skill",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output" : "skill_id",
+                    "input" : "reference_id"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output" : "results[0].user_id",
+                    "input" : "user_id"
+                }
+            }
+        ],
+        "outputs": [
+           
+        ],
+        "num_edges": 9
+    }
+}
