@@ -1,0 +1,260 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "6",
+        "instruction": "You are Tina Hale, an HR Manager with the email 'tina86@yahoo.com'. You want to approve the leave request submitted by employee Randy Williams for sick leave from February 10th to February 12th, 2025. ",
+        
+        "actions": [
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "tina86@yahoo.com",
+                "role": "hr_manager",
+                "status": "active"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2024-08-21T15:10:45",
+                    "email": "tina86@yahoo.com",
+                    "first_name": "Tina",
+                    "last_name": "Hale",
+                    "mfa_enabled": true,
+                    "phone_number": "+19386024033",
+                    "role": "hr_manager",
+                    "status": "active",
+                    "updated_at": "2024-10-19T22:44:53",
+                    "user_id": "6"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "employees",
+                "filters": {
+                "employee_id": "2",
+                "employment_status": "active"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "employees",
+                "results": [
+                {
+                    "address": "61354 Julia Mountains Suite 646, Lake Robert, WV 21052",
+                    "created_at": "2024-10-31T15:35:19",
+                    "date_of_birth": "1988-11-27",
+                    "employee_id": "2",
+                    "employment_status": "active",
+                    "hire_date": "2024-09-12",
+                    "hourly_rate": 16,
+                    "manager_id": "62",
+                    "position_id": "305",
+                    "updated_at": "2025-07-04T03:04:08",
+                    "user_id": "48"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_leave_entities",
+            "arguments": {
+                "entity_type": "leave_requests",
+                "filters": {
+                "employee_id": "2",
+                "leave_type": "sick",
+                "start_date": "2025-02-10",
+                "end_date": "2025-02-12"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "leave_requests",
+                "results": [
+                {
+                    "approval_date": "2025-02-14T22:04:02",
+                    "approved_by": "6",
+                    "created_at": "2025-02-04T07:38:12",
+                    "days_requested": 2,
+                    "employee_id": "2",
+                    "end_date": "2025-02-12",
+                    "leave_id": "5",
+                    "leave_type": "sick",
+                    "remaining_balance": 13.0,
+                    "start_date": "2025-02-10",
+                    "status": "approved",
+                    "updated_at": "2025-03-20T00:14:15"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "handle_leave_requests",
+            "arguments": {
+                "approved_by": "6",
+                "leave_id": "5",
+                "operation": "update",
+                "status": "approved"
+            },
+            "output": {
+                "approval_date": "2025-10-01T12:00:00",
+                "approved_by": "6",
+                "created_at": "2025-02-04T07:38:12",
+                "days_requested": 2,
+                "employee_id": "2",
+                "end_date": "2025-02-12",
+                "leave_id": "5",
+                "leave_type": "sick",
+                "remaining_balance": 13.0,
+                "start_date": "2025-02-10",
+                "status": "approved",
+                "updated_at": "2025-10-01T12:00:00"
+            }
+            },
+            {
+            "name": "handle_audit_logs",
+            "arguments": {
+                "action": "approve",
+                "field_name": "status",
+                "new_value": "approved",
+                "old_value": "pending",
+                "operation": "create",
+                "reference_id": "5",
+                "reference_type": "leave_requests",
+                "user_id": "6"
+            },
+            "output": {
+                "action": "approve",
+                "field_name": "status",
+                "log_id": "2885",
+                "new_value": "approved",
+                "old_value": "pending",
+                "reference_id": "5",
+                "reference_type": "leave_requests",
+                "timestamp": "2025-10-01T12:00:00",
+                "user_id": "6"
+            }
+            }
+        ] ,
+        "output": [
+       
+        ],
+        
+        "edges": [
+        {
+        "from": "instruction",
+        "to": "search_user_employee_entities",
+        "connection": {
+            "output": "email, role, status, entity_type",
+            "input": "filters.email, filters.role, filters.status, entity_type"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "search_user_employee_entities",
+        "connection": {
+            "output": "employee_id, employment_status, entity_type",
+            "input": "filters.employee_id, filters.employment_status, entity_type"
+        }
+        },
+        {
+        "from": "search_user_employee_entities",
+        "to": "search_leave_entities",
+        "connection": {
+            "output": "results[0].employee_id",
+            "input": "filters.employee_id"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "search_leave_entities",
+        "connection": {
+            "output": "leave_type, start_date, end_date, entity_type",
+            "input": "filters.leave_type, filters.start_date, filters.end_date, entity_type"
+        }
+        },
+        {
+        "from": "search_leave_entities",
+        "to": "handle_leave_requests",
+        "connection": {
+            "output": "results[0].leave_id",
+            "input": "leave_id"
+        }
+        },
+        {
+        "from": "search_user_employee_entities",
+        "to": "handle_leave_requests",
+        "connection": {
+            "output": "results[0].user_id",
+            "input": "approved_by"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "handle_leave_requests",
+        "connection": {
+            "output": "operation, status",
+            "input": "operation, status"
+        }
+        },
+        {
+        "from": "search_user_employee_entities",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "results[0].user_id",
+            "input": "user_id"
+        }
+        },
+        {
+        "from": "handle_leave_requests",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "leave_id",
+            "input": "reference_id"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "action, field_name, reference_type, operation",
+            "input": "action, field_name, reference_type, operation"
+        }
+        },
+        {
+        "from": "search_leave_entities",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "results[0].status",
+            "input": "old_value"
+        }
+        },
+        {
+        "from": "handle_leave_requests",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "status",
+            "input": "new_value"
+        }
+        }
+       ],
+        "num_edges": 12
+
+
+    }
+}
