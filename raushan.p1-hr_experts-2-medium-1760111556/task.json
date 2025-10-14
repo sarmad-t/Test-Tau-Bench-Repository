@@ -1,0 +1,394 @@
+{
+  "env": "hr_experts",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 1,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "6",
+    "instruction": "You are Tina Hale (tina86@yahoo.com), the HR Manager. You need to onboard Briana Frederick (email: brianafrederick@gmail.com) as an Intern Financial Analyst with a start date of 2025-10-13 and a maximum hourly rate of 35.00. You also need to properly ensure her employment status is fully established in the system",
+    "actions": [
+      {
+        "name": "search_user_employee_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "email": "tina86@yahoo.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "users",
+          "results": [
+            {
+              "created_at": "2024-08-21T15:10:45",
+              "email": "tina86@yahoo.com",
+              "first_name": "Tina",
+              "last_name": "Hale",
+              "mfa_enabled": true,
+              "phone_number": "+19386024033",
+              "role": "hr_manager",
+              "status": "active",
+              "updated_at": "2024-10-19T22:44:53",
+              "user_id": "6"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "validate_approval",
+        "arguments": {
+          "action": "employee_onboarding",
+          "requester_email": "tina86@yahoo.com"
+        },
+        "output": {
+          "approval_valid": true,
+          "approved_by": [
+            "compliance_officer",
+            "hr_manager"
+          ],
+          "message": "All required approvals received from: compliance_officer, hr_manager"
+        }
+      },
+      {
+        "name": "search_user_employee_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "email": "brianafrederick@gmail.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "users",
+          "results": [
+            {
+              "created_at": "2023-02-06T10:55:20",
+              "email": "brianafrederick@gmail.com",
+              "first_name": "Briana",
+              "last_name": "Frederick",
+              "mfa_enabled": false,
+              "phone_number": "+16786994179",
+              "role": "employee",
+              "status": "active",
+              "updated_at": "2024-05-08T14:03:11",
+              "user_id": "91"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "search_user_employee_entities",
+        "arguments": {
+          "entity_type": "employees",
+          "filters": {
+            "user_id": "91"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entity_type": "employees",
+          "results": [
+            {
+              "address": "68460 Margaret Neck Apt. 162, Rachelbury, FL 06093",
+              "created_at": "2025-08-14T01:36:28",
+              "date_of_birth": "2003-11-18",
+              "employee_id": "45",
+              "employment_status": "terminated",
+              "hire_date": "2025-08-02",
+              "hourly_rate": 94,
+              "manager_id": "33",
+              "position_id": "132",
+              "updated_at": "2025-08-22T03:23:29",
+              "user_id": "91"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "search_job_entities",
+        "arguments": {
+          "entity_type": "job_positions",
+          "filters": {
+            "title": "Financial Analyst",
+            "hourly_rate_max": 35.0,
+            "employment_type": "intern"
+          }
+        },
+        "output": {
+          "count": 2,
+          "entity_type": "job_positions",
+          "results": [
+            {
+              "created_at": "2024-02-20T22:07:47",
+              "department_id": "33",
+              "employment_type": "intern",
+              "hourly_rate_max": 35.0,
+              "hourly_rate_min": 20.0,
+              "job_level": "junior",
+              "position_id": "148",
+              "status": "open",
+              "title": "Financial Analyst",
+              "updated_at": "2025-02-17T07:01:39"
+            },
+            {
+              "created_at": "2024-10-05T08:30:46",
+              "department_id": "81",
+              "employment_type": "intern",
+              "hourly_rate_max": 35.0,
+              "hourly_rate_min": 20.0,
+              "job_level": "junior",
+              "position_id": "366",
+              "status": "draft",
+              "title": "Financial Analyst",
+              "updated_at": "2025-02-21T12:45:55"
+            }
+          ],
+          "success": true
+        }
+      },
+      {
+        "name": "handle_employee",
+        "arguments": {
+          "action": "update",
+          "employee_id": "45",
+          "hire_date": "2025-10-13",
+          "position_id": "148"
+        },
+        "output": {
+          "employee_data": {
+            "address": "68460 Margaret Neck Apt. 162, Rachelbury, FL 06093",
+            "created_at": "2025-08-14T01:36:28",
+            "date_of_birth": "2003-11-18",
+            "employee_id": "45",
+            "employment_status": "terminated",
+            "hire_date": "2025-08-02",
+            "hourly_rate": 94,
+            "manager_id": "33",
+            "position_id": "148",
+            "updated_at": "2025-10-01T12:00:00",
+            "user_id": "91"
+          },
+          "employee_id": "45",
+          "message": "Employee with ID '45' updated successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "handle_user",
+        "arguments": {
+          "action": "update",
+          "status": "active",
+          "user_id": "91"
+        },
+        "output": {
+          "message": "User 91 updated successfully",
+          "success": true,
+          "updated_fields": [
+            "status"
+          ],
+          "user_data": {
+            "created_at": "2023-02-06T10:55:20",
+            "email": "brianafrederick@gmail.com",
+            "first_name": "Briana",
+            "last_name": "Frederick",
+            "mfa_enabled": false,
+            "phone_number": "+16786994179",
+            "role": "employee",
+            "status": "active",
+            "updated_at": "2025-10-01T12:00:00",
+            "user_id": "91"
+          }
+        }
+      },
+      {
+        "name": "handle_audit_logs",
+        "arguments": {
+          "action": "update",
+          "field_name": "status",
+          "new_value": "active",
+          "old_value": "terminated",
+          "operation": "create",
+          "reference_id": "91",
+          "reference_type": "users",
+          "user_id": "6"
+        },
+        "output": {
+          "action": "update",
+          "field_name": "status",
+          "log_id": "2885",
+          "new_value": "active",
+          "old_value": "terminated",
+          "reference_id": "91",
+          "reference_type": "users",
+          "timestamp": "2025-10-01T12:00:00",
+          "user_id": "6"
+        }
+      },
+      {
+        "name": "handle_audit_logs",
+        "arguments": {
+          "action": "update",
+          "new_value": "2025-10-13",
+          "old_value": "2025-08-02",
+          "operation": "create",
+          "reference_id": "45",
+          "reference_type": "employees",
+          "user_id": "6"
+        },
+        "output": {
+          "action": "update",
+          "field_name": null,
+          "log_id": "2886",
+          "new_value": "2025-10-13",
+          "old_value": "2025-08-02",
+          "reference_id": "45",
+          "reference_type": "employees",
+          "timestamp": "2025-10-01T12:00:00",
+          "user_id": "6"
+        }
+      }
+    ],
+    "outputs": [],
+    "edges": [
+      {
+        "from": "instruction",
+        "to": "search_user_employee_entities",
+        "connection": {
+          "output": "entity_type, email",
+          "input": "entity_type, filters.email"
+        }
+      },
+      {
+        "from": "search_user_employee_entities",
+        "to": "validate_approval",
+        "connection": {
+          "output": "results[0].email",
+          "input": "requester_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "validate_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
+        }
+      },
+      {
+        "from": "search_user_employee_entities",
+        "to": "search_user_employee_entities",
+        "connection": {
+          "output": "results[0].user_id",
+          "input": "filters.user_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "search_job_entities",
+        "connection": {
+          "output": "entity_type,title, hourly_rate_max, employment_type",
+          "input": "entity_type,filters.title, filters.hourly_rate_max, filters.employment_type"
+        }
+      },
+      {
+        "from": "search_user_employee_entities",
+        "to": "handle_employee",
+        "connection": {
+          "output": "results[0].employee_id",
+          "input": "employee_id"
+        }
+      },
+      {
+        "from": "search_job_entities",
+        "to": "handle_employee",
+        "connection": {
+          "output": "results[0].position_id",
+          "input": "position_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_employee",
+        "connection": {
+          "output": "action, hire_date",
+          "input": "action, hire_date"
+        }
+      },
+      {
+        "from": "search_user_employee_entities",
+        "to": "handle_user",
+        "connection": {
+          "output": "results[0].user_id",
+          "input": "user_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_user",
+        "connection": {
+          "output": "action, status",
+          "input": "action, status"
+        }
+      },
+      {
+        "from": "handle_user",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "user_data.user_id",
+          "input": "reference_id"
+        }
+      },
+       {
+        "from": "handle_employee",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "employee_data.employee_id",
+          "input": "reference_id"
+        }
+      },
+      
+      {
+        "from": "search_user_employee_entities",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "results[0].employment_status",
+          "input": "old_value"
+        }
+      },
+     
+      
+      {
+        "from": "search_user_employee_entities",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "results[0].hire_date",
+          "input": "old_value"
+        }
+      },
+      
+      {
+        "from": "search_user_employee_entities",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "results[0].user_id",
+          "input": "user_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "action, field_name, new_value, operation, reference_type",
+          "input": "action, field_name, new_value, operation, reference_type"
+        }
+      }
+      
+    ],
+    "num_edges": 16
+  }
+}
