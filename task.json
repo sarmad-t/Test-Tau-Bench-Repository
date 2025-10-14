@@ -1,0 +1,199 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "1",
+        "instruction": "You are Johnny Jones, an HR Director with the email 'johnny.jones@protonmail.com'. You want to create a new benefits plan called 'Delta Dental PPO' for dental insurance, provided by Delta Dental, with an employee cost of $50.00 per month and an employer cost of $150.00 per month. The plan should be effective from November 1st, 2025.",
+        
+        "actions": [
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "johnny.jones@protonmail.com",
+                "role": "hr_director",
+                "status": "active"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2021-01-23T23:36:28",
+                    "email": "johnny.jones@protonmail.com",
+                    "first_name": "Johnny",
+                    "last_name": "Jones",
+                    "mfa_enabled": false,
+                    "phone_number": "+13474618830",
+                    "role": "hr_director",
+                    "status": "active",
+                    "updated_at": "2022-03-03T16:57:44",
+                    "user_id": "1"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_benefits_entities",
+            "arguments": {
+                "entity_type": "benefits_plans",
+                "filters": {
+                "plan_name": "Delta Dental PPO"
+                }
+            },
+            "output": {
+                "count": 0,
+                "entity_type": "benefits_plans",
+                "results": [],
+                "success": true
+            }
+            },
+            {
+            "name": "validate_approval",
+            "arguments": {
+                "action": "create_benefits_plan",
+                "requester_email": "johnny.jones@protonmail.com"
+            },
+            "output": {
+                "approval_valid": true,
+                "approved_by": "finance_officer",
+                "message": "Approved by authorized role: finance_officer"
+            }
+            },
+            {
+            "name": "handle_benefits_plan",
+            "arguments": {
+                "action": "create",
+                "plan_data": {
+                "plan_name": "Delta Dental PPO",
+                "plan_type": "dental",
+                "provider": "Delta Dental",
+                "employee_cost": 50,
+                "employer_cost": 150,
+                "effective_date": "2025-11-01",
+                "status": "active"
+                }
+            },
+            "output": {
+                "action": "create",
+                "message": "Benefits plan 54 created successfully",
+                "plan_data": {
+                "created_at": "2025-10-01T12:00:00",
+                "effective_date": "2025-11-01",
+                "employee_cost": 50,
+                "employer_cost": 150,
+                "expiration_date": null,
+                "plan_id": "54",
+                "plan_name": "Delta Dental PPO",
+                "plan_type": "dental",
+                "provider": "Delta Dental",
+                "status": "active",
+                "updated_at": "2025-10-01T12:00:00"
+                },
+                "plan_id": "54",
+                "success": true
+            }
+            },
+            {
+            "name": "handle_audit_logs",
+            "arguments": {
+                "action": "create",
+                "operation": "create",
+                "reference_id": "54",
+                "reference_type": "benefits_plans",
+                "user_id": "1"
+            },
+            "output": {
+                "action": "create",
+                "field_name": null,
+                "log_id": "2885",
+                "new_value": null,
+                "old_value": null,
+                "reference_id": "54",
+                "reference_type": "benefits_plans",
+                "timestamp": "2025-10-01T12:00:00",
+                "user_id": "1"
+            }
+            }
+        ],
+        "output": [
+       
+        ],
+        
+        "edges": [
+        {
+        "from": "instruction",
+        "to": "search_user_employee_entities",
+        "connection": {
+            "output": "entity_type, email, role, status",
+            "input": "entity_type, filters.email, filters.role, filters.status"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "search_benefits_entities",
+        "connection": {
+            "output": "entity_type, plan_name",
+            "input": "entity_type, filters.plan_name"
+        }
+        },
+        {
+        "from": "search_user_employee_entities",
+        "to": "validate_approval",
+        "connection": {
+            "output": "results[0].email",
+            "input": "requester_email"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "validate_approval",
+        "connection": {
+            "output": "action",
+            "input": "action"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "handle_benefits_plan",
+        "connection": {
+            "output": "action, plan_name, plan_type, provider, employee_cost, employer_cost, effective_date, status",
+            "input": "action, plan_data.plan_name, plan_data.plan_type, plan_data.provider, plan_data.employee_cost, plan_data.employer_cost, plan_data.effective_date, plan_data.status"
+        }
+        },
+        {
+        "from": "handle_benefits_plan",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "plan_id",
+            "input": "reference_id"
+        }
+        },
+        {
+        "from": "search_user_employee_entities",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "results[0].user_id",
+            "input": "user_id"
+        }
+        },
+        {
+        "from": "instruction",
+        "to": "handle_audit_logs",
+        "connection": {
+            "output": "action, operation, reference_type",
+            "input": "action, operation, reference_type"
+        }
+        }
+        ],
+        "num_edges": 8
+
+    }
+}
