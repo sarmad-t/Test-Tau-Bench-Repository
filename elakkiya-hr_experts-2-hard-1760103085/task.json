@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task":{
         "user_id": "11",
-        "instruction":" You are Gina Banks (gina.banks@outlook.com), an HR recruiter. You need to create a job position for a business analyst in the risk management department, and you must verify that the hiring manager approves the position before candidates can apply. You make sure the position requires SQL and risk management as mandatory skills.",
+        "instruction":" You are Gina Banks (gina.banks@outlook.com), an HR recruiter. You need to create a job position for a Business Analyst in the Risk Management department. You make sure the position requires SQL and Risk Management as mandatory skills.",
         "actions": [
             {
                 "name": "search_user_employee_entities",
@@ -258,18 +258,9 @@
                 "from": "instruction",
                 "to": "search_job_entities",
                 "connection": {
-                    "output": "skill_name, entity_type",
-                    "input": "filters.skill_name, entity_type"
+                    "output": "skill_name, entity_type, title",
+                    "input": "filters.skill_name, entity_type, filters.title"
                 }
-            },
-            {
-                "from": "instruction",
-                "to": "search_job_entities",
-                "connection": {
-                    "output": "title, entity_type",
-                    "input": "filters.title, entity_type"
-                }
-
             },
             {
                 "from": "search_department_entities",
@@ -345,7 +336,7 @@
             }
        
         ],
-        "num_edges": 14
+        "num_edges": 13
     }
 }
 
