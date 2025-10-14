@@ -1,0 +1,292 @@
+{ 
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task":{
+        "user_id": "18",
+        "instruction":" You are Kaitlyn Le (kaitlyn.le@outlook.com), a payroll administrator. You need to approve the timesheet submitted by the employee Darryl Taylor (dtaylor@hotmail.com) for January 13, 2025.",
+        "actions": [
+           {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "kaitlyn.le@outlook.com"
+                    }
+                },
+                "output": 
+                {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2023-06-30T18:02:05",
+                            "email": "kaitlyn.le@outlook.com",
+                            "first_name": "Kaitlyn",
+                            "last_name": "Le",
+                            "mfa_enabled": false,
+                            "phone_number": "+12569341011",
+                            "role": "payroll_administrator",
+                            "status": "active",
+                            "updated_at": "2024-11-22T20:13:03",
+                            "user_id": "18"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "dtaylor@hotmail.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2020-01-28T13:13:54",
+                            "email": "dtaylor@hotmail.com",
+                            "first_name": "Darryl",
+                            "last_name": "Taylor",
+                            "mfa_enabled": true,
+                            "phone_number": "+12128718255",
+                            "role": "employee",
+                            "status": "active",
+                            "updated_at": "2020-05-29T18:02:28",
+                            "user_id": "146"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "employees",
+                    "filters": {
+                        "user_id": "146"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "employees",
+                    "results": [
+                        {
+                            "address": "877 Schneider Road Apt. 759, New Pamela, PR 30113",
+                            "created_at": "2024-01-18T13:43:36",
+                            "date_of_birth": "1968-01-29",
+                            "employee_id": "100",
+                            "employment_status": "active",
+                            "hire_date": "2023-07-08",
+                            "hourly_rate": 163,
+                            "manager_id": null,
+                            "position_id": "414",
+                            "updated_at": "2024-06-28T04:38:54",
+                            "user_id": "146"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments":{
+                    "action": "timesheet_approval",
+                    "requester_email": "kaitlyn.le@outlook.com"
+                },
+                "output": 
+                {
+                    "approval_valid": true,
+                    "approved_by": "hiring_manager",
+                    "message": "Approved by authorized role: hiring_manager"
+                }
+            },
+            {
+                "name": "search_timesheet_entities",
+                "arguments":{
+                    "entity_type": "employee_timesheets",
+                    "filters":{
+                        "employee_id": "100",
+                        "work_date": "2025-01-13"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "employee_timesheets",
+                    "results": [
+                        {
+                            "approved_by": null,
+                            "break_duration_minutes": 76,
+                            "clock_in_time": "2025-01-13T08:32:00",
+                            "clock_out_time": "2025-01-13T12:37:24",
+                            "created_at": "2025-01-14T23:35:34",
+                            "employee_id": "100",
+                            "project_code": "PRJ1505",
+                            "status": "submitted",
+                            "timesheet_id": "866",
+                            "total_hours": 4.09,
+                            "updated_at": "2025-06-10T18:43:36",
+                            "work_date": "2025-01-13"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_timesheet_entries",
+                "arguments": {
+                    "action": "update",
+                    "timesheet_data": 
+                    {
+                        "status": "approved", 
+                        "approved_by": "18"
+                    },
+                    "timesheet_id": "866"
+                },
+                "output": 
+                {
+                    "action": "update",
+                    "message": "Timesheet entry 866 updated successfully",
+                    "success": true,
+                    "timesheet_data": {
+                        "approved_by": "18",
+                        "break_duration_minutes": 76,
+                        "clock_in_time": "2025-01-13T08:32:00",
+                        "clock_out_time": "2025-01-13T12:37:24",
+                        "created_at": "2025-01-14T23:35:34",
+                        "employee_id": "100",
+                        "project_code": "PRJ1505",
+                        "status": "approved",
+                        "timesheet_id": "866",
+                        "total_hours": 4.09,
+                        "updated_at": "2025-10-01T12:00:00",
+                        "work_date": "2025-01-13"
+                    },
+                    "timesheet_id": "866"
+                }
+            },
+            {
+                "name":"handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "operation": "create",
+                    "reference_id": "866",
+                    "reference_type": "employee_timesheets",
+                    "user_id": "18"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": null,
+                    "log_id": "2885",
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": "866",
+                    "reference_type": "employee_timesheets",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "18"
+                }
+            }                             
+        ],
+        "output": [],
+        "edges": [
+           {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+                    "output": "email, entity_type",
+                    "input": "filters.email, entity_type"
+                }
+           },
+           {
+            "from": "search_user_employee_entities",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "filters.user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action, requester_email",
+                    "input": "action, requester_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_timesheet_entities",
+                "connection": {
+                    "output": "work_date",
+                    "input": "filters.work_date"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_timesheet_entities",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },
+           {
+                "from": "instruction",
+                "to": "handle_timesheet_entries",
+                "connection": {
+                    "output": "action, status",
+                    "input": "action, timesheet_data.status"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_timesheet_entries",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "timesheet_data.approved_by"
+                }
+            },
+            {
+                "from": "search_timesheet_entities",
+                "to": "handle_timesheet_entries",
+                "connection": {
+                    "output": "results[0].timesheet_id",
+                    "input": "timesheet_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "action, operation, reference_type",
+                    "input": "action, operation, reference_type"
+                }
+            },
+            {
+                "from": "handle_timesheet_entries",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "timesheet_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "user_id"
+                }
+            }           
+        ],
+        "num_edges":11
+    }
+}
+
+
