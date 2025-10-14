@@ -1,0 +1,396 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "10",
+        "instruction": "You are Harold Gates, a recruiter with the email 'harold.gates@company.com'. You want to schedule a technical interview for candidate George Tucker, who applied for the 'HR Business Partner' position. The interview should be conducted by Renee Mosley on September 25th, 2025 at 10:00 AM, with a duration of 60 minutes.",
+        
+        "actions": [
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "harold.gates@company.com",
+                "role": "recruiter",
+                "status": "active"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2023-08-17T13:25:06",
+                    "email": "harold.gates@company.com",
+                    "first_name": "Harold",
+                    "last_name": "Gates",
+                    "mfa_enabled": true,
+                    "phone_number": "+12127236267",
+                    "role": "recruiter",
+                    "status": "active",
+                    "updated_at": "2024-02-03T13:00:39",
+                    "user_id": "10"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_recruitment_entities",
+            "arguments": {
+                "entity_type": "candidates",
+                "filters": {
+                "first_name": "George",
+                "last_name": "Tucker",
+                "email": "george94@outlook.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "candidates",
+                "results": [
+                {
+                    "address": "PSC 9822, Box 2070, APO AP 05724",
+                    "candidate_id": "1",
+                    "created_at": "2023-03-26T01:14:12",
+                    "email": "george94@outlook.com",
+                    "first_name": "George",
+                    "last_name": "Tucker",
+                    "phone_number": "+19386111931",
+                    "source": "career_fair",
+                    "status": "hired",
+                    "updated_at": "2023-05-24T06:45:22"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_job_entities",
+            "arguments": {
+                "entity_type": "job_positions",
+                "filters": {
+                "title": "HR Business Partner",
+                "position_id": "1"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "job_positions",
+                "results": [
+                {
+                    "created_at": "2023-11-19T07:44:53",
+                    "department_id": "1",
+                    "employment_type": "full_time",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "1",
+                    "status": "closed",
+                    "title": "HR Business Partner",
+                    "updated_at": "2024-10-31T08:29:59"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_recruitment_entities",
+            "arguments": {
+                "entity_type": "job_applications",
+                "filters": {
+                "candidate_id": "1"
+                }
+            },
+            "output": {
+                "count": 3,
+                "entity_type": "job_applications",
+                "results": [
+                {
+                    "ai_screening_score": 86.42,
+                    "application_date": "2024-02-21",
+                    "application_id": "1",
+                    "candidate_id": "1",
+                    "created_at": "2024-02-21T04:20:08",
+                    "final_decision": "hire",
+                    "position_id": "448",
+                    "recruiter_id": "10",
+                    "status": "accepted",
+                    "updated_at": "2024-06-16T18:27:35"
+                },
+                {
+                    "ai_screening_score": 61.43,
+                    "application_date": "2025-01-20",
+                    "application_id": "2",
+                    "candidate_id": "1",
+                    "created_at": "2025-01-20T07:26:05",
+                    "final_decision": "hire",
+                    "position_id": "448",
+                    "recruiter_id": "10",
+                    "status": "accepted",
+                    "updated_at": "2025-07-02T11:28:03"
+                },
+                {
+                    "ai_screening_score": 84.04,
+                    "application_date": "2024-09-14",
+                    "application_id": "3",
+                    "candidate_id": "1",
+                    "created_at": "2024-09-14T05:56:53",
+                    "final_decision": "hire",
+                    "position_id": "448",
+                    "recruiter_id": "10",
+                    "status": "accepted",
+                    "updated_at": "2024-12-12T07:03:55"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "reneemosley@company.com",
+                "status": "active"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2024-01-05T11:36:06",
+                    "email": "reneemosley@company.com",
+                    "first_name": "Renee",
+                    "last_name": "Mosley",
+                    "mfa_enabled": false,
+                    "phone_number": "+19386974032",
+                    "role": "hr_manager",
+                    "status": "active",
+                    "updated_at": "2025-01-10T07:03:34",
+                    "user_id": "7"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
+                "entity_type": "employees",
+                "filters": {
+                "first_name": "Renee",
+                "last_name": "Mosley",
+                "employment_status": "active"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "employees",
+                "results": [
+                {
+                    "address": "8679 Zavala Wall, Staceyhaven, WI 63500",
+                    "created_at": "2025-06-27T22:46:16",
+                    "date_of_birth": "1992-03-09",
+                    "employee_id": "7",
+                    "employment_status": "active",
+                    "hire_date": "2025-05-22",
+                    "hourly_rate": 48,
+                    "manager_id": "35",
+                    "position_id": "174",
+                    "updated_at": "2025-07-11T02:49:29",
+                    "user_id": "53"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "handle_interview",
+            "arguments": {
+                "action": "create",
+                "interview_data": {
+                "application_id": "3",
+                "interviewer_id": "7",
+                "interview_type": "technical",
+                "scheduled_date": "2025-09-25T10:00:00",
+                "duration_minutes": 60,
+                "status": "scheduled"
+                },
+                "interview_id": "7"
+            },
+            "output": {
+                "action": "create",
+                "interview_data": {
+                "application_id": "3",
+                "communication_score": null,
+                "created_at": "2025-10-01T12:00:00",
+                "cultural_fit_score": null,
+                "duration_minutes": 60,
+                "interview_id": "348",
+                "interview_type": "technical",
+                "interviewer_id": "7",
+                "overall_rating": null,
+                "recommendation": null,
+                "scheduled_date": "2025-09-25T10:00:00",
+                "status": "scheduled",
+                "technical_score": null,
+                "updated_at": "2025-10-01T12:00:00"
+                },
+                "interview_id": "348",
+                "message": "Interview 348 scheduled successfully",
+                "success": true
+            }
+            },
+            {
+            "name": "handle_audit_logs",
+            "arguments": {
+                "action": "create",
+                "operation": "create",
+                "reference_id": "348",
+                "reference_type": "interviews",
+                "user_id": "10"
+            },
+            "output": {
+                "action": "create",
+                "field_name": null,
+                "log_id": "2885",
+                "new_value": null,
+                "old_value": null,
+                "reference_id": "348",
+                "reference_type": "interviews",
+                "timestamp": "2025-10-01T12:00:00",
+                "user_id": "10"
+            }
+            }
+        ],
+        "output": [
+       
+        ],
+
+        "edges": [
+            {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "entity_type, email, role, status",
+                "input": "entity_type, filters.email, filters.role, filters.status"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_recruitment_entities",
+            "connection": {
+                "output": "entity_type, first_name, last_name, email",
+                "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_job_entities",
+            "connection": {
+                "output": "entity_type, title",
+                "input": "entity_type, filters.title"
+            }
+            },
+            {
+            "from": "search_recruitment_entities",
+            "to": "search_recruitment_entities",
+            "connection": {
+                "output": "results[0].candidate_id",
+                "input": "filters.candidate_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_recruitment_entities",
+            "connection": {
+                "output": "entity_type",
+                "input": "entity_type"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "entity_type, email, status",
+                "input": "entity_type, filters.email, filters.status"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "results[0].first_name, results[0].last_name",
+                "input": "filters.first_name, filters.last_name"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "entity_type, employment_status",
+                "input": "entity_type, filters.employment_status"
+            }
+            },
+            {
+            "from": "search_recruitment_entities",
+            "to": "handle_interview",
+            "connection": {
+                "output": "results[2].application_id",
+                "input": "interview_data.application_id"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_interview",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "interview_data.interviewer_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "handle_interview",
+            "connection": {
+                "output": "action, interview_data.interview_type, interview_data.scheduled_date, interview_data.duration_minutes, interview_data.status",
+                "input": "action, interview_data.interview_type, interview_data.scheduled_date, interview_data.duration_minutes, interview_data.status"
+            }
+            },
+            {
+            "from": "handle_interview",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "interview_id",
+                "input": "reference_id"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "user_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "operation, action, reference_type",
+                "input": "operation, action, reference_type"
+            }
+            }
+        ],
+        "num_edges": 14
+        
+    
+
+    }
+}
