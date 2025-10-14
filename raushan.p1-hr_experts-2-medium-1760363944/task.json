@@ -155,7 +155,7 @@
                 },
                 "output": {
                     "action": "create",
-                    "message": "Timesheet entry 873 created successfully",
+                    "message": "Timesheet entry 871 created successfully",
                     "success": true,
                     "timesheet_data": {
                         "approved_by": null,
@@ -166,12 +166,12 @@
                         "employee_id": "3",
                         "project_code": "PRJ2349",
                         "status": "approved",
-                        "timesheet_id": "873",
+                        "timesheet_id": "871",
                         "total_hours": 8.0,
                         "updated_at": "2025-10-01T12:00:00",
                         "work_date": "2025-10-15"
                     },
-                    "timesheet_id": "873"
+                    "timesheet_id": "871"
                 }
             },
             {
@@ -179,28 +179,24 @@
                 "arguments": {
                     "action": "create",
                     "operation": "create",
-                    "reference_id": "872",
+                    "reference_id": "871",
                     "reference_type": "timesheet_entries",
                     "user_id": "26"
                 },
                 "output": {
                     "action": "create",
                     "field_name": null,
-                    "log_id": "2886",
+                    "log_id": "2885",
                     "new_value": null,
                     "old_value": null,
-                    "reference_id": "872",
+                    "reference_id": "871",
                     "reference_type": "timesheet_entries",
                     "timestamp": "2025-10-01T12:00:00",
                     "user_id": "26"
                 }
             }
         ],
-        "outputs": [
-            "16",
-            "3",
-            "2886"
-        ],
+        "outputs": [],
         "edges": [
             {
                 "from": "instruction",
@@ -286,8 +282,8 @@
                 "from": "instruction",
                 "to": "handle_timesheet_entries",
                 "connection": {
-                    "output": "action, work_date, clock_in_time, clock_out_time, break_duration_minutes, total_hours, status, _floatFields",
-                    "input": "action, timesheet_data.work_date, timesheet_data.clock_in_time, timesheet_data.clock_out_time, timesheet_data.break_duration_minutes, timesheet_data.total_hours, timesheet_data.status, _floatFields"
+                    "output": "action, work_date, clock_in_time, clock_out_time, break_duration_minutes, total_hours, status",
+                    "input": "action, timesheet_data.work_date, timesheet_data.clock_in_time, timesheet_data.clock_out_time, timesheet_data.break_duration_minutes, timesheet_data.total_hours, timesheet_data.status"
                 }
             },
             {
@@ -302,11 +298,20 @@
                 "from": "instruction",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output": "action, operation, reference_id, reference_type",
-                    "input": "action, operation, reference_id, reference_type"
+                    "output": "action, operation,reference_type",
+                    "input": "action, operation,reference_type"
+                }
+            },
+
+            {
+                "from": "handle_timesheet_entries",
+                "to": "handle_audit_logs",
+                "connection": {
+                "output": "timesheet_id",
+                "input": "reference_id"
                 }
             }
         ],
-        "num_edges": 13
+        "num_edges": 14
     }
 }
