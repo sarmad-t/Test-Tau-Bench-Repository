@@ -1,0 +1,343 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "33",
+        "instruction": "You are John Freeman (email: johnfreeman@outlook.com), a finance officer. On 2025-09-20, you need to change the hourly rate to $65 for the employee Jessica Duran (email: jduran@outlook.com) and finalize payment for the 2025-02-01 to 2025-02-28 pay period.",
+        "actions": [
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "johnfreeman@outlook.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2023-01-14T03:16:14",
+                            "email": "johnfreeman@outlook.com",
+                            "first_name": "John",
+                            "last_name": "Freeman",
+                            "mfa_enabled": false,
+                            "phone_number": "+19384125091",
+                            "role": "finance_officer",
+                            "status": "active",
+                            "updated_at": "2025-06-29T23:48:48",
+                            "user_id": "33"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "payroll_correction",
+                    "requester_email": "johnfreeman@outlook.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "message": "Role 'finance_officer' is directly authorized for action 'payroll_correction'"
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "jduran@outlook.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2021-03-23T16:30:43",
+                            "email": "jduran@outlook.com",
+                            "first_name": "Jessica",
+                            "last_name": "Duran",
+                            "mfa_enabled": true,
+                            "phone_number": "+16789732910",
+                            "role": "employee",
+                            "status": "active",
+                            "updated_at": "2024-01-23T18:57:38",
+                            "user_id": "107"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "employees",
+                    "filters": {
+                        "user_id": "107"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "employees",
+                    "results": [
+                        {
+                            "address": "PSC 4868, Box 4783, APO AE 76270",
+                            "created_at": "2025-04-12T10:57:27",
+                            "date_of_birth": "1994-01-25",
+                            "employee_id": "61",
+                            "employment_status": "active",
+                            "hire_date": "2024-10-13",
+                            "hourly_rate": 41,
+                            "manager_id": null,
+                            "position_id": "84",
+                            "updated_at": "2025-04-17T12:01:14",
+                            "user_id": "107"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_payroll_entities",
+                "arguments": {
+                    "entity_type": "payroll_records",
+                    "filters": {
+                        "employee_id": "61",
+                        "pay_period_start": "2025-02-01",
+                        "pay_period_end": "2025-02-28"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "payroll_records",
+                    "results": [
+                        {
+                            "approved_by": "37",
+                            "created_at": "2025-03-03T07:36:17",
+                            "employee_id": "61",
+                            "hourly_rate": 41.0,
+                            "hours_worked": 4.79,
+                            "pay_period_end": "2025-02-28",
+                            "pay_period_start": "2025-02-01",
+                            "payment_date": null,
+                            "payroll_id": "360",
+                            "status": "draft",
+                            "updated_at": "2025-06-13T10:28:31"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_payroll_record",
+                "arguments": {
+                    "action": "update",
+                    "payroll_data": {
+                        "hourly_rate": 65,
+                        "status": "approved"
+                    },
+                    "payroll_id": "360"
+                },
+                "output": {
+                    "action": "update",
+                    "message": "Payroll record 360 corrected successfully",
+                    "payroll_data": {
+                        "approved_by": "37",
+                        "created_at": "2025-03-03T07:36:17",
+                        "employee_id": "61",
+                        "hourly_rate": 65,
+                        "hours_worked": 4.79,
+                        "pay_period_end": "2025-02-28",
+                        "pay_period_start": "2025-02-01",
+                        "payment_date": null,
+                        "payroll_id": "360",
+                        "status": "approved",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "payroll_id": "360",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "hourly_rate",
+                    "new_value": "65",
+                    "old_value": "41",
+                    "operation": "create",
+                    "reference_id": "360",
+                    "reference_type": "payroll_records",
+                    "user_id": "33"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "hourly_rate",
+                    "log_id": "2885",
+                    "new_value": "65",
+                    "old_value": "41",
+                    "reference_id": "360",
+                    "reference_type": "payroll_records",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "33"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "status",
+                    "new_value": "approved",
+                    "old_value": "draft",
+                    "operation": "create",
+                    "reference_id": "360",
+                    "reference_type": "payroll_records",
+                    "user_id": "33"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2886",
+                    "new_value": "approved",
+                    "old_value": "draft",
+                    "reference_id": "360",
+                    "reference_type": "payroll_records",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "33"
+                }
+            }
+        ],
+        "outputs": [],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "results[0].email",
+                    "input": "requester_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action",
+                    "input": "action"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "filters.user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_payroll_entities",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_payroll_entities",
+                "connection": {
+                    "output": "entity_type, pay_period_start, pay_period_end",
+                    "input": "entity_type, filters.pay_period_start, filters.pay_period_end"
+                }
+            },
+            {
+                "from": "search_payroll_entities",
+                "to": "handle_payroll_record",
+                "connection": {
+                    "output": "results[0].payroll_id",
+                    "input": "payroll_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_payroll_record",
+                "connection": {
+                    "output": "action, hourly_rate, status",
+                    "input": "action, payroll_data.hourly_rate, payroll_data.status"
+                }
+            },
+            {
+                "from": "handle_payroll_record",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].payroll_id, results[0].hourly_rate",
+                    "input": "reference_id, new_value"
+                }
+            },
+            {
+                "from": "search_payroll_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].hourly_rate",
+                    "input": "old_value"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "action, field_name, operation, reference_type",
+                    "input": "action, field_name, operation, reference_type"
+                }
+            },
+            {
+                "from": "handle_payroll_record",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].payroll_id, results[0].status",
+                    "input": "reference_id, new_value"
+                }
+            },
+            {
+                "from": "search_payroll_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].status",
+                    "input": "old_value"
+                }
+            }
+        ],
+        "num_edges": 15
+    }
+}
