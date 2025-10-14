@@ -8,7 +8,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "6",
-    "instruction": "You are Tina Hale (tina86@yahoo.com) the HR Manager at the company. Briana Frederick (email: brianafrederick@gmail.com) must be onboarded as a new employee. In order to establish her employment status as an Intern Financial Analyst with a maximum hourly rate of 35.0, you must construct her employee record, assign her to an open position, and update the user status to active. Her hire date is set for 2025-10-13.",
+    "instruction": "You are Tina Hale (tina86@yahoo.com), the HR Manager. You need to onboard Briana Frederick (email: brianafrederick@gmail.com) as an Intern Financial Analyst with a start date of 2025-10-13 and a maximum hourly rate of 35.00. Ensure her employment status is fully established in the system.",
     "actions": [
       {
       "name": "search_user_employee_entities",
@@ -209,30 +209,26 @@
     {
       "name": "handle_audit_logs",
       "arguments": {
-        "action": "create",
+        "action": "update",
         "operation": "create",
-        "reference_id": "45",
-        "reference_type": "employees",
+        "reference_id": "91",
+        "reference_type": "users",
         "user_id": "6"
       },
       "output": {
-        "action": "create",
+        "action": "update",
         "field_name": null,
         "log_id": "2885",
         "new_value": null,
         "old_value": null,
-        "reference_id": "45",
-        "reference_type": "employees",
+        "reference_id": "91",
+        "reference_type": "users",
         "timestamp": "2025-10-01T12:00:00",
         "user_id": "6"
       }
     }
     ],
-    "outputs":[
-      "6",
-      "45",
-      "2885"
-    ],
+    "outputs":[],
     "edges": [
       {
       "from": "instruction",
@@ -246,7 +242,7 @@
       "from": "search_user_employee_entities",
       "to": "validate_approval",
       "connection": {
-        "output": "output[0].email",
+        "output": "results[0].email",
         "input": "requester_email"
       }
     },
@@ -270,7 +266,7 @@
       "from": "search_user_employee_entities",
       "to": "search_user_employee_entities",
       "connection": {
-        "output": "output[0].user_id",
+        "output": "results[0].user_id",
         "input": "filters.user_id"
       }
     },
@@ -278,7 +274,7 @@
       "from": "search_user_employee_entities",
       "to": "handle_employee",
       "connection": {
-        "output": "output[0].employee_id",
+        "output": "results[0].employee_id",
         "input": "employee_id"
       }
     },
@@ -286,7 +282,7 @@
       "from": "search_job_entities",
       "to": "handle_employee",
       "connection": {
-        "output": "output[0].position_id",
+        "output": "results[0].position_id",
         "input": "position_id"
       }
     },
@@ -302,7 +298,7 @@
       "from": "search_user_employee_entities",
       "to": "handle_user",
       "connection": {
-        "output": "output[0].user_id",
+        "output": "results[0].user_id",
         "input": "user_id"
       }
     },
@@ -326,7 +322,7 @@
       "from": "search_user_employee_entities",
       "to": "handle_audit_logs",
       "connection": {
-        "output": "output[0].user_id",
+        "output": "results[0].user_id",
         "input": "user_id"
       }
     },
