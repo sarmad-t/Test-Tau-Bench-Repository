@@ -6,7 +6,7 @@
     "temperature": 1,
     "interface_num": 2,
     "task": {
-        "user_id": "117",
+        "user_id": "2",
         "instruction": "You are Tiffany Sandoval with email tsandoval@hotmail.com. You want to update the skill name from Java to Java Springboot.",
         "actions": [
             {
@@ -41,7 +41,7 @@
                 "name" : "validate_approval",
                 "arguments" : {
                     "action" : "skills_management",
-                    "requestor_email": "tsandoval@hotmail.com"
+                    "requester_email": "tsandoval@hotmail.com"
                 },
                 "output": {
                     "approval_valid": true,
@@ -127,7 +127,7 @@
                 "to": "validate_approval",
                 "connection": {
                     "output" : "results[0].email",
-                    "input" : "requestor_email"
+                    "input" : "requester_email"
                 }
             },
             {
