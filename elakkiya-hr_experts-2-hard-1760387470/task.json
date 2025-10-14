@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task":{
         "user_id": "7",
-        "instruction":" You are Renee Mosley (reneemosley@company.com), an HR manager. You need to establish a new health insurance plan called 'Prudential Whole Life Plan' effective November 1, 2025 with proper approval, and enroll employee Carol Patterson (carolpatterson@yahoo.com) effective November 5, 2025.",
+        "instruction":" You are Renee Mosley (reneemosley@company.com), an HR manager. You need to establish a new life_insurance plan named 'Prudential Whole Life Plan' provided by 'Prudential' effective from November 1, 2025 with employee and employer cost as £0.0 and £65.0. You also enroll Carol Patterson (carolpatterson@yahoo.com) in this plan with individual coverage effective November 5, 2025.",
         "actions": [
             {
                 "name": "search_user_employee_entities",
@@ -118,8 +118,7 @@
                         "provider": "Prudential",
                         "employee_cost": 0.0,
                         "employer_cost": 65.0,
-                        "effective_date": "2023-12-01",
-                        "expiration_date": null
+                        "effective_date": "2025-11-05"
                     }
                 },
                 "output": 
@@ -129,7 +128,7 @@
                     "plan_data": 
                     {
                         "created_at": "2025-10-01T12:00:00",
-                        "effective_date": "2025-11-01",
+                        "effective_date": "2025-11-05",
                         "employee_cost": 0.0,
                         "employer_cost": 65.0,
                         "expiration_date": null,
@@ -141,6 +140,52 @@
                         "updated_at": "2025-10-01T12:00:00"
                     },
                     "plan_id": "54",
+                    "success": true
+                }
+            },
+            {
+                "name": "search_benefits_entities",
+                "arguments": {
+                    "entity_type": "benefits_plans",
+                    "filters": {
+                    "plan_name": "Prudential Whole Life Plan"
+                    }
+                },
+                "output": 
+                {
+                    "count": 1,
+                    "entity_type": "benefits_plans",
+                    "results": [
+                        {
+                            "created_at": "2025-10-01T12:00:00",
+                            "effective_date": "2025-11-01",
+                            "employee_cost": 0.0,
+                            "employer_cost": 65.0,
+                            "expiration_date": null,
+                            "plan_id": "54",
+                            "plan_name": "Prudential Whole Life Plan",
+                            "plan_type": "life_insurance",
+                            "provider": "Prudential",
+                            "status": "active",
+                            "updated_at": "2025-10-01T12:00:00"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_benefits_entities",
+                "arguments": {
+                    "entity_type": "employee_benefits",
+                    "filters": {
+                    "employee_id": "5",
+                    "plan_id": "54"
+                    }
+                },
+                "output": {
+                    "count": 0,
+                    "entity_type": "employee_benefits",
+                    "results": [],
                     "success": true
                 }
             },
@@ -164,7 +209,7 @@
                     "action": "create",
                     "benefits_data": 
                     {
-                        "beneficiary_name": "Kerry Morrison",
+                        "beneficiary_name": "Carol Patterson",
                         "beneficiary_relationship": "self",
                         "coverage_level": "employee_only",
                         "created_at": "2025-10-01T12:00:00",
@@ -221,7 +266,7 @@
                     "reference_type": "employee benefits",
                     "timestamp": "2025-10-01T12:00:00",
                     "user_id": "7"
-  }
+                }
             }                        
         ],
         "output": [],
@@ -269,13 +314,38 @@
                 }
             },
             {
-                "from": "handle_benefits_plan",
+                "from": "instruction",
+                "to": "search_benefits_entities",
+                "connection": {
+                    "output": "plan_name, entity_type",
+                    "input": "filters.plan_name, entity_type"
+                }
+            },
+            {
+                "from": "search_benefits_entities",
+                "to": "search_benefits_entities",
+                "connection": {
+                    "output": "results[0].plan_id",
+                    "input": "filters.plan_id"
+                }
+            },
+           
+            {
+                "from": "search_benefits_entities",
                 "to": "handle_employee_benefits",
                 "connection": {
-                    "output": "plan_id",
+                    "output": "results[0].plan_id",
                     "input": "benefits_data.plan_id"
                 }
-            },       
+            }, 
+              {
+                "from": "search_user_employee_entities",
+                "to": "search_benefits_entities",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },      
             {
                 "from": "search_user_employee_entities",
                 "to": "handle_employee_benefits",
@@ -326,7 +396,7 @@
                 }
             }
         ],
-        "num_edges": 12
+        "num_edges": 15
     }
 }
 
