@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "3",
-        "instruction": "You are Patricia Miller, a trader, with the email 'patriciamiller@gmail.com'. You want to update the price information for the instrument 'Torres Glover and Green Ltd' for the date October 1, 2025. The price details should be open price $46.50, high price $49.20, low price $45.80, and close price $48.75.",
+        "instruction": "You are Patricia Miller, a trader, with the email 'patriciamiller@gmail.com'. You want to create the price information for the instrument 'Torres Glover and Green Ltd' for the date October 1, 2025. The price details should be open price $46.50, high price $49.20, low price $45.80, and close price $48.75.",
         
     "actions": [
     {
