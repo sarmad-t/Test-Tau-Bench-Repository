@@ -7,7 +7,7 @@
     "interface_num":2,
     "task": {
         "user_id": "7",
-        "instruction": "You are a HR Manager, Renee Mosley (reneemosley@company.com), and want to schedule a telephonic interview for a candidate, Michaela Hogan (michaelahogan@hotmail.com), for the position of 'Analytics Manager' in the 'Marketing Operations' department on 20 Oct 2025 between 13:00 hrs and 14:00 hrs",
+        "instruction": "You are an HR Manager, Renee Mosley (reneemosley@company.com), and want to schedule a telephonic interview for a candidate, Michaela Hogan (michaelahogan@hotmail.com), for the position of 'Analytics Manager' in the 'Marketing Operations' department on 20 Oct 2025 between 13:00 hrs and 14:00 hrs",
         "actions": [
            {
       "name": "search_user_employee_entities",
@@ -231,7 +231,7 @@
       "to": "search_user_employee_entities",
       "connection": {
         "output": "entity_type, email",
-        "input": "entity_type, email"
+        "input": "entity_type, filters.email"
       }
     },
     {
@@ -239,7 +239,7 @@
       "to": "search_department_entities",
       "connection": {
         "output": "entity_type, department_name",
-        "input": "entity_type, department_name"
+        "input": "entity_type, filters.department_name"
       }
     },
     {
@@ -247,7 +247,7 @@
       "to": "search_job_entities",
       "connection": {
         "output": "entity_type, title",
-        "input": "entity_type, title"
+        "input": "entity_type, filters.title"
       }
     },
     {
@@ -255,7 +255,7 @@
       "to": "search_job_entities",
       "connection": {
         "output": "results[0].department_id",
-        "input": "department_id"
+        "input": "filters.department_id"
       }
     },
     {
@@ -263,7 +263,7 @@
       "to": "search_recruitment_entities",
       "connection": {
         "output": "entity_type, email",
-        "input": "entity_type, email"
+        "input": "entity_type, filters.email"
       }
     },
     {
@@ -271,7 +271,7 @@
       "to": "search_recruitment_entities",
       "connection": {
         "output": "entity_type, interview_type, scheduled_date",
-        "input": "entity_type, interview_type, scheduled_date"
+        "input": "entity_type, filters.interview_type, filters.scheduled_date"
       }
     },
     {
@@ -279,7 +279,7 @@
       "to": "search_recruitment_entities",
       "connection": {
         "output": "results[0].position_id",
-        "input": "position_id"
+        "input": "filters.position_id"
       }
     },
     {
@@ -287,7 +287,7 @@
       "to": "search_recruitment_entities",
       "connection": {
         "output": "results[0].user_id",
-        "input": "interviewer_id"
+        "input": "filters.interviewer_id"
       }
     },
     {
@@ -295,7 +295,7 @@
       "to": "handle_interview",
       "connection": {
         "output": "action, interview_type, scheduled_date, duration_minutes, status",
-        "input": "action, interview_type, scheduled_date, duration_minutes, status"
+        "input": "interview_data.action, interview_data.interview_type, interview_data.scheduled_date, interview_data.duration_minutes, interview_data.status"
       }
     },
     {
@@ -303,7 +303,7 @@
       "to": "handle_interview",
       "connection": {
         "output": "results[0].user_id",
-        "input": "interviewer_id"
+        "input": "interview_data.interviewer_id"
       }
     },
     {
