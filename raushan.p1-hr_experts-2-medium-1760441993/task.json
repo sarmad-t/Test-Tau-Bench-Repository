@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "6",
-    "instruction": "You are Tina Hale (tina86@yahoo.com), an HR Manager.You need to close the job vacancy for Senior Financial Analyst in the Document Management department.",
+    "instruction": "You are Tina Hale (tina86@yahoo.com), an HR Manager. You need to close the job vacancy for the 'Senior Financial Analyst' position in the 'Document Management' department.",
     "actions": [
       {
         "name": "search_user_employee_entities",
@@ -89,6 +89,18 @@
             }
           ],
           "success": true
+        }
+      },
+      {
+        "name": "validate_approval",
+        "arguments": {
+          "action": "update_job_position",
+          "requester_email": "tina86@yahoo.com"
+        },
+        "output": {
+          "approval_valid": true,
+          "approved_by": "hiring_manager",
+          "message": "Approved by authorized role: hiring_manager"
         }
       },
       {
@@ -178,6 +190,22 @@
         }
       },
       {
+        "from": "search_user_employee_entities",
+        "to": "validate_approval",
+        "connection": {
+          "output": "results[0].email",
+          "input": "requester_email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "validate_approval",
+        "connection": {
+          "output": "action",
+          "input": "action"
+        }
+      },
+      {
         "from": "search_job_entities",
         "to": "handle_job_position",
         "connection": {
@@ -226,6 +254,6 @@
         }
       }
     ],
-    "num_edges": 10
+    "num_edges": 12
   }
 }
