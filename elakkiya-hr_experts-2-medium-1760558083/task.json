@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task":{
         "user_id": "11",
-        "instruction":" You are Gina Banks (gina.banks@outlook.com), a recruiter. You need to create a new job application dated October 16, 2025, for Michael Evans (mevans@company.com) as 'UX Designer' in the Marketing Department.",
+        "instruction":" You are Gina Banks (gina.banks@outlook.com), a recruiter. You need to create a new job application dated October 15, 2025, for Michael Evans (mevans@company.com) as 'UX Designer' in the Marketing Department.",
         "actions": [
            {
                 "name": "search_user_employee_entities",
