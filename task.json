@@ -1,0 +1,311 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "6",
+        "instruction": "You are Tina Hale, an HR Manager with the email tina86@yahoo.com. You want to conduct a quarterly performance review for employee Gary Chavez (email:gary15@outlook.com), covering the period from 2025-10-01 to 2025-12-31, with an overall rating of 'unsatisfactory' and status as 'approved'. Once the review is completed and documented, you want to update his employment status to 'terminated' based on the consistently poor performance evaluation results",
+       "actions": [
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "tina86@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-08-21T15:10:45",
+            "email": "tina86@yahoo.com",
+            "first_name": "Tina",
+            "last_name": "Hale",
+            "mfa_enabled": true,
+            "phone_number": "+19386024033",
+            "role": "hr_manager",
+            "status": "active",
+            "updated_at": "2024-10-19T22:44:53",
+            "user_id": "6"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "validate_approval",
+      "arguments": {
+        "action": "performance_review_final_approval",
+        "requester_email": "tina86@yahoo.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "message": "Role 'hr_manager' is directly authorized for action 'performance_review_final_approval'"
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "gary15@outlook.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2020-03-15T17:28:08",
+            "email": "gary15@outlook.com",
+            "first_name": "Gary",
+            "last_name": "Chavez",
+            "mfa_enabled": false,
+            "phone_number": "+16785798588",
+            "role": "employee",
+            "status": "inactive",
+            "updated_at": "2023-03-14T01:35:52",
+            "user_id": "139"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "employees",
+        "filters": {
+          "user_id": "139"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "employees",
+        "results": [
+          {
+            "address": "47009 Fitzpatrick Neck Apt. 873, Gibsonville, OR 44330",
+            "created_at": "2025-01-05T23:10:00",
+            "date_of_birth": "1996-04-02",
+            "employee_id": "93",
+            "employment_status": "active",
+            "hire_date": "2023-04-24",
+            "hourly_rate": 36,
+            "manager_id": null,
+            "position_id": "226",
+            "updated_at": "2025-05-03T21:41:55",
+            "user_id": "139"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_performance_review",
+      "arguments": {
+        "action": "create",
+        "review_data": {
+          "employee_id": "93",
+          "reviewer_id": "6",
+          "review_period_start": "2025-10-01",
+          "review_period_end": "2025-12-31",
+          "review_type": "quarterly",
+          "overall_rating": "unsatisfactory",
+          "status": "approved"
+        }
+      },
+      "output": {
+        "action": "create",
+        "message": "Performance review 194 created successfully",
+        "review_data": {
+          "communication_score": null,
+          "created_at": "2025-10-01T12:00:00",
+          "employee_id": "93",
+          "goals_achievement_score": null,
+          "leadership_score": null,
+          "overall_rating": "unsatisfactory",
+          "review_id": "194",
+          "review_period_end": "2025-12-31",
+          "review_period_start": "2025-10-01",
+          "review_type": "quarterly",
+          "reviewer_id": "6",
+          "status": "approved",
+          "teamwork_score": null,
+          "technical_skills_score": null,
+          "updated_at": "2025-10-01T12:00:00"
+        },
+        "review_id": "194",
+        "success": true
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "create",
+        "operation": "create",
+        "reference_id": "93",
+        "reference_type": "performance_reviews",
+        "user_id": "6"
+      },
+      "output": {
+        "action": "create",
+        "field_name": null,
+        "log_id": "2885",
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "93",
+        "reference_type": "performance_reviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "6"
+      }
+    },
+    {
+      "name": "handle_employee",
+      "arguments": {
+        "action": "update",
+        "employee_id": "93",
+        "employment_status": "terminated"
+      },
+      "output": {
+        "employee_data": {
+          "address": "47009 Fitzpatrick Neck Apt. 873, Gibsonville, OR 44330",
+          "created_at": "2025-01-05T23:10:00",
+          "date_of_birth": "1996-04-02",
+          "employee_id": "93",
+          "employment_status": "terminated",
+          "hire_date": "2023-04-24",
+          "hourly_rate": 36,
+          "manager_id": null,
+          "position_id": "226",
+          "updated_at": "2025-10-01T12:00:00",
+          "user_id": "139"
+        },
+        "employee_id": "93",
+        "message": "Employee with ID '93' updated successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "employment_status",
+        "new_value": "terminated",
+        "old_value": "active",
+        "operation": "create",
+        "reference_id": "93",
+        "reference_type": "employees",
+        "user_id": "6"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "employment_status",
+        "log_id": "2886",
+        "new_value": "terminated",
+        "old_value": "active",
+        "reference_id": "93",
+        "reference_type": "employees",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "6"
+      }
+    }
+  ],
+                "outputs": [],
+                "edges": [
+{
+"from": "instruction",
+"to": "search_user_employee_entities",
+"connection": {
+"output": "entity_type, filters.email",
+"input": "entity_type, filters.email"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "validate_approval",
+"connection": {
+"output": "output.results[0].email",
+"input": "requester_email"
+}
+},
+{
+"from": "instruction",
+"to": "validate_approval",
+"connection": {
+"output": "action",
+"input": "action"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "search_user_employee_entities",
+"connection": {
+"output": "output.results[0].user_id",
+"input": "filters.user_id"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "handle_performance_review",
+"connection": {
+"output": "output.results[0].employee_id, output.results[0].user_id",
+"input": "review_data.employee_id, review_data.reviewer_id"
+}
+},
+{
+"from": "instruction",
+"to": "handle_performance_review",
+"connection": {
+"output": "action, review_data.review_period_start, review_data.review_period_end, review_data.review_type, review_data.overall_rating, review_data.status",
+"input": "action, review_data.review_period_start, review_data.review_period_end, review_data.review_type, review_data.overall_rating, review_data.status"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "handle_audit_logs",
+"connection": {
+"output": "output.results[0].employee_id, output.results[0].user_id",
+"input": "reference_id, user_id"
+}
+},
+{
+"from": "instruction",
+"to": "handle_audit_logs",
+"connection": {
+"output": "action, operation, reference_type, field_name, old_value",
+"input": "action, operation, reference_type, field_name, old_value"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "handle_employee",
+"connection": {
+"output": "output.results[0].employee_id, output.results[0].employment_status",
+"input": "employee_id, employment_status"
+}
+},
+{
+"from": "instruction",
+"to": "handle_employee",
+"connection": {
+"output": "action",
+"input": "action"
+}
+},
+{
+"from": "handle_employee",
+"to": "handle_audit_logs",
+"connection": {
+"output": "employee_data.employment_status, employee_id",
+"input": "new_value, reference_id"
+}
+}
+],
+"num_edges": 11
+                }
+}
