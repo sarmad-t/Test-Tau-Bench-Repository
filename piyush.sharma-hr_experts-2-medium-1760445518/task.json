@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "25",
-        "instruction": "You are Christopher Roach (email: christopher.roach@yahoo.com), You want to create a new job postition titled Sales Rockstar into the Sales department with job level as senior and should be a full time role between the hourly salary range of 10$ to 50$. ",
+        "instruction": "You are 'Christopher Roach' (email: 'christopher.roach@yahoo.com'), You want to create a new job postition titled 'Sales Rockstar' into the 'Sales' department with job level as 'senior' and should be a 'full time' role between the hourly salary range of '10$' to '50$'. ",
         "actions": [
             {
                 "name": "search_user_employee_entities",
@@ -40,7 +40,7 @@
             {
                 "name" : "validate_approval",
                 "arguments" : {
-                    "action" : "skills_management",
+                    "action" : "create_job_position",
                     "requester_email": "christopher.roach@yahoo.com"
                 },
                 "output": {
@@ -108,8 +108,6 @@
                 "name": "handle_audit_logs",
                 "arguments": {
                     "action": "create",
-                    "field_name": "title",
-                    "new_value": "Sales Rockstar",
                     "operation": "create",
                     "reference_id": "461",
                     "reference_type": "job_positions",
@@ -117,9 +115,9 @@
                 },
                 "output": {
                     "action": "create",
-                    "field_name": "title",
-                    "log_id": "2886",
-                    "new_value": "Sales Rockstar",
+                    "field_name": null,
+                    "log_id": "2885",
+                    "new_value": null,
                     "old_value": null,
                     "reference_id": "461",
                     "reference_type": "job_positions",
@@ -181,8 +179,8 @@
                 "from": "instruction",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output" : "action, action, field_name, new_value, reference_type",
-                    "input" : "action, operation , field_name, new_value, reference_type"
+                    "output" : "action, action, field_name, reference_type",
+                    "input" : "action, operation , field_name, reference_type"
                 }
             },
             {
