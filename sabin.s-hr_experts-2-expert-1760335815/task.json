@@ -66,82 +66,6 @@
       }
     },
     {
-      "name": "search_user_employee_entities",
-      "arguments": {
-        "entity_type": "users",
-        "filters": {
-          "role": "compliance_officer"
-        }
-      },
-      "output": {
-        "count": 5,
-        "entity_type": "users",
-        "results": [
-          {
-            "created_at": "2021-09-20T11:22:51",
-            "email": "arielbenitez@hotmail.com",
-            "first_name": "Ariel",
-            "last_name": "Benitez",
-            "mfa_enabled": false,
-            "phone_number": "+14046541055",
-            "role": "compliance_officer",
-            "status": "active",
-            "updated_at": "2023-11-23T07:37:00",
-            "user_id": "42"
-          },
-          {
-            "created_at": "2024-07-14T01:22:55",
-            "email": "marcus38@yahoo.com",
-            "first_name": "Marcus",
-            "last_name": "Allen",
-            "mfa_enabled": false,
-            "phone_number": "+19179256648",
-            "role": "compliance_officer",
-            "status": "active",
-            "updated_at": "2024-07-29T16:10:36",
-            "user_id": "43"
-          },
-          {
-            "created_at": "2020-02-23T11:15:36",
-            "email": "sarahlang@company.com",
-            "first_name": "Sarah",
-            "last_name": "Lang",
-            "mfa_enabled": false,
-            "phone_number": "+19292582049",
-            "role": "compliance_officer",
-            "status": "active",
-            "updated_at": "2022-11-13T02:29:53",
-            "user_id": "44"
-          },
-          {
-            "created_at": "2020-07-25T06:55:31",
-            "email": "gonzalez114@gmail.com",
-            "first_name": "Robert",
-            "last_name": "Gonzalez",
-            "mfa_enabled": true,
-            "phone_number": "+12124316138",
-            "role": "compliance_officer",
-            "status": "active",
-            "updated_at": "2023-08-02T07:14:27",
-            "user_id": "45"
-          },
-          {
-            "created_at": "2020-05-17T17:54:00",
-            "email": "greer363@gmail.com",
-            "first_name": "Zachary",
-            "last_name": "Greer",
-            "mfa_enabled": true,
-            "phone_number": "+14702417526",
-            "role": "compliance_officer",
-            "status": "active",
-            "updated_at": "2021-11-20T02:45:19",
-            "user_id": "46"
-          }
-        ],
-        "success": true
-      }
-    },
-    {
       "name": "validate_approval",
       "arguments": {
         "action": "employee_onboarding",
@@ -154,21 +78,6 @@
           "hr_manager"
         ],
         "message": "All required approvals received from: hr_manager, compliance_officer"
-      }
-    },
-    {
-      "name": "validate_approval",
-      "arguments": {
-        "action": "employee_onboarding",
-        "requester_email": "arielbenitez@hotmail.com"
-      },
-      "output": {
-        "approval_valid": true,
-        "approved_by": [
-          "compliance_officer",
-          "hr_manager"
-        ],
-        "message": "All required approvals received from: compliance_officer, hr_manager"
       }
     },
     {
@@ -303,6 +212,30 @@
         "timestamp": "2025-10-01T12:00:00",
         "user_id": "7"
       }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "status",
+        "new_value": "active",
+        "old_value": "inactive",
+        "operation": "create",
+        "reference_id": "3",
+        "reference_type": "users",
+        "user_id": "7"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "status",
+        "log_id": "2885",
+        "new_value": "active",
+        "old_value": "inactive",
+        "reference_id": "3",
+        "reference_type": "users",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "7"
+      }
     }
  ],
     "outputs": [],
@@ -314,23 +247,7 @@
       "connection": {
         "output": "entity_type, email",
         "input": "entity_type, filters.email"
-      }
-        },
-        {
-      "from": "instruction",
-      "to": "search_user_employee_entities",
-      "connection": {
-        "output": "entity_type, email",
-        "input": "entity_type, filters.email"
-      }
-        },
-            {
-      "from": "instruction",
-      "to": "search_user_employee_entities",
-      "connection": {
-        "output": "entity_type, role",
-        "input": "entity_type, filters.role"
-      }
+        }
     },
     {
       "from": "instruction",
@@ -338,14 +255,6 @@
       "connection": {
         "output": "action, requester_email",
         "input": "action, requester_email"
-      }
-    },
-    {
-      "from": "search_user_employee_entities",
-      "to": "validate_approval",
-      "connection": {
-        "output": "results[0].email",
-        "input": "requester_email"
       }
     },
     {
@@ -435,7 +344,31 @@
         "output": "action, operation, reference_type",
         "input": "action, operation, reference_type"
       }
-    }        
+    },
+    {
+        "from": "handle_user",
+        "to": "handle_audit_logs",
+        "connection": {
+          "output": "user_data.user_id,user_data.status",
+          "input": "reference_id,new_value"
+        }
+      },
+      {
+         "from": "search_user_employee_entities",
+         "to": "handle_audit_logs",
+         "connection": {
+            "output": "results[0].status",
+            "input": "old_value"
+         }
+      }, 
+      {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "field_name",
+        "input": "field_name"
+      }
+    }       
    ],
     "num_edges": 16
   }
