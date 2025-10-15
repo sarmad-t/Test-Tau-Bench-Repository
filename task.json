@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task":{
         "user_id": "6",
-        "instruction":" You are Tina Hale (tina86@yahoo.com), an HR manager. You need to process a travel expense reimbursement request from Randy Williams (williams441@outlook.com) for £1,200 incurred on October 5, 2025.",
+        "instruction":" You are Tina Hale (tina86@yahoo.com), an HR manager. You need to process a travel expense reimbursement request from Randy Williams (williams441@outlook.com) for 1200 incurred on October 5, 2025.",
         "actions": 
         [
             {
@@ -202,6 +202,7 @@
         "num_edges": 7
     }
 }
+
 
 
 
