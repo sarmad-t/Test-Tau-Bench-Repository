@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "10",
-        "instruction": "You are Harold Gates, a recruiter with the email 'harold.gates@company.com'. You want to schedule a technical interview for candidate George Tucker, who applied for the 'HR Business Partner' position. The interview should be conducted by Renee Mosley on September 25th, 2025 at 10:00 AM, with a duration of 60 minutes.",
+        "instruction": "You are Harold Gates, a recruiter with the email 'harold.gates@company.com'. You want to schedule a technical interview for candidate Kristi Jacobs with the email 'kristijacobs@hotmail.com', who applied for the 'UX Designer' position. The interview should be conducted by Renee Mosley with the email 'reneemosley@company.com' on September 25th, 2025 at 10:00 AM, with a duration of 60 minutes.",
         
         "actions": [
             {
@@ -15,9 +15,7 @@
             "arguments": {
                 "entity_type": "users",
                 "filters": {
-                "email": "harold.gates@company.com",
-                "role": "recruiter",
-                "status": "active"
+                "email": "harold.gates@company.com"
                 }
             },
             "output": {
@@ -41,59 +39,188 @@
             }
             },
             {
-            "name": "search_recruitment_entities",
-            "arguments": {
-                "entity_type": "candidates",
-                "filters": {
-                "first_name": "George",
-                "last_name": "Tucker",
-                "email": "george94@outlook.com"
-                }
-            },
-            "output": {
-                "count": 1,
-                "entity_type": "candidates",
-                "results": [
-                {
-                    "address": "PSC 9822, Box 2070, APO AP 05724",
-                    "candidate_id": "1",
-                    "created_at": "2023-03-26T01:14:12",
-                    "email": "george94@outlook.com",
-                    "first_name": "George",
-                    "last_name": "Tucker",
-                    "phone_number": "+19386111931",
-                    "source": "career_fair",
-                    "status": "hired",
-                    "updated_at": "2023-05-24T06:45:22"
-                }
-                ],
-                "success": true
-            }
-            },
-            {
             "name": "search_job_entities",
             "arguments": {
                 "entity_type": "job_positions",
                 "filters": {
-                "title": "HR Business Partner",
-                "position_id": "1"
+                "title": "UX Designer"
                 }
             },
             "output": {
-                "count": 1,
+                "count": 12,
                 "entity_type": "job_positions",
                 "results": [
                 {
-                    "created_at": "2023-11-19T07:44:53",
-                    "department_id": "1",
+                    "created_at": "2022-10-23T02:19:57",
+                    "department_id": "2",
+                    "employment_type": "part_time",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "9",
+                    "status": "open",
+                    "title": "UX Designer",
+                    "updated_at": "2024-02-11T12:46:33"
+                },
+                {
+                    "created_at": "2022-12-03T14:13:31",
+                    "department_id": "31",
+                    "employment_type": "contract",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "143",
+                    "status": "closed",
+                    "title": "UX Designer",
+                    "updated_at": "2023-07-15T22:32:25"
+                },
+                {
+                    "created_at": "2024-10-31T08:08:38",
+                    "department_id": "38",
+                    "employment_type": "intern",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "171",
+                    "status": "open",
+                    "title": "UX Designer",
+                    "updated_at": "2025-03-24T15:01:25"
+                },
+                {
+                    "created_at": "2024-05-28T00:23:27",
+                    "department_id": "40",
                     "employment_type": "full_time",
                     "hourly_rate_max": 55.0,
                     "hourly_rate_min": 35.0,
                     "job_level": "mid",
-                    "position_id": "1",
+                    "position_id": "180",
+                    "status": "open",
+                    "title": "UX Designer",
+                    "updated_at": "2024-11-03T18:33:54"
+                },
+                {
+                    "created_at": "2024-11-03T21:08:15",
+                    "department_id": "48",
+                    "employment_type": "contract",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "219",
                     "status": "closed",
-                    "title": "HR Business Partner",
-                    "updated_at": "2024-10-31T08:29:59"
+                    "title": "UX Designer",
+                    "updated_at": "2024-12-08T12:49:25"
+                },
+                {
+                    "created_at": "2024-04-24T08:00:20",
+                    "department_id": "57",
+                    "employment_type": "contract",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "267",
+                    "status": "closed",
+                    "title": "UX Designer",
+                    "updated_at": "2025-06-07T21:47:34"
+                },
+                {
+                    "created_at": "2024-10-03T16:33:28",
+                    "department_id": "58",
+                    "employment_type": "part_time",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "277",
+                    "status": "closed",
+                    "title": "UX Designer",
+                    "updated_at": "2024-11-28T23:48:31"
+                },
+                {
+                    "created_at": "2022-01-16T07:20:54",
+                    "department_id": "67",
+                    "employment_type": "full_time",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "313",
+                    "status": "open",
+                    "title": "UX Designer",
+                    "updated_at": "2022-12-12T07:38:41"
+                },
+                {
+                    "created_at": "2021-12-26T04:51:53",
+                    "department_id": "75",
+                    "employment_type": "temporary",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "342",
+                    "status": "closed",
+                    "title": "UX Designer",
+                    "updated_at": "2023-04-14T15:47:10"
+                },
+                {
+                    "created_at": "2024-01-09T01:00:57",
+                    "department_id": "77",
+                    "employment_type": "temporary",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "345",
+                    "status": "open",
+                    "title": "UX Designer",
+                    "updated_at": "2024-10-17T18:17:29"
+                },
+                {
+                    "created_at": "2023-08-29T11:54:57",
+                    "department_id": "92",
+                    "employment_type": "full_time",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "420",
+                    "status": "draft",
+                    "title": "UX Designer",
+                    "updated_at": "2025-02-17T02:09:55"
+                },
+                {
+                    "created_at": "2024-02-09T15:54:48",
+                    "department_id": "97",
+                    "employment_type": "temporary",
+                    "hourly_rate_max": 55.0,
+                    "hourly_rate_min": 35.0,
+                    "job_level": "mid",
+                    "position_id": "447",
+                    "status": "open",
+                    "title": "UX Designer",
+                    "updated_at": "2025-05-07T14:03:22"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_recruitment_entities",
+            "arguments": {
+                "entity_type": "candidates",
+                "filters": {
+                "email": "kristijacobs@hotmail.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "candidates",
+                "results": [
+                {
+                    "address": "33421 Chelsea Summit, Port Sophialand, AR 76283",
+                    "candidate_id": "150",
+                    "created_at": "2022-10-23T02:48:52",
+                    "email": "kristijacobs@hotmail.com",
+                    "first_name": "Kristi",
+                    "last_name": "Jacobs",
+                    "phone_number": "+12052729723",
+                    "source": "recruiter",
+                    "status": "new",
+                    "updated_at": "2023-01-29T10:12:13"
                 }
                 ],
                 "success": true
@@ -104,48 +231,25 @@
             "arguments": {
                 "entity_type": "job_applications",
                 "filters": {
-                "candidate_id": "1"
+                "candidate_id": "150",
+                "position_id": "9"
                 }
             },
             "output": {
-                "count": 3,
+                "count": 1,
                 "entity_type": "job_applications",
                 "results": [
                 {
-                    "ai_screening_score": 86.42,
-                    "application_date": "2024-02-21",
-                    "application_id": "1",
-                    "candidate_id": "1",
-                    "created_at": "2024-02-21T04:20:08",
-                    "final_decision": "hire",
-                    "position_id": "448",
+                    "ai_screening_score": null,
+                    "application_date": "2023-01-24",
+                    "application_id": "284",
+                    "candidate_id": "150",
+                    "created_at": "2023-01-24T17:24:25",
+                    "final_decision": null,
+                    "position_id": "9",
                     "recruiter_id": "10",
-                    "status": "accepted",
-                    "updated_at": "2024-06-16T18:27:35"
-                },
-                {
-                    "ai_screening_score": 61.43,
-                    "application_date": "2025-01-20",
-                    "application_id": "2",
-                    "candidate_id": "1",
-                    "created_at": "2025-01-20T07:26:05",
-                    "final_decision": "hire",
-                    "position_id": "448",
-                    "recruiter_id": "10",
-                    "status": "accepted",
-                    "updated_at": "2025-07-02T11:28:03"
-                },
-                {
-                    "ai_screening_score": 84.04,
-                    "application_date": "2024-09-14",
-                    "application_id": "3",
-                    "candidate_id": "1",
-                    "created_at": "2024-09-14T05:56:53",
-                    "final_decision": "hire",
-                    "position_id": "448",
-                    "recruiter_id": "10",
-                    "status": "accepted",
-                    "updated_at": "2024-12-12T07:03:55"
+                    "status": "submitted",
+                    "updated_at": "2025-01-29T10:10:57"
                 }
                 ],
                 "success": true
@@ -156,8 +260,7 @@
             "arguments": {
                 "entity_type": "users",
                 "filters": {
-                "email": "reneemosley@company.com",
-                "status": "active"
+                "email": "reneemosley@company.com"
                 }
             },
             "output": {
@@ -181,54 +284,22 @@
             }
             },
             {
-            "name": "search_user_employee_entities",
-            "arguments": {
-                "entity_type": "employees",
-                "filters": {
-                "first_name": "Renee",
-                "last_name": "Mosley",
-                "employment_status": "active"
-                }
-            },
-            "output": {
-                "count": 1,
-                "entity_type": "employees",
-                "results": [
-                {
-                    "address": "8679 Zavala Wall, Staceyhaven, WI 63500",
-                    "created_at": "2025-06-27T22:46:16",
-                    "date_of_birth": "1992-03-09",
-                    "employee_id": "7",
-                    "employment_status": "active",
-                    "hire_date": "2025-05-22",
-                    "hourly_rate": 48,
-                    "manager_id": "35",
-                    "position_id": "174",
-                    "updated_at": "2025-07-11T02:49:29",
-                    "user_id": "53"
-                }
-                ],
-                "success": true
-            }
-            },
-            {
             "name": "handle_interview",
             "arguments": {
                 "action": "create",
                 "interview_data": {
-                "application_id": "3",
+                "application_id": "284",
                 "interviewer_id": "7",
                 "interview_type": "technical",
                 "scheduled_date": "2025-09-25T10:00:00",
                 "duration_minutes": 60,
                 "status": "scheduled"
-                },
-                "interview_id": "7"
+                }
             },
             "output": {
                 "action": "create",
                 "interview_data": {
-                "application_id": "3",
+                "application_id": "284",
                 "communication_score": null,
                 "created_at": "2025-10-01T12:00:00",
                 "cultural_fit_score": null,
@@ -270,33 +341,31 @@
             }
             }
         ],
-        "output": [
-       
-        ],
+        "output": [],
 
         "edges": [
             {
             "from": "instruction",
             "to": "search_user_employee_entities",
             "connection": {
-                "output": "entity_type, email, role, status",
-                "input": "entity_type, filters.email, filters.role, filters.status"
+                "output": "email, entity_type",
+                "input": "filters.email, entity_type"
             }
             },
             {
             "from": "instruction",
             "to": "search_recruitment_entities",
             "connection": {
-                "output": "entity_type, first_name, last_name, email",
-                "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+                "output": "email, entity_type",
+                "input": "filters.email, entity_type"
             }
             },
             {
             "from": "instruction",
             "to": "search_job_entities",
             "connection": {
-                "output": "entity_type, title",
-                "input": "entity_type, filters.title"
+                "output": "title, entity_type",
+                "input": "filters.title, entity_type"
             }
             },
             {
@@ -308,6 +377,14 @@
             }
             },
             {
+            "from": "search_job_entities",
+            "to": "search_recruitment_entities",
+            "connection": {
+                "output": "results[0].position_id",
+                "input": "filters.position_id"
+            }
+            },
+            {
             "from": "instruction",
             "to": "search_recruitment_entities",
             "connection": {
@@ -316,34 +393,10 @@
             }
             },
             {
-            "from": "instruction",
-            "to": "search_user_employee_entities",
-            "connection": {
-                "output": "entity_type, email, status",
-                "input": "entity_type, filters.email, filters.status"
-            }
-            },
-            {
-            "from": "search_user_employee_entities",
-            "to": "search_user_employee_entities",
-            "connection": {
-                "output": "results[0].first_name, results[0].last_name",
-                "input": "filters.first_name, filters.last_name"
-            }
-            },
-            {
-            "from": "instruction",
-            "to": "search_user_employee_entities",
-            "connection": {
-                "output": "entity_type, employment_status",
-                "input": "entity_type, filters.employment_status"
-            }
-            },
-            {
             "from": "search_recruitment_entities",
             "to": "handle_interview",
             "connection": {
-                "output": "results[2].application_id",
+                "output": "results[0].application_id",
                 "input": "interview_data.application_id"
             }
             },
@@ -351,7 +404,7 @@
             "from": "search_user_employee_entities",
             "to": "handle_interview",
             "connection": {
-                "output": "results[0].employee_id",
+                "output": "results[0].user_id",
                 "input": "interview_data.interviewer_id"
             }
             },
@@ -359,7 +412,7 @@
             "from": "instruction",
             "to": "handle_interview",
             "connection": {
-                "output": "action, interview_data.interview_type, interview_data.scheduled_date, interview_data.duration_minutes, interview_data.status",
+                "output": "action, interview_type, scheduled_date, duration_minutes, status",
                 "input": "action, interview_data.interview_type, interview_data.scheduled_date, interview_data.duration_minutes, interview_data.status"
             }
             },
@@ -387,10 +440,8 @@
                 "input": "operation, action, reference_type"
             }
             }
-        ],
-        "num_edges": 14
-        
-    
+         ],
+        "num_edges": 12
 
     }
 }
