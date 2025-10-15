@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "1",
-        "instruction": "You are Johnny Jones, the HR Director, with the email johnny.jones@protonmail.com. You want to update the status of the 'Infrastructure Manager' position, which has a temporary employment type, to Open. You also want to update the employment status of previously terminated employee Brittany Rogers to Active and enroll her in the 'Life Insurance Plan' with individual coverage effective 2025-07-14",
+        "instruction": "You are Johnny Jones, the HR Director, with the email johnny.jones@protonmail.com. You want to update the status of the 'Infrastructure Manager' position, which has a 'temporary' employment type, to Open. You also want to update the employment status of previously terminated employee Brittany Rogers (email:brittanyrogers@gmail.com) to 'active' and enroll her in the 'Life Insurance Plan' with individual coverage effective 2025-07-14",
        "actions": [
                 {
                 "name": "search_user_employee_entities",
@@ -346,209 +346,241 @@
                 }
                 }
             ],
-                "outputs": [""],
+                "outputs": [],
                 "edges": [
-                {
-                "from": "instruction",
-                "to": "search_user_employee_entities",
-                "connection": {
-                    "output": "entity_type, filters.email",
-                    "input": "entity_type, filters.email"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "search_job_entities",
-                "connection": {
-                    "output": "entity_type, filters.title, filters.employment_type",
-                    "input": "entity_type, filters.title, filters.employment_type"
-                }
-                },
-                {
-                "from": "search_user_employee_entities",
-                "to": "validate_approval",
-                "connection": {
-                    "output": "output.results[0].email",
-                    "input": "requester_email"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "validate_approval",
-                "connection": {
-                    "output": "action",
-                    "input": "action"
-                }
-                },
-                {
-                "from": "search_job_entities",
-                "to": "handle_job_position",
-                "connection": {
-                    "output": "output.results[0].department_id, output.results[0].position_id",
-                    "input": "department_id, position_id"
-                }
-                },
-                {
-                "from": "validate_approval",
-                "to": "handle_job_position",
-                "connection": {
-                    "output": "approval_valid",
-                    "input": "approval_confirmation"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "handle_job_position",
-                "connection": {
-                    "output": "action, status",
-                    "input": "action, status"
-                }
-                },
-                {
-                "from": "handle_job_position",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "position_data.position_id",
-                    "input": "reference_id.position_id"
-                }
-                },
-                {
-                "from": "search_user_employee_entities",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "output.results[0].user_id",
-                    "input": "user_id"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "action, field_name, new_value, old_value, operation, reference_type",
-                    "input": "action, field_name, new_value, old_value, operation, reference_type"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "search_user_employee_entities",
-                "connection": {
-                    "output": "entity_type, filters.first_name, filters.last_name",
-                    "input": "entity_type, filters.first_name, filters.last_name"
-                }
-                },
-                {
-                "from": "search_user_employee_entities",
-                "to": "search_user_employee_entities",
-                "connection": {
-                    "output": "output.results[0].user_id",
-                    "input": "filters.user_id"
-                }
-                },
-                {
-                "from": "search_user_employee_entities",
-                "to": "handle_employee",
-                "connection": {
-                    "output": "output.results[0].employee_id",
-                    "input": "employee_id"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "handle_employee",
-                "connection": {
-                    "output": "action, employment_status",
-                    "input": "action, employment_status"
-                }
-                },
-                {
-                "from": "handle_employee",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "employee_data.employee_id",
-                    "input": "reference_id.employee_id"
-                }
-                },
-                {
-                "from": "handle_employee",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "employee_data.employment_status",
-                    "input": "new_value"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "old_value, reference_type, operation",
-                    "input": "old_value, reference_type, operation"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "search_benefits_entities",
-                "connection": {
-                    "output": "entity_type, filters.plan_name",
-                    "input": "entity_type, filters.plan_name"
-                }
-                },
-                {
-                "from": "handle_employee",
-                "to": "search_benefits_entities",
-                "connection": {
-                    "output": "employee_data.employee_id",
-                    "input": "filters.employee_id"
-                }
-                },
-                {
-                "from": "search_benefits_entities",
-                "to": "handle_employee_benefits",
-                "connection": {
-                    "output": "output.results[0].plan_id",
-                    "input": "benefits_data.plan_id"
-                }
-                },
-                {
-                "from": "handle_employee",
-                "to": "handle_employee_benefits",
-                "connection": {
-                    "output": "employee_data.employee_id",
-                    "input": "benefits_data.employee_id"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "handle_employee_benefits",
-                "connection": {
-                    "output": "action, benefits_data.enrollment_date, benefits_data.coverage_level",
-                    "input": "action, benefits_data.enrollment_date, benefits_data.coverage_level"
-                }
-                },
-                {
-                "from": "handle_employee_benefits",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "benefits_data.enrollment_id",
-                    "input": "reference_id.enrollment_id"
-                }
-                },
-                {
-                "from": "search_user_employee_entities",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "output.results[0].user_id",
-                    "input": "user_id"
-                }
-                },
-                {
-                "from": "instruction",
-                "to": "handle_audit_logs",
-                "connection": {
-                    "output": "action, operation, reference_type",
-                    "input": "action, operation, reference_type"
-                }
-                }
-            ],
-            "num_edges": 25
+    {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "validate_approval",
+      "connection": {
+        "output": "results[0].email",
+        "input": "requester_email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "validate_approval",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_job_entities",
+      "connection": {
+        "output": "entity_type, title, employment_type",
+        "input": "entity_type, filters.title, filters.employment_type"
+      }
+    },
+    {
+      "from": "search_job_entities",
+      "to": "handle_job_position",
+      "connection": {
+        "output": "results[0].position_id, results[0].department_id, results[0].status",
+        "input": "position_id, department_id, status"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_job_position",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "handle_job_position",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "position_data.position_id, position_data.status",
+        "input": "reference_id, new_value"
+      }
+    },
+    {
+      "from": "search_job_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].status",
+        "input": "old_value"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, field_name, operation, reference_type",
+        "input": "action, field_name, operation, reference_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "filters.user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type",
+        "input": "entity_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_employee",
+      "connection": {
+        "output": "results[0].employee_id, results[0].employment_status",
+        "input": "employee_id, employment_status"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_employee",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "employee_data.employee_id, employee_data.employment_status",
+        "input": "reference_id, new_value"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].employment_status",
+        "input": "old_value"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, field_name, operation, reference_type",
+        "input": "action, field_name, operation, reference_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_benefits_entities",
+      "connection": {
+        "output": "entity_type, plan_name",
+        "input": "entity_type, filters.plan_name"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "search_benefits_entities",
+      "connection": {
+        "output": "employee_data.employee_id",
+        "input": "filters.employee_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_benefits_entities",
+      "connection": {
+        "output": "entity_type",
+        "input": "entity_type"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "employee_data.employee_id",
+        "input": "benefits_data.employee_id"
+      }
+    },
+    {
+      "from": "search_benefits_entities",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "results[0].plan_id",
+        "input": "benefits_data.plan_id"
+      }
+    },
+    {
+      "from": "search_benefits_entities",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "results[0].enrollment_date, results[0].coverage_level",
+        "input": "benefits_data.enrollment_date, benefits_data.coverage_level"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "employee_data.employee_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, operation, reference_type",
+        "input": "action, operation, reference_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    }
+  ],
+  "num_edges": 29
                 }
 }
