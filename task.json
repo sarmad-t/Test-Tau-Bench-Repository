@@ -1,0 +1,586 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "1",
+        "instruction": "You are Johnny Jones, the HR Director, with the email johnny.jones@protonmail.com. You want to update the status of the 'Infrastructure Manager' position, which has a 'temporary' employment type, to Open. You also want to update the employment status of previously terminated employee Brittany Rogers (email:brittanyrogers@gmail.com) to 'active' and enroll her in the 'Life Insurance Plan' with individual coverage effective 2025-07-14",
+       "actions": [
+                {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                    "email": "johnny.jones@protonmail.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2021-01-23T23:36:28",
+                        "email": "johnny.jones@protonmail.com",
+                        "first_name": "Johnny",
+                        "last_name": "Jones",
+                        "mfa_enabled": false,
+                        "phone_number": "+13474618830",
+                        "role": "hr_director",
+                        "status": "active",
+                        "updated_at": "2022-03-03T16:57:44",
+                        "user_id": "1"
+                    }
+                    ],
+                    "success": true
+                }
+                },{
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "update_job_position",
+                    "requester_email": "johnny.jones@protonmail.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "approved_by": "hiring_manager",
+                    "message": "Approved by authorized role: hiring_manager"
+                }
+                },
+                {
+                "name": "search_job_entities",
+                "arguments": {
+                    "entity_type": "job_positions",
+                    "filters": {
+                    "title": "Infrastructure Manager",
+                    "employment_type": "temporary"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "job_positions",
+                    "results": [
+                    {
+                        "created_at": "2024-09-24T03:05:06",
+                        "department_id": "68",
+                        "employment_type": "temporary",
+                        "hourly_rate_max": 125.0,
+                        "hourly_rate_min": 85.0,
+                        "job_level": "manager",
+                        "position_id": "318",
+                        "status": "closed",
+                        "title": "Infrastructure Manager",
+                        "updated_at": "2025-07-12T17:01:36"
+                    }
+                    ],
+                    "success": true
+                }
+                },
+                {
+                "name": "handle_job_position",
+                "arguments": {
+                    "action": "update",
+                    "department_id": "68",
+                    "position_id": "318",
+                    "status": "open"
+                },
+                "output": {
+                    "message": "Job position 318 updated successfully",
+                    "position_data": {
+                    "created_at": "2024-09-24T03:05:06",
+                    "department_id": "68",
+                    "employment_type": "temporary",
+                    "hourly_rate_max": 125.0,
+                    "hourly_rate_min": 85.0,
+                    "job_level": "manager",
+                    "position_id": "318",
+                    "status": "open",
+                    "title": "Infrastructure Manager",
+                    "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "success": true,
+                    "updated_fields": [
+                    "department_id",
+                    "status"
+                    ]
+                }
+                },
+                {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "status",
+                    "new_value": "open",
+                    "old_value": "inactive",
+                    "operation": "create",
+                    "reference_id": {
+                    "position_id": "318"
+                    },
+                    "reference_type": "job_positions",
+                    "user_id": "1"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2885",
+                    "new_value": "open",
+                    "old_value": "inactive",
+                    "reference_id": {
+                    "position_id": "318"
+                    },
+                    "reference_type": "job_positions",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "1"
+                }
+                },
+                {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                    "first_name": "Brittany",
+                    "last_name": "Rogers"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                    {
+                        "created_at": "2022-03-18T16:08:10",
+                        "email": "brittanyrogers@gmail.com",
+                        "first_name": "Brittany",
+                        "last_name": "Rogers",
+                        "mfa_enabled": false,
+                        "phone_number": "+12514061074",
+                        "role": "employee",
+                        "status": "active",
+                        "updated_at": "2023-02-09T17:22:18",
+                        "user_id": "89"
+                    }
+                    ],
+                    "success": true
+                }
+                },
+                {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "employees",
+                    "filters": {
+                    "user_id": "89"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "employees",
+                    "results": [
+                    {
+                        "address": "663 Bass Extensions Apt. 678, North Steven, WA 17010",
+                        "created_at": "2025-07-24T04:45:57",
+                        "date_of_birth": "2006-12-28",
+                        "employee_id": "43",
+                        "employment_status": "terminated",
+                        "hire_date": "2025-04-30",
+                        "hourly_rate": 120,
+                        "manager_id": null,
+                        "position_id": "318",
+                        "updated_at": "2025-08-13T02:39:19",
+                        "user_id": "89"
+                    }
+                    ],
+                    "success": true
+                }
+                },
+                {
+                "name": "handle_employee",
+                "arguments": {
+                    "action": "update",
+                    "employee_id": "43",
+                    "employment_status": "active"
+                },
+                "output": {
+                    "employee_data": {
+                    "address": "663 Bass Extensions Apt. 678, North Steven, WA 17010",
+                    "created_at": "2025-07-24T04:45:57",
+                    "date_of_birth": "2006-12-28",
+                    "employee_id": "43",
+                    "employment_status": "active",
+                    "hire_date": "2025-04-30",
+                    "hourly_rate": 120,
+                    "manager_id": null,
+                    "position_id": "318",
+                    "updated_at": "2025-10-01T12:00:00",
+                    "user_id": "89"
+                    },
+                    "employee_id": "43",
+                    "message": "Employee with ID '43' updated successfully",
+                    "success": true
+                }
+                },
+                {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "employment_status",
+                    "new_value": "active",
+                    "old_value": "terminated",
+                    "operation": "create",
+                    "reference_id": {
+                    "employee_id": "43"
+                    },
+                    "reference_type": "employess",
+                    "user_id": "1"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "employment_status",
+                    "log_id": "2886",
+                    "new_value": "active",
+                    "old_value": "terminated",
+                    "reference_id": {
+                    "employee_id": "43"
+                    },
+                    "reference_type": "employess",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "1"
+                }
+                },
+                {
+                "name": "search_benefits_entities",
+                "arguments": {
+                    "entity_type": "benefits_plans",
+                    "filters": {
+                    "plan_name": "Life Insurance Plan"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "benefits_plans",
+                    "results": [
+                    {
+                        "created_at": "2023-08-10T18:47:27",
+                        "effective_date": "2023-08-19",
+                        "employee_cost": 0.0,
+                        "employer_cost": 50.0,
+                        "expiration_date": "2027-05-23",
+                        "plan_id": "21",
+                        "plan_name": "Life Insurance Plan",
+                        "plan_type": "life_insurance",
+                        "provider": "MetLife",
+                        "status": "active",
+                        "updated_at": "2024-08-13T15:49:58"
+                    }
+                    ],
+                    "success": true
+                }
+                },
+                {
+                "name": "search_benefits_entities",
+                "arguments": {
+                    "entity_type": "employee_benefits",
+                    "filters": {
+                    "employee_id": "43"
+                    }
+                },
+                "output": {
+                    "count": 0,
+                    "entity_type": "employee_benefits",
+                    "results": [],
+                    "success": true
+                }
+                },
+                {
+                "name": "handle_employee_benefits",
+                "arguments": {
+                    "action": "create",
+                    "benefits_data": {
+                    "employee_id": "43",
+                    "plan_id": "21",
+                    "enrollment_date": "2025-07-14",
+                    "coverage_level": "employee_only"
+                    }
+                },
+                "output": {
+                    "action": "create",
+                    "benefits_data": {
+                    "beneficiary_name": null,
+                    "beneficiary_relationship": null,
+                    "coverage_level": "employee_only",
+                    "created_at": "2025-10-01T12:00:00",
+                    "employee_id": "43",
+                    "enrollment_date": "2025-07-14",
+                    "enrollment_id": "271",
+                    "plan_id": "21",
+                    "status": "active",
+                    "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "enrollment_id": "271",
+                    "message": "Employee benefits enrollment 271 created successfully",
+                    "success": true
+                }
+                },
+                {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "create",
+                    "operation": "create",
+                    "reference_id": {
+                    "enrollment_id": "271"
+                    },
+                    "reference_type": "employee_benefits",
+                    "user_id": "1"
+                },
+                "output": {
+                    "action": "create",
+                    "field_name": null,
+                    "log_id": "2887",
+                    "new_value": null,
+                    "old_value": null,
+                    "reference_id": {
+                    "enrollment_id": "271"
+                    },
+                    "reference_type": "employee_benefits",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "1"
+                }
+                }
+            ],
+                "outputs": [],
+                "edges": [
+    {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "validate_approval",
+      "connection": {
+        "output": "results[0].email",
+        "input": "requester_email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "validate_approval",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_job_entities",
+      "connection": {
+        "output": "entity_type, title, employment_type",
+        "input": "entity_type, filters.title, filters.employment_type"
+      }
+    },
+    {
+      "from": "search_job_entities",
+      "to": "handle_job_position",
+      "connection": {
+        "output": "results[0].position_id, results[0].department_id, results[0].status",
+        "input": "position_id, department_id, status"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_job_position",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "handle_job_position",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "position_data.position_id, position_data.status",
+        "input": "reference_id, new_value"
+      }
+    },
+    {
+      "from": "search_job_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].status",
+        "input": "old_value"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, field_name, operation, reference_type",
+        "input": "action, field_name, operation, reference_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "filters.user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type",
+        "input": "entity_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_employee",
+      "connection": {
+        "output": "results[0].employee_id, results[0].employment_status",
+        "input": "employee_id, employment_status"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_employee",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "employee_data.employee_id, employee_data.employment_status",
+        "input": "reference_id, new_value"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].employment_status",
+        "input": "old_value"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, field_name, operation, reference_type",
+        "input": "action, field_name, operation, reference_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_benefits_entities",
+      "connection": {
+        "output": "entity_type, plan_name",
+        "input": "entity_type, filters.plan_name"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "search_benefits_entities",
+      "connection": {
+        "output": "employee_data.employee_id",
+        "input": "filters.employee_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_benefits_entities",
+      "connection": {
+        "output": "entity_type",
+        "input": "entity_type"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "employee_data.employee_id",
+        "input": "benefits_data.employee_id"
+      }
+    },
+    {
+      "from": "search_benefits_entities",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "results[0].plan_id",
+        "input": "benefits_data.plan_id"
+      }
+    },
+    {
+      "from": "search_benefits_entities",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "results[0].enrollment_date, results[0].coverage_level",
+        "input": "benefits_data.enrollment_date, benefits_data.coverage_level"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_employee_benefits",
+      "connection": {
+        "output": "action",
+        "input": "action"
+      }
+    },
+    {
+      "from": "handle_employee",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "employee_data.employee_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, operation, reference_type",
+        "input": "action, operation, reference_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    }
+  ],
+  "num_edges": 29
+                }
+}
