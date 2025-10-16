@@ -233,7 +233,7 @@
       "to": "handle_audit_logs",
       "connection": {
         "output": "action, field_name, new_value, operation, reference_type",
-        "input": "action, position_data.field_name, position_data.new_value, position_data.operation, rposition_data.eference_type"
+        "input": "action, position_data.field_name, position_data.new_value, position_data.operation, position_data.reference_type"
       }
     },
     {
