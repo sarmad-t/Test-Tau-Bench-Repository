@@ -1,0 +1,238 @@
+{
+  "env": "hr_experts",
+  "model_provider": "fireworks", 
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 3,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "77",
+    "instruction": "You are Laura Hardy (lhardy@gmail.com), an employee. You need to submit a leave(Personal leave) request for a vacation from 2025-11-10 to 2025-11-13.",
+    "actions": [
+             {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "lhardy@gmail.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-08-09T20:09:00",
+            "email": "lhardy@gmail.com",
+            "first_name": "Laura",
+            "last_name": "Hardy",
+            "mfa_enabled": false,
+            "phone_number": "+13478714705",
+            "role": "employee",
+            "status": "active",
+            "updated_at": "2024-08-22T18:59:43",
+            "user_id": "77"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "employees",
+        "filters": {
+          "user_id": "77"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "employees",
+        "results": [
+          {
+            "address": "25428 Justin Skyway, Port Kevinstad, MI 49600",
+            "created_at": "2025-07-28T05:16:28",
+            "date_of_birth": "1984-09-08",
+            "employee_id": "31",
+            "employment_status": "active",
+            "hire_date": "2025-07-09",
+            "hourly_rate": 156,
+            "manager_id": null,
+            "position_id": "368",
+            "updated_at": "2025-08-08T11:37:48",
+            "user_id": "77"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_leave_entities",
+      "arguments": {
+        "entity_type": "leave_requests",
+        "filters": {
+          "employee_id": "31"
+        }
+      },
+      "output": {
+        "count": 2,
+        "entity_type": "leave_requests",
+        "results": [
+          {
+            "approval_date": "2025-08-17T13:51:32",
+            "approved_by": "6",
+            "created_at": "2025-08-16T03:31:36",
+            "days_requested": 10,
+            "employee_id": "31",
+            "end_date": "2025-08-28",
+            "leave_id": "146",
+            "leave_type": "bereavement",
+            "remaining_balance": 5.0,
+            "start_date": "2025-08-18",
+            "status": "rejected",
+            "updated_at": "2025-08-18T11:37:00"
+          },
+          {
+            "approval_date": "2025-08-01T20:46:50",
+            "approved_by": "7",
+            "created_at": "2025-08-01T14:06:50",
+            "days_requested": 6,
+            "employee_id": "31",
+            "end_date": "2025-08-07",
+            "leave_id": "147",
+            "leave_type": "annual",
+            "remaining_balance": 9.0,
+            "start_date": "2025-08-01",
+            "status": "approved",
+            "updated_at": "2025-08-03T16:22:40"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_leave_requests",
+      "arguments": {
+        "days_requested": 4.0,
+        "employee_id": "31",
+        "end_date": "2025-11-13",
+        "leave_type": "personal",
+        "operation": "create",
+        "start_date": "2025-11-10"
+      },
+      "output": {
+        "approval_date": null,
+        "approved_by": null,
+        "created_at": "2025-10-01T12:00:00",
+        "days_requested": 4.0,
+        "employee_id": "31",
+        "end_date": "2025-11-13",
+        "leave_id": "448",
+        "leave_type": "personal",
+        "start_date": "2025-11-10",
+        "status": "pending",
+        "updated_at": "2025-10-01T12:00:00"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "create",
+        "operation": "create",
+        "reference_id": "448",
+        "reference_type": "leave_requests",
+        "user_id": "77"
+      },
+      "output": {
+        "action": "create",
+        "field_name": null,
+        "log_id": "2885",
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "448",
+        "reference_type": "leave_requests",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "77"
+      }
+    }       
+    ],
+    "outputs": [],
+
+    "edges": [
+        {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "filters.user_id"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "search_leave_entities",
+      "connection": {
+        "output": "results[0].employee_id",
+        "input": "filters.employee_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "search_leave_entities",
+      "connection": {
+        "output": "entity_type",
+        "input": "entity_type"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_leave_requests",
+      "connection": {
+        "output": "results[0].employee_id",
+        "input": "employee_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_leave_requests",
+      "connection": {
+        "output": "days_requested, end_date, leave_type, operation, start_date",
+        "input": "days_requested, end_date, leave_type, operation, start_date"
+      }
+    },
+    {
+      "from": "handle_leave_requests",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "leave_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, operation, reference_type",
+        "input": "action, operation, reference_type"
+      }
+    }      
+   ],
+    "num_edges": 9
+  }
+}
+
