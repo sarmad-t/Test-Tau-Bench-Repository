@@ -1,0 +1,411 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "25",
+        "instruction": "You are Christopher Roach, a Hiring Manager with the email christopher.roach@yahoo.com. You want to approve Allison Johnston's (email: allison.johnston@hotmail.com) timesheet for '2025-05-30', making necessary adjustments to ensure accurate hours reporting, and simultaneously process her pending sick leave request starting '2025-07-11' and ending '2025-07-12', ensuring both time-related actions are completed",
+       "actions": [
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "christopher.roach@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-04-19T05:51:19",
+            "email": "christopher.roach@yahoo.com",
+            "first_name": "Christopher",
+            "last_name": "Roach",
+            "mfa_enabled": false,
+            "phone_number": "+19386718784",
+            "role": "hiring_manager",
+            "status": "active",
+            "updated_at": "2024-07-19T18:26:26",
+            "user_id": "25"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "validate_approval",
+      "arguments": {
+        "action": "timesheet_approval",
+        "requester_email": "christopher.roach@yahoo.com"
+      },
+      "output": {
+        "approval_valid": true,
+        "approved_by": "hiring_manager",
+        "message": "Approved by authorized role: hiring_manager"
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "allison.johnston@hotmail.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-11-28T20:03:05",
+            "email": "allison.johnston@hotmail.com",
+            "first_name": "Allison",
+            "last_name": "Johnston",
+            "mfa_enabled": true,
+            "phone_number": "+12562036847",
+            "role": "employee",
+            "status": "active",
+            "updated_at": "2025-07-26T20:28:55",
+            "user_id": "145"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "employees",
+        "filters": {
+          "user_id": "145"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "employees",
+        "results": [
+          {
+            "address": "8865 Melinda Knoll, Davisstad, PW 92994",
+            "created_at": "2025-08-28T02:31:55",
+            "date_of_birth": "2007-01-23",
+            "employee_id": "99",
+            "employment_status": "active",
+            "hire_date": "2025-01-23",
+            "hourly_rate": 59,
+            "manager_id": null,
+            "position_id": "176",
+            "updated_at": "2025-08-28T02:31:55",
+            "user_id": "145"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_timesheet_entities",
+      "arguments": {
+        "entity_type": "employee_timesheets",
+        "filters": {
+          "employee_id": "99",
+          "work_date": "2025-05-30"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "employee_timesheets",
+        "results": [
+          {
+            "approved_by": null,
+            "break_duration_minutes": 78,
+            "clock_in_time": "2025-05-30T09:57:00",
+            "clock_out_time": "2025-05-30T19:01:12",
+            "created_at": "2025-06-01T05:09:12",
+            "employee_id": "99",
+            "project_code": "PRJ1400",
+            "status": "approved",
+            "timesheet_id": "856",
+            "total_hours": 9.07,
+            "updated_at": "2025-10-01T12:00:00",
+            "work_date": "2025-05-30"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_timesheet_entries",
+      "arguments": {
+        "action": "update",
+        "timesheet_data": {
+          "status": "approved"
+        },
+        "timesheet_id": "856"
+      },
+      "output": {
+        "action": "update",
+        "message": "Timesheet entry 856 updated successfully",
+        "success": true,
+        "timesheet_data": {
+          "approved_by": null,
+          "break_duration_minutes": 78,
+          "clock_in_time": "2025-05-30T09:57:00",
+          "clock_out_time": "2025-05-30T19:01:12",
+          "created_at": "2025-06-01T05:09:12",
+          "employee_id": "99",
+          "project_code": "PRJ1400",
+          "status": "approved",
+          "timesheet_id": "856",
+          "total_hours": 9.07,
+          "updated_at": "2025-10-01T12:00:00",
+          "work_date": "2025-05-30"
+        },
+        "timesheet_id": "856"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "status",
+        "new_value": "approved",
+        "old_value": "submitted",
+        "operation": "create",
+        "reference_id": "856",
+        "reference_type": "timesheet_entries",
+        "user_id": "25"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "status",
+        "log_id": "2887",
+        "new_value": "approved",
+        "old_value": "submitted",
+        "reference_id": "856",
+        "reference_type": "timesheet_entries",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "25"
+      }
+    },
+    {
+      "name": "search_leave_entities",
+      "arguments": {
+        "entity_type": "leave_requests",
+        "filters": {
+          "employee_id": "99",
+          "start_date": "2025-07-11"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "leave_requests",
+        "results": [
+          {
+            "approval_date": "2025-10-01T12:00:00",
+            "approved_by": "25",
+            "created_at": "2025-07-04T08:15:48",
+            "days_requested": 1,
+            "employee_id": "99",
+            "end_date": "2025-07-12",
+            "leave_id": "438",
+            "leave_type": "sick",
+            "remaining_balance": 14.0,
+            "start_date": "2025-07-11",
+            "status": "approved",
+            "updated_at": "2025-10-01T12:00:00"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_leave_requests",
+      "arguments": {
+        "approved_by": "25",
+        "days_requested": 1.0,
+        "employee_id": "99",
+        "end_date": "2025-07-12",
+        "leave_id": "438",
+        "leave_type": "sick",
+        "operation": "update",
+        "start_date": "2025-07-11",
+        "status": "approved"
+      },
+      "output": {
+        "approval_date": "2025-10-01T12:00:00",
+        "approved_by": "25",
+        "created_at": "2025-07-04T08:15:48",
+        "days_requested": 1,
+        "employee_id": "99",
+        "end_date": "2025-07-12",
+        "leave_id": "438",
+        "leave_type": "sick",
+        "remaining_balance": 14.0,
+        "start_date": "2025-07-11",
+        "status": "approved",
+        "updated_at": "2025-10-01T12:00:00"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "status",
+        "new_value": "approved",
+        "old_value": "pending",
+        "operation": "create",
+        "reference_id": "438",
+        "reference_type": "leave_requests",
+        "user_id": "25"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "status",
+        "log_id": "2888",
+        "new_value": "approved",
+        "old_value": "pending",
+        "reference_id": "438",
+        "reference_type": "leave_requests",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "25"
+      }
+    }
+  ],
+        "outputs": [],
+                "edges": [
+{
+"from": "instruction",
+"to": "search_user_employee_entities",
+"connection": {
+"output": "entity_type, filters.email",
+"input": "entity_type, filters.email"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "validate_approval",
+"connection": {
+"output": "output.results[0].email",
+"input": "requester_email"
+}
+},
+{
+"from": "instruction",
+"to": "validate_approval",
+"connection": {
+"output": "action",
+"input": "action"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "search_user_employee_entities",
+"connection": {
+"output": "output.results[0].user_id",
+"input": "filters.user_id"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "search_timesheet_entities",
+"connection": {
+"output": "output.results[0].employee_id",
+"input": "filters.employee_id"
+}
+},
+{
+"from": "instruction",
+"to": "search_timesheet_entities",
+"connection": {
+"output": "entity_type, filters.work_date",
+"input": "entity_type, filters.work_date"
+}
+},
+{
+"from": "search_timesheet_entities",
+"to": "handle_timesheet_entries",
+"connection": {
+"output": "output.results[0].timesheet_id, output.results[0].status",
+"input": "timesheet_id, timesheet_data.status"
+}
+},
+{
+"from": "instruction",
+"to": "handle_timesheet_entries",
+"connection": {
+"output": "action",
+"input": "action"
+}
+},
+{
+"from": "handle_timesheet_entries",
+"to": "handle_audit_logs",
+"connection": {
+"output": "timesheet_id, timesheet_data.status",
+"input": "reference_id, new_value"
+}
+},
+{
+"from": "instruction",
+"to": "handle_audit_logs",
+"connection": {
+"output": "action, field_name, old_value, operation, reference_type",
+"input": "action, field_name, old_value, operation, reference_type"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "handle_audit_logs",
+"connection": {
+"output": "output.results[0].user_id",
+"input": "user_id"
+}
+},
+{
+"from": "search_user_employee_entities",
+"to": "search_leave_entities",
+"connection": {
+"output": "output.results[0].employee_id",
+"input": "filters.employee_id"
+}
+},
+{
+"from": "instruction",
+"to": "search_leave_entities",
+"connection": {
+"output": "entity_type, filters.start_date",
+"input": "entity_type, filters.start_date"
+}
+},
+{
+"from": "search_leave_entities",
+"to": "handle_leave_requests",
+"connection": {
+"output": "output.results[0].approved_by, output.results[0].days_requested, output.results[0].employee_id, output.results[0].end_date, output.results[0].leave_id, output.results[0].leave_type, output.results[0].start_date, output.results[0].status",
+"input": "approved_by, days_requested, employee_id, end_date, leave_id, leave_type, start_date, status"
+}
+},
+{
+"from": "instruction",
+"to": "handle_leave_requests",
+"connection": {
+"output": "operation, _floatFields",
+"input": "operation, _floatFields"
+}
+},
+{
+"from": "handle_leave_requests",
+"to": "handle_audit_logs",
+"connection": {
+"output": "status, leave_id, approved_by",
+"input": "new_value, reference_id, user_id"
+}
+}
+],
+"num_edges": 16
+        }
+}
