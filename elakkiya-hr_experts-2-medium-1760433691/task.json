@@ -177,22 +177,50 @@
                 "arguments": {
                     "action": "update",
                     "operation": "create",
+                    "field_name": "status",
+                    "new_value": "approved",
+                    "old_value": "submitted",
                     "reference_id": "866",
                     "reference_type": "employee_timesheets",
                     "user_id": "18"
                 },
                 "output": {
                     "action": "update",
-                    "field_name": null,
+                    "field_name": "status",
                     "log_id": "2885",
-                    "new_value": null,
+                    "new_value": "approved",
+                    "old_value": "submitted",
+                    "reference_id": "866",
+                    "reference_type": "employee_timesheets",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "18"
+                }
+            },
+            {
+                "name":"handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "approved_by",
+                    "new_value": "18",
+                    "old_value": null,
+                    "reference_id": "866",
+                    "reference_type": "employee_timesheets",
+                    "user_id": "18"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "approved_by",
+                    "log_id": "2885",
+                    "new_value": "18",
                     "old_value": null,
                     "reference_id": "866",
                     "reference_type": "employee_timesheets",
                     "timestamp": "2025-10-01T12:00:00",
                     "user_id": "18"
                 }
-            }                             
+            }
+
         ],
         "output": [],
         "edges": [
@@ -264,16 +292,24 @@
                 "from": "instruction",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output": "action, operation, reference_type",
-                    "input": "action, operation, reference_type"
+                    "output": "action, operation, field_name, old_value,  reference_type",
+                    "input": "action, operation, field_name, old_value,reference_type"
                 }
             },
             {
                 "from": "handle_timesheet_entries",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output": "timesheet_id",
-                    "input": "reference_id"
+                    "output": "timesheet_data[0].approved_by, timesheet_id",
+                    "input": "new_value, reference_id"
+                }
+            },
+            {
+                "from": "handle_timesheet_entries",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "timesheet_data[0].status",
+                    "input": "new_value"
                 }
             },
             {
@@ -285,7 +321,7 @@
                 }
             }           
         ],
-        "num_edges":11
+        "num_edges":12
     }
 }
 
