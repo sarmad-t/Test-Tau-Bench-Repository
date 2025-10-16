@@ -236,14 +236,6 @@
                 }
                 },
                 {
-                "from": "instruction",
-                "to": "search_user_employee_entities",
-                "connection": {
-                    "output": "email, entity_type",
-                    "input": "filters.email, entity_type"
-                }
-                },
-                {
                 "from": "search_user_employee_entities",
                 "to": "search_user_employee_entities",
                 "connection": {
@@ -316,6 +308,6 @@
                 }
                 }
             ],
-            "num_edges": 11
+            "num_edges": 10
         }
 }
