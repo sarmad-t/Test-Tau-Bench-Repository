@@ -1,0 +1,229 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "26",
+        "instruction": "You are Christopher Dunn, a Hiring Manager with the email christopher48@company.com. You want to schedule a 'technical' interview for candidate John Jones (email: john87@outlook.com) who applied for the 'Senior Business Analyst' position, setting up a video interview for 2025-07-01 at 2:00 PM",
+       "actions": [
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "christopher48@company.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2021-06-15T23:03:57",
+            "email": "christopher48@company.com",
+            "first_name": "Christopher",
+            "last_name": "Dunn",
+            "mfa_enabled": false,
+            "phone_number": "+16787979378",
+            "role": "hiring_manager",
+            "status": "active",
+            "updated_at": "2025-07-02T16:16:34",
+            "user_id": "26"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_recruitment_entities",
+      "arguments": {
+        "entity_type": "candidates",
+        "filters": {
+          "email": "john87@outlook.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "candidates",
+        "results": [
+          {
+            "address": "321 Sharon Trail, Elizabethshire, AR 54513",
+            "candidate_id": "151",
+            "created_at": "2024-10-07T06:06:31",
+            "email": "john87@outlook.com",
+            "first_name": "John",
+            "last_name": "Jones",
+            "phone_number": "+19389332069",
+            "source": "company_website",
+            "status": "new",
+            "updated_at": "2025-04-05T06:57:04"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_recruitment_entities",
+      "arguments": {
+        "entity_type": "job_applications",
+        "filters": {
+          "candidate_id": "151"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "job_applications",
+        "results": [
+          {
+            "ai_screening_score": null,
+            "application_date": "2025-02-16",
+            "application_id": "285",
+            "candidate_id": "151",
+            "created_at": "2025-02-16T16:26:49",
+            "final_decision": null,
+            "position_id": "2",
+            "recruiter_id": "10",
+            "status": "submitted",
+            "updated_at": "2025-07-01T11:38:26"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_interview",
+      "arguments": {
+        "action": "create",
+        "interview_data": {
+          "application_id": "285",
+          "interviewer_id": "26",
+          "interview_type": "technical",
+          "scheduled_date": "2025-07-01T14:00:00"
+        }
+      },
+      "output": {
+        "action": "create",
+        "interview_data": {
+          "application_id": "285",
+          "communication_score": null,
+          "created_at": "2025-10-01T12:00:00",
+          "cultural_fit_score": null,
+          "duration_minutes": 60,
+          "interview_id": "349",
+          "interview_type": "technical",
+          "interviewer_id": "26",
+          "overall_rating": null,
+          "recommendation": null,
+          "scheduled_date": "2025-07-01T14:00:00",
+          "status": "scheduled",
+          "technical_score": null,
+          "updated_at": "2025-10-01T12:00:00"
+        },
+        "interview_id": "349",
+        "message": "Interview 349 scheduled successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "create",
+        "operation": "create",
+        "reference_id": "348",
+        "reference_type": "interview",
+        "user_id": "26"
+      },
+      "output": {
+        "action": "create",
+        "field_name": null,
+        "log_id": "2886",
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "348",
+        "reference_type": "interview",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "26"
+      }
+    }
+  ],
+                "outputs": [],
+                "edges": [
+            {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+            "output": "entity_type, filters.email",
+            "input": "entity_type, filters.email"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_recruitment_entities",
+            "connection": {
+            "output": "entity_type, filters.email",
+            "input": "entity_type, filters.email"
+            }
+            },
+            {
+            "from": "search_recruitment_entities",
+            "to": "search_recruitment_entities",
+            "connection": {
+            "output": "output.results[0].candidate_id",
+            "input": "filters.candidate_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "search_recruitment_entities",
+            "connection": {
+            "output": "entity_type",
+            "input": "entity_type"
+            }
+            },
+            {
+            "from": "search_recruitment_entities",
+            "to": "handle_interview",
+            "connection": {
+            "output": "output.results[0].application_id",
+            "input": "interview_data.application_id"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_interview",
+            "connection": {
+            "output": "output.results[0].user_id",
+            "input": "interview_data.interviewer_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "handle_interview",
+            "connection": {
+            "output": "action, interview_type, scheduled_date",
+            "input": "action, interview_data.interview_type, interview_data.scheduled_date"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_audit_logs",
+            "connection": {
+            "output": "output.results[0].user_id",
+            "input": "user_id"
+            }
+            },
+            {
+            "from": "instruction",
+            "to": "handle_audit_logs",
+            "connection": {
+            "output": "action, operation, reference_id, reference_type",
+            "input": "action, operation, reference_id, reference_type"
+            }
+            }
+            ],
+            "num_edges": 9
+                            }
+}
