@@ -1,0 +1,709 @@
+{ 
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 3,
+    "temperature": 1,
+    "interface_num": 2,
+    "task":{
+        "user_id": "6",
+        "instruction":"You are Tina Hale (tina86@yahoo.com), an HR manager. You need to process the termination of employment for the employee Jordan Matthews (jmatthews@company.com).",
+        "actions": [
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "employee_offboarding",
+                    "requester_email": "tina86@yahoo.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "approved_by": [
+                        "compliance_officer",
+                        "hr_manager"
+                    ],
+                    "message": "All required approvals received from: compliance_officer, hr_manager"
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments":{
+                    "entity_type": "users",
+                    "filters": {
+                        "email":"tina86@yahoo.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2024-08-21T15:10:45",
+                            "email": "tina86@yahoo.com",
+                            "first_name": "Tina",
+                            "last_name": "Hale",
+                            "mfa_enabled": true,
+                            "phone_number": "+19386024033",
+                            "role": "hr_manager",
+                            "status": "active",
+                            "updated_at": "2024-10-19T22:44:53",
+                            "user_id": "6"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments":{
+                    "entity_type": "users",
+                    "filters": {
+                        "email":"christopher30@outlook.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2023-07-14T11:54:08",
+                            "email": "christopher30@outlook.com",
+                            "first_name": "Christopher",
+                            "last_name": "Simpson",
+                            "mfa_enabled": false,
+                            "phone_number": "+16466285317",
+                            "role": "employee",
+                            "status": "active",
+                            "updated_at": "2024-09-15T13:45:00",
+                            "user_id": "53"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments":{
+                    "entity_type": "employees",
+                    "filters": {
+                        "user_id": "53"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "employees",
+                    "results": [
+                        {
+                            "address": "8679 Zavala Wall, Staceyhaven, WI 63500",
+                            "created_at": "2025-06-27T22:46:16",
+                            "date_of_birth": "1992-03-09",
+                            "employee_id": "7",
+                            "employment_status": "active",
+                            "hire_date": "2025-05-22",
+                            "hourly_rate": 48,
+                            "manager_id": "35",
+                            "position_id": "174",
+                            "updated_at": "2025-07-11T02:49:29",
+                            "user_id": "53"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_payroll_entities",
+                "arguments":{
+                    "entity_type": "payroll_records",
+                    "filters":{
+                        "employee_id": "7", 
+                        "status": "approved"
+                    }
+                },
+                "output": {
+                    "count": 0,
+                    "entity_type": "payroll_records",
+                    "results": [],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_benefits_entities",
+                "arguments":{
+                    "entity_type": "employee_benefits",
+                    "filters": {
+                        "employee_id": "7", 
+                        "status": "active"
+                    }
+                },
+                "output": {
+                    "count": 2,
+                    "entity_type": "employee_benefits",
+                    "results": [
+                        {
+                            "beneficiary_name": "Christopher Simpson",
+                            "beneficiary_relationship": "self",
+                            "coverage_level": "employee_only",
+                            "created_at": "2025-06-11T08:21:46",
+                            "employee_id": "7",
+                            "enrollment_date": "2025-06-03",
+                            "enrollment_id": "14",
+                            "plan_id": "35",
+                            "status": "active",
+                            "updated_at": "2025-06-12T14:05:49"
+                        },
+                        {
+                            "beneficiary_name": "Christopher Simpson",
+                            "beneficiary_relationship": "self",
+                            "coverage_level": "employee_only",
+                            "created_at": "2025-08-09T22:53:21",
+                            "employee_id": "7",
+                            "enrollment_date": "2025-08-04",
+                            "enrollment_id": "15",
+                            "plan_id": "53",
+                            "status": "active",
+                            "updated_at": "2025-08-25T15:45:04"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_training_entities",
+                "arguments":{
+                    "entity_type": "employee_training",
+                    "filters": {
+                        "employee_id": "7", 
+                        "status": "in_progress"
+                    }
+                },
+                "output": {
+                    "count": 2,
+                    "entity_type": "employee_training",
+                    "results": [
+                        {
+                            "certificate_issued": false,
+                            "completion_date": null,
+                            "created_at": "2025-06-02T08:19:24",
+                            "employee_id": "7",
+                            "enrollment_date": "2025-06-02",
+                            "expiry_date": null,
+                            "program_id": "38",
+                            "score": null,
+                            "status": "in_progress",
+                            "training_record_id": "14",
+                            "updated_at": "2025-06-25T02:15:54"
+                        },
+                        {
+                            "certificate_issued": false,
+                            "completion_date": null,
+                            "created_at": "2025-07-25T03:47:20",
+                            "employee_id": "7",
+                            "enrollment_date": "2025-07-24",
+                            "expiry_date": null,
+                            "program_id": "41",
+                            "score": null,
+                            "status": "in_progress",
+                            "training_record_id": "15",
+                            "updated_at": "2025-07-25T11:52:29"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_employee",
+                "arguments":{
+                    "action": "update",
+                    "employee_id": "7",
+                    "employment_status": "terminated"
+                },
+                "output": {
+                    "employee_data": {
+                        "address": "8679 Zavala Wall, Staceyhaven, WI 63500",
+                        "created_at": "2025-06-27T22:46:16",
+                        "date_of_birth": "1992-03-09",
+                        "employee_id": "7",
+                        "employment_status": "terminated",
+                        "hire_date": "2025-05-22",
+                        "hourly_rate": 48,
+                        "manager_id": "35",
+                        "position_id": "174",
+                        "updated_at": "2025-10-01T12:00:00",
+                        "user_id": "53"
+                    },
+                    "employee_id": "7",
+                    "message": "Employee with ID '7' updated successfully",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_user",
+                "arguments": {
+                    "action": "update",
+                    "user_id": "53",
+                    "status": "inactive"
+                },
+                "output": {
+                    "message": "User 53 updated successfully",
+                    "success": true,
+                    "updated_fields": [
+                    "status"
+                    ],
+                    "user_data": {
+                        "created_at": "2023-07-14T11:54:08",
+                        "email": "christopher30@outlook.com",
+                        "first_name": "Christopher",
+                        "last_name": "Simpson",
+                        "mfa_enabled": false,
+                        "phone_number": "+16466285317",
+                        "role": "employee",
+                        "status": "inactive",
+                        "updated_at": "2025-10-01T12:00:00",
+                        "user_id": "53"
+                    }
+                }
+            },
+            {
+                "name":"handle_employee_benefits",
+                "arguments":{
+                    "action":"update",
+                    "benefits_data": {
+                        "status": "terminated"
+                    },
+                    "enrollment_id": "15"
+                },
+                "output": {
+                    "action": "update",
+                    "benefits_data": {
+                        "beneficiary_name": "Christopher Simpson",
+                        "beneficiary_relationship": "self",
+                        "coverage_level": "employee_only",
+                        "created_at": "2025-08-09T22:53:21",
+                        "employee_id": "7",
+                        "enrollment_date": "2025-08-04",
+                        "enrollment_id": "15",
+                        "plan_id": "53",
+                        "status": "terminated",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "enrollment_id": "15",
+                    "message": "Employee benefits enrollment 15 updated successfully",
+                    "success": true
+                }
+            },
+            {
+                "name":"handle_employee_benefits",
+                "arguments":{
+                    "action":"update",
+                    "benefits_data": {
+                        "status": "terminated"
+                    },
+                    "enrollment_id": "14"
+                },
+                "output": {
+                    "action": "update",
+                    "benefits_data": {
+                        "beneficiary_name": "Christopher Simpson",
+                        "beneficiary_relationship": "self",
+                        "coverage_level": "employee_only",
+                        "created_at": "2025-06-11T08:21:46",
+                        "employee_id": "7",
+                        "enrollment_date": "2025-06-03",
+                        "enrollment_id": "14",
+                        "plan_id": "35",
+                        "status": "terminated",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "enrollment_id": "14",
+                    "message": "Employee benefits enrollment 14 updated successfully",
+                    "success": true
+                }
+            },
+            {
+                "name":"handle_employee_training",
+                "arguments":{
+                    "operation":"update",
+                    "training_record_id": "14",
+                    "status": "cancelled"
+                },
+                "output": {
+                    "certificate_issued": false,
+                    "completion_date": null,
+                    "created_at": "2025-06-02T08:19:24",
+                    "employee_id": "7",
+                    "enrollment_date": "2025-06-02",
+                    "expiry_date": null,
+                    "program_id": "38",
+                    "score": null,
+                    "status": "cancelled",
+                    "training_record_id": "14",
+                    "updated_at": "2025-10-01T12:00:00"
+                }
+            },
+            {
+                "name":"handle_employee_training",
+                "arguments":{
+                    "operation":"update",
+                    "training_record_id": "15",
+                    "status":"cancelled"
+                },
+                "output": {
+                    "certificate_issued": false,
+                    "completion_date": null,
+                    "created_at": "2025-07-25T03:47:20",
+                    "employee_id": "7",
+                    "enrollment_date": "2025-07-24",
+                    "expiry_date": null,
+                    "program_id": "41",
+                    "score": null,
+                    "status": "cancelled",
+                    "training_record_id": "15",
+                    "updated_at": "2025-10-01T12:00:00"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments":{
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "employment_status",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "7",
+                    "reference_type": "employees",
+                    "user_id":"6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "employment_status",
+                    "log_id": "2885",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "7",
+                    "reference_type": "employees",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments":{
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "status",
+                    "new_value": "inactive",
+                    "old_value": "active",
+                    "reference_id": "53",
+                    "reference_type": "users",
+                    "user_id":"6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2886",
+                    "new_value": "inactive",
+                    "old_value": "active",
+                    "reference_id": "53",
+                    "reference_type": "users",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+             {
+                "name": "handle_audit_logs",
+                "arguments":{
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "status",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "15",
+                    "reference_type": "employee_benefits",
+                    "user_id":"6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2887",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "15",
+                    "reference_type": "employee_benefits",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments":{
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "status",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "14",
+                    "reference_type": "employee_benefits",
+                    "user_id":"6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2888",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "53",
+                    "reference_type": "employee_benefits",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "status",
+                    "new_value": "terminated",
+                    "old_value": "in_progress",
+                    "reference_id": "14",
+                    "reference_type": "employee_training",
+                    "user_id":"6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2889",
+                    "new_value": "terminated",
+                    "old_value": "in_progress",
+                    "reference_id": "14",
+                    "reference_type": "employee_training",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "operation": "create",
+                    "field_name": "status",
+                    "new_value": "terminated",
+                    "old_value": "in_progress",
+                    "reference_id": "15",
+                    "reference_type": "employee_training",
+                    "user_id":"6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2885",
+                    "new_value": "terminated",
+                    "old_value": "in_progress",
+                    "reference_id": "15",
+                    "reference_type": "employee_training",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            }                     
+        ],
+        "output": [],
+        "edges": [
+        {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                "output": "action, requester_email",
+                "input": "action, requester_email"
+            }
+        },
+        {
+            "from": "validate_approval",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "approval_valid",
+                "input": "validation_status"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "requester_email",
+                "input": "filters.email"
+            }
+        },
+        {
+           "from": "search_user_employee_entities",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "filters.user_id"
+            } 
+        },
+        {
+            "from": "search_user_employee_entities",
+            "to": "search_payroll_entities",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "filters.employee_id"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "search_payroll_entities",
+            "connection": {
+                "output": "status",
+                "input": "filters.status"
+            }
+        },
+        {
+            "from": "search_user_employee_entities",
+            "to": "search_benefits_entities",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "filters.employee_id"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "search_benefits_entities",
+            "connection": {
+                "output": "status",
+                "input": "filters.status"
+            }
+        },
+        {
+            "from": "search_user_employee_entities",
+            "to": "search_training_entities",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "filters.employee_id"
+            }   
+        },
+        {
+            "from": "instruction",
+            "to": "search_training_entities",
+            "connection": {
+                "output": "status",
+                "input": "filters.status"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "handle_employee",
+            "connection": {
+                "output": "action, status",
+                "input": "action, employment_status"
+            }
+        },
+        {
+            "from": "search_user_employee_entities",
+            "to": "handle_employee",
+            "connection": {
+                "output": "results[0].employee_id",
+                "input": "employee_id"
+            }  
+        },
+        {
+            "from": "instruction",
+            "to": "handle_user",
+            "connection": {
+                "output": "action, status",
+                "input": "action, status"
+            }
+        },
+        {
+            "from": "search_user_employee_entities",
+            "to": "handle_user",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "user_id"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "handle_employee_benefits",
+            "connection": {
+                "output": "action, status",
+                "input": "action, benefits_data.status"
+            }
+        },
+        {
+            "from": "search_benefits_entities",
+            "to": "handle_employee_benefits",
+            "connection": {
+                "output": "results[0].enrollment_id",
+                "input": "enrollment_id"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "handle_employee_training",
+            "connection": {
+                "output": "operation, status",
+                "input": "operation, status"
+            }   
+        },
+        {
+            "from": "search_training_entities",
+            "to": "handle_employee_training",
+            "connection": {
+                "output": "results[0].training_record_id",
+                "input": "training_record_id"
+            }
+        },
+        {
+            "from": "instruction",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "action, operation, old_value, field_name, reference_type",
+                "input": "action, operation, old_value, field_name, reference_type"
+            }
+        },
+        {
+            "from": "search_user_employee_entities",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "user_id"
+            }
+        },
+        {
+            "from": "handle_employee",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "employee_data[0].employment_status, employee_id",
+                "input": "new_value, reference_id"
+            }
+        },
+        {
+            "from": "handle_user",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "user_data[0].status, user_data[0].user_id",
+                "input": "new_value, reference_id"
+            }
+        },
+        {
+            "from": "handle_employee_benefits",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "benefits_data.status, enrollment_id",
+                "input": "new_value, reference_id"
+            }
+        },
+        {
+            "from": "handle_employee_training",
+            "to": "handle_audit_logs",
+            "connection": {
+                "output": "status, training_record_id",
+                "input": "new_value, reference_id"
+            }
+        }
+        
+        
+        ],
+        "num_edges": 24
+    }
+}
+
+
