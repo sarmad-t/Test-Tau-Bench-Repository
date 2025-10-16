@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "7",
-        "instruction": "You are Renee Mosley, an HR Manager with the email 'reneemosley@company.com'. You want to conduct a quarterly performance review for employee Derek Contreras for the review period from July 1st to September 30th, 2025. You want to assign an overall rating of 'meets_expectations' with a goals achievement score of 7.5, communication score of 8.0, teamwork score of 7.0, leadership score of 6.5, and technical skills score of 7.5.",
+        "instruction": "You are Renee Mosley, an HR Manager with the email 'reneemosley@company.com'. You want to conduct a quarterly performance review for employee Derek Contreras with the email 'dcontreras@yahoo.com' for the review period from July 1st to September 30th, 2025. You want to assign an overall rating of 'meets expectations' with a goals achievement score of 7.5, communication score of 8.0, teamwork score of 7.0, leadership score of 6.5, and technical skills score of 7.5.",
         
         "actions": [
             {
@@ -15,9 +15,7 @@
             "arguments": {
                 "entity_type": "users",
                 "filters": {
-                "email": "reneemosley@company.com",
-                "role": "hr_manager",
-                "status": "active"
+                "email": "reneemosley@company.com"
                 }
             },
             "output": {
@@ -43,10 +41,37 @@
             {
             "name": "search_user_employee_entities",
             "arguments": {
+                "entity_type": "users",
+                "filters": {
+                "email": "dcontreras@yahoo.com"
+                }
+            },
+            "output": {
+                "count": 1,
+                "entity_type": "users",
+                "results": [
+                {
+                    "created_at": "2020-09-26T07:50:03",
+                    "email": "dcontreras@yahoo.com",
+                    "first_name": "Derek",
+                    "last_name": "Contreras",
+                    "mfa_enabled": false,
+                    "phone_number": "+13346512812",
+                    "role": "employee",
+                    "status": "active",
+                    "updated_at": "2025-06-09T18:13:53",
+                    "user_id": "52"
+                }
+                ],
+                "success": true
+            }
+            },
+            {
+            "name": "search_user_employee_entities",
+            "arguments": {
                 "entity_type": "employees",
                 "filters": {
-                "employee_id": "6",
-                "employment_status": "active"
+                "user_id": "52"
                 }
             },
             "output": {
@@ -114,45 +139,12 @@
                 "teamwork_score": 7.0,
                 "leadership_score": 6.5,
                 "technical_skills_score": 7.5,
-                "status": "submitted"
+                "status": "approved"
                 }
             },
             "output": {
                 "action": "create",
                 "message": "Performance review 194 created successfully",
-                "review_data": {
-                "communication_score": 8.0,
-                "created_at": "2025-10-01T12:00:00",
-                "employee_id": "6",
-                "goals_achievement_score": 7.5,
-                "leadership_score": 6.5,
-                "overall_rating": "meets_expectations",
-                "review_id": "194",
-                "review_period_end": "2025-09-30",
-                "review_period_start": "2025-07-01",
-                "review_type": "quarterly",
-                "reviewer_id": "7",
-                "status": "submitted",
-                "teamwork_score": 7.0,
-                "technical_skills_score": 7.5,
-                "updated_at": "2025-10-01T12:00:00"
-                },
-                "review_id": "194",
-                "success": true
-            }
-            },
-            {
-            "name": "handle_performance_review",
-            "arguments": {
-                "action": "update",
-                "review_data": {
-                "status": "approved"
-                },
-                "review_id": "194"
-            },
-            "output": {
-                "action": "update",
-                "message": "Performance review 194 updated successfully",
                 "review_data": {
                 "communication_score": 8.0,
                 "created_at": "2025-10-01T12:00:00",
@@ -177,21 +169,18 @@
             {
             "name": "handle_audit_logs",
             "arguments": {
-                "action": "approve",
-                "field_name": "status",
-                "new_value": "approved",
-                "old_value": "submitted",
+                "action": "create",
                 "operation": "create",
                 "reference_id": "194",
                 "reference_type": "performance_reviews",
                 "user_id": "7"
             },
             "output": {
-                "action": "approve",
-                "field_name": "status",
+                "action": "create",
+                "field_name": null,
                 "log_id": "2885",
-                "new_value": "approved",
-                "old_value": "submitted",
+                "new_value": null,
+                "old_value": null,
                 "reference_id": "194",
                 "reference_type": "performance_reviews",
                 "timestamp": "2025-10-01T12:00:00",
@@ -199,25 +188,31 @@
             }
             }
         ] ,
-        "output": [
-       
-        ],
-        
+        "output": [],
+
         "edges": [
             {
             "from": "instruction",
             "to": "search_user_employee_entities",
             "connection": {
-                "output": "entity_type, email, role, status",
-                "input": "entity_type, filters.email, filters.role, filters.status"
+                "output": "entity_type, email",
+                "input": "entity_type, filters.email"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "search_user_employee_entities",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "filters.user_id"
             }
             },
             {
             "from": "instruction",
             "to": "search_user_employee_entities",
             "connection": {
-                "output": "entity_type, employee_id, employment_status",
-                "input": "entity_type, filters.employee_id, filters.employment_status"
+                "output": "entity_type",
+                "input": "entity_type"
             }
             },
             {
@@ -256,8 +251,16 @@
             "from": "search_user_employee_entities",
             "to": "handle_performance_review",
             "connection": {
-                "output": "results[0].employee_id, results[0].user_id",
-                "input": "review_data.employee_id, review_data.reviewer_id"
+                "output": "results[0].employee_id",
+                "input": "review_data.employee_id"
+            }
+            },
+            {
+            "from": "search_user_employee_entities",
+            "to": "handle_performance_review",
+            "connection": {
+                "output": "results[0].user_id",
+                "input": "review_data.reviewer_id"
             }
             },
             {
@@ -266,22 +269,6 @@
             "connection": {
                 "output": "action, review_period_start, review_period_end, review_type, overall_rating, goals_achievement_score, communication_score, teamwork_score, leadership_score, technical_skills_score, status",
                 "input": "action, review_data.review_period_start, review_data.review_period_end, review_data.review_type, review_data.overall_rating, review_data.goals_achievement_score, review_data.communication_score, review_data.teamwork_score, review_data.leadership_score, review_data.technical_skills_score, review_data.status"
-            }
-            },
-            {
-            "from": "handle_performance_review",
-            "to": "handle_performance_review",
-            "connection": {
-                "output": "review_id",
-                "input": "review_id"
-            }
-            },
-            {
-            "from": "instruction",
-            "to": "handle_performance_review",
-            "connection": {
-                "output": "action, status",
-                "input": "action, review_data.status"
             }
             },
             {
@@ -296,28 +283,20 @@
             "from": "handle_performance_review",
             "to": "handle_audit_logs",
             "connection": {
-                "output": "review_id, review_data.status",
-                "input": "reference_id, new_value"
-            }
-            },
-            {
-            "from": "handle_performance_review",
-            "to": "handle_audit_logs",
-            "connection": {
-                "output": "review_data.status",
-                "input": "old_value"
+                "output": "review_id",
+                "input": "reference_id"
             }
             },
             {
             "from": "instruction",
             "to": "handle_audit_logs",
             "connection": {
-                "output": "operation, action, reference_type, field_name",
-                "input": "operation, action, reference_type, field_name"
+                "output": "action, operation, reference_type",
+                "input": "action, operation, reference_type"
             }
             }
         ],
-        "num_edges": 14
+        "num_edges": 13
 
 
     }
