@@ -1,0 +1,694 @@
+{
+    "env": "hr_experts",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "6",
+        "instruction": "You are Tina Hale (email: tina86@yahoo.com), an HR Manager. On 2025-10-13, you want to finish offboarding for Jacqueline Alvarado (email: jalvarado@hotmail.com), a 'Senior Software Engineer' in 'Process Improvement' department.",
+        "actions": [
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "tina86@yahoo.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2024-08-21T15:10:45",
+                            "email": "tina86@yahoo.com",
+                            "first_name": "Tina",
+                            "last_name": "Hale",
+                            "mfa_enabled": true,
+                            "phone_number": "+19386024033",
+                            "role": "hr_manager",
+                            "status": "active",
+                            "updated_at": "2024-10-19T22:44:53",
+                            "user_id": "6"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "validate_approval",
+                "arguments": {
+                    "action": "employee_offboarding",
+                    "requester_email": "tina86@yahoo.com"
+                },
+                "output": {
+                    "approval_valid": true,
+                    "approved_by": [
+                        "compliance_officer",
+                        "hr_manager"
+                    ],
+                    "message": "All required approvals received from: hr_manager, compliance_officer"
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "jalvarado@hotmail.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "users",
+                    "results": [
+                        {
+                            "created_at": "2024-02-03T06:54:13",
+                            "email": "jalvarado@hotmail.com",
+                            "first_name": "Jacqueline",
+                            "last_name": "Alvarado",
+                            "mfa_enabled": false,
+                            "phone_number": "+19177026345",
+                            "role": "employee",
+                            "status": "active",
+                            "updated_at": "2024-10-20T11:00:12",
+                            "user_id": "54"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_user_employee_entities",
+                "arguments": {
+                    "entity_type": "employees",
+                    "filters": {
+                        "user_id": "54"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entity_type": "employees",
+                    "results": [
+                        {
+                            "address": "USS Hawkins, FPO AA 07827",
+                            "created_at": "2025-03-24T16:04:08",
+                            "date_of_birth": "1971-12-27",
+                            "employee_id": "8",
+                            "employment_status": "active",
+                            "hire_date": "2024-04-29",
+                            "hourly_rate": 76,
+                            "manager_id": "92",
+                            "position_id": "417",
+                            "updated_at": "2025-04-26T17:54:15",
+                            "user_id": "54"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_payroll_entities",
+                "arguments": {
+                    "entity_type": "payroll_records",
+                    "filters": {
+                        "employee_id": "8"
+                    }
+                },
+                "output": {
+                    "count": 8,
+                    "entity_type": "payroll_records",
+                    "results": [
+                        {
+                            "approved_by": "34",
+                            "created_at": "2024-06-05T19:58:37",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 8.12,
+                            "pay_period_end": "2024-05-31",
+                            "pay_period_start": "2024-05-01",
+                            "payment_date": "2024-06-15",
+                            "payroll_id": "31",
+                            "status": "paid",
+                            "updated_at": "2025-06-29T02:16:26"
+                        },
+                        {
+                            "approved_by": "36",
+                            "created_at": "2024-07-02T22:43:50",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 9.61,
+                            "pay_period_end": "2024-06-30",
+                            "pay_period_start": "2024-06-01",
+                            "payment_date": "2024-07-10",
+                            "payroll_id": "32",
+                            "status": "paid",
+                            "updated_at": "2024-10-02T02:54:00"
+                        },
+                        {
+                            "approved_by": "33",
+                            "created_at": "2024-09-03T03:00:49",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 7.36,
+                            "pay_period_end": "2024-08-31",
+                            "pay_period_start": "2024-08-01",
+                            "payment_date": "2024-09-14",
+                            "payroll_id": "33",
+                            "status": "paid",
+                            "updated_at": "2025-07-10T20:38:13"
+                        },
+                        {
+                            "approved_by": "35",
+                            "created_at": "2024-11-05T13:08:15",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 8.06,
+                            "pay_period_end": "2024-10-31",
+                            "pay_period_start": "2024-10-01",
+                            "payment_date": "2024-11-13",
+                            "payroll_id": "34",
+                            "status": "paid",
+                            "updated_at": "2025-08-22T19:11:07"
+                        },
+                        {
+                            "approved_by": "34",
+                            "created_at": "2024-12-01T12:50:05",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 16.51,
+                            "pay_period_end": "2024-11-30",
+                            "pay_period_start": "2024-11-01",
+                            "payment_date": "2024-12-12",
+                            "payroll_id": "35",
+                            "status": "paid",
+                            "updated_at": "2025-08-11T20:36:24"
+                        },
+                        {
+                            "approved_by": "36",
+                            "created_at": "2025-01-04T10:12:30",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 7.11,
+                            "pay_period_end": "2024-12-31",
+                            "pay_period_start": "2024-12-01",
+                            "payment_date": "2025-01-10",
+                            "payroll_id": "36",
+                            "status": "paid",
+                            "updated_at": "2025-08-18T00:14:57"
+                        },
+                        {
+                            "approved_by": "37",
+                            "created_at": "2025-07-01T10:05:08",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 9.8,
+                            "pay_period_end": "2025-06-30",
+                            "pay_period_start": "2025-06-01",
+                            "payment_date": "2025-07-12",
+                            "payroll_id": "37",
+                            "status": "paid",
+                            "updated_at": "2025-08-14T15:13:16"
+                        },
+                        {
+                            "approved_by": "37",
+                            "created_at": "2025-08-05T11:00:33",
+                            "employee_id": "8",
+                            "hourly_rate": 76.0,
+                            "hours_worked": 16.12,
+                            "pay_period_end": "2025-07-31",
+                            "pay_period_start": "2025-07-01",
+                            "payment_date": "2025-08-11",
+                            "payroll_id": "38",
+                            "status": "paid",
+                            "updated_at": "2025-08-11T00:52:19"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_benefits_entities",
+                "arguments": {
+                    "entity_type": "employee_benefits",
+                    "filters": {
+                        "employee_id": "8",
+                        "status": "active"
+                    }
+                },
+                "output": {
+                    "count": 2,
+                    "entity_type": "employee_benefits",
+                    "results": [
+                        {
+                            "beneficiary_name": "Jacqueline Alvarado",
+                            "beneficiary_relationship": "self",
+                            "coverage_level": "employee_only",
+                            "created_at": "2025-07-12T06:19:43",
+                            "employee_id": "8",
+                            "enrollment_date": "2024-06-15",
+                            "enrollment_id": "16",
+                            "plan_id": "7",
+                            "status": "active",
+                            "updated_at": "2025-08-10T23:11:15"
+                        },
+                        {
+                            "beneficiary_name": "Jacqueline Alvarado",
+                            "beneficiary_relationship": "self",
+                            "coverage_level": "employee_only",
+                            "created_at": "2025-05-15T01:37:42",
+                            "employee_id": "8",
+                            "enrollment_date": "2024-11-03",
+                            "enrollment_id": "18",
+                            "plan_id": "46",
+                            "status": "active",
+                            "updated_at": "2025-07-03T15:05:15"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "search_training_entities",
+                "arguments": {
+                    "entity_type": "employee_training",
+                    "filters": {
+                        "employee_id": "8"
+                    }
+                },
+                "output": {
+                    "count": 2,
+                    "entity_type": "employee_training",
+                    "results": [
+                        {
+                            "certificate_issued": false,
+                            "completion_date": "2025-07-25",
+                            "created_at": "2024-12-20T23:36:22",
+                            "employee_id": "8",
+                            "enrollment_date": "2024-12-20",
+                            "expiry_date": null,
+                            "program_id": "13",
+                            "score": 63.58,
+                            "status": "completed",
+                            "training_record_id": "16",
+                            "updated_at": "2025-07-28T21:05:49"
+                        },
+                        {
+                            "certificate_issued": true,
+                            "completion_date": "2025-07-25",
+                            "created_at": "2025-06-18T10:54:17",
+                            "employee_id": "8",
+                            "enrollment_date": "2025-06-17",
+                            "expiry_date": null,
+                            "program_id": "12",
+                            "score": 99.08,
+                            "status": "completed",
+                            "training_record_id": "17",
+                            "updated_at": "2025-08-21T23:51:08"
+                        }
+                    ],
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_employee",
+                "arguments": {
+                    "action": "update",
+                    "employee_id": "8",
+                    "employment_status": "terminated"
+                },
+                "output": {
+                    "employee_data": {
+                        "address": "USS Hawkins, FPO AA 07827",
+                        "created_at": "2025-03-24T16:04:08",
+                        "date_of_birth": "1971-12-27",
+                        "employee_id": "8",
+                        "employment_status": "terminated",
+                        "hire_date": "2024-04-29",
+                        "hourly_rate": 76,
+                        "manager_id": "92",
+                        "position_id": "417",
+                        "updated_at": "2025-10-01T12:00:00",
+                        "user_id": "54"
+                    },
+                    "employee_id": "8",
+                    "message": "Employee with ID '8' updated successfully",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_user",
+                "arguments": {
+                    "action": "update",
+                    "status": "inactive",
+                    "user_id": "54"
+                },
+                "output": {
+                    "message": "User 54 updated successfully",
+                    "success": true,
+                    "updated_fields": [
+                        "status"
+                    ],
+                    "user_data": {
+                        "created_at": "2024-02-03T06:54:13",
+                        "email": "jalvarado@hotmail.com",
+                        "first_name": "Jacqueline",
+                        "last_name": "Alvarado",
+                        "mfa_enabled": false,
+                        "phone_number": "+19177026345",
+                        "role": "employee",
+                        "status": "inactive",
+                        "updated_at": "2025-10-01T12:00:00",
+                        "user_id": "54"
+                    }
+                }
+            },
+            {
+                "name": "handle_employee_benefits",
+                "arguments": {
+                    "action": "update",
+                    "benefits_data": {
+                        "status": "terminated"
+                    },
+                    "enrollment_id": "16"
+                },
+                "output": {
+                    "action": "update",
+                    "benefits_data": {
+                        "beneficiary_name": "Jacqueline Alvarado",
+                        "beneficiary_relationship": "self",
+                        "coverage_level": "employee_only",
+                        "created_at": "2025-07-12T06:19:43",
+                        "employee_id": "8",
+                        "enrollment_date": "2024-06-15",
+                        "enrollment_id": "16",
+                        "plan_id": "7",
+                        "status": "terminated",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "enrollment_id": "16",
+                    "message": "Employee benefits enrollment 16 updated successfully",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_employee_benefits",
+                "arguments": {
+                    "action": "update",
+                    "benefits_data": {
+                        "status": "terminated"
+                    },
+                    "enrollment_id": "18"
+                },
+                "output": {
+                    "action": "update",
+                    "benefits_data": {
+                        "beneficiary_name": "Jacqueline Alvarado",
+                        "beneficiary_relationship": "self",
+                        "coverage_level": "employee_only",
+                        "created_at": "2025-05-15T01:37:42",
+                        "employee_id": "8",
+                        "enrollment_date": "2024-11-03",
+                        "enrollment_id": "18",
+                        "plan_id": "46",
+                        "status": "terminated",
+                        "updated_at": "2025-10-01T12:00:00"
+                    },
+                    "enrollment_id": "18",
+                    "message": "Employee benefits enrollment 18 updated successfully",
+                    "success": true
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "employment_status",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "operation": "create",
+                    "reference_id": "8",
+                    "reference_type": "employees",
+                    "user_id": "6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "employment_status",
+                    "log_id": "2885",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "8",
+                    "reference_type": "employees",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "status",
+                    "new_value": "inactive",
+                    "old_value": "active",
+                    "operation": "create",
+                    "reference_id": "54",
+                    "reference_type": "user",
+                    "user_id": "6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2886",
+                    "new_value": "inactive",
+                    "old_value": "active",
+                    "reference_id": "54",
+                    "reference_type": "user",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "status",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "operation": "create",
+                    "reference_id": "16",
+                    "reference_type": "employee_benefits",
+                    "user_id": "6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2887",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "16",
+                    "reference_type": "employee_benefits",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            },
+            {
+                "name": "handle_audit_logs",
+                "arguments": {
+                    "action": "update",
+                    "field_name": "status",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "operation": "create",
+                    "reference_id": "18",
+                    "reference_type": "employee_benefits",
+                    "user_id": "6"
+                },
+                "output": {
+                    "action": "update",
+                    "field_name": "status",
+                    "log_id": "2888",
+                    "new_value": "terminated",
+                    "old_value": "active",
+                    "reference_id": "18",
+                    "reference_type": "employee_benefits",
+                    "timestamp": "2025-10-01T12:00:00",
+                    "user_id": "6"
+                }
+            }
+        ],
+        "outputs": [],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "results[0].email",
+                    "input": "requester_email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "validate_approval",
+                "connection": {
+                    "output": "action",
+                    "input": "action"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "filters.user_id"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_payroll_entities",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_payroll_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_benefits_entities",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_benefits_entities",
+                "connection": {
+                    "output": "entity_type, status",
+                    "input": "entity_type, filters.status"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "search_training_entities",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_training_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_employee",
+                "connection": {
+                    "output": "results[0].employee_id",
+                    "input": "employee_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_employee",
+                "connection": {
+                    "output": "action, employment_status",
+                    "input": "action, employment_status"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_user",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_user",
+                "connection": {
+                    "output": "action, status",
+                    "input": "action, status"
+                }
+            },
+            {
+                "from": "search_benefits_entities",
+                "to": "handle_employee_benefits",
+                "connection": {
+                    "output": "results[0,1].enrollment_id",
+                    "input": "enrollment_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_employee_benefits",
+                "connection": {
+                    "output": "action, status",
+                    "input": "action, benefits_data.status"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "user_id"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].employment_status, results[0].employee_id",
+                    "input": "old_value, reference_id"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].status, results[0].user_id",
+                    "input": "old_value, reference_id"
+                }
+            },
+            {
+                "from": "search_benefits_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0,1].status, results[0,1].enrollment_id",
+                    "input": "old_value, reference_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "action, field_name, new_value, operation, reference_type",
+                    "input": "action, field_name, new_value, operation, reference_type"
+                }
+            }
+        ],
+        "num_edges": 21
+    }
+}
