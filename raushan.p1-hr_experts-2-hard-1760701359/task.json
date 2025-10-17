@@ -1,0 +1,614 @@
+{
+  "env": "hr_experts",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 1,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "2",
+    "instruction": "You are Harold Gates(email: harold.gates@company.com), a recruiter. You need to record the outcome of the panel interview with David Butler(email: david16@company.com) for the role of 'Operations Manager' in the 'Audit' department. You also need to include a excellent rating and recommendations for a job offer along with scores (technical: 8.2 communication: 7.5 cultural fit: 7.8).",
+    "actions": [
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "harold.gates@company.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2023-08-17T13:25:06",
+            "email": "harold.gates@company.com",
+            "first_name": "Harold",
+            "last_name": "Gates",
+            "mfa_enabled": true,
+            "phone_number": "+12127236267",
+            "role": "recruiter",
+            "status": "active",
+            "updated_at": "2024-02-03T13:00:39",
+            "user_id": "10"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_department_entities",
+      "arguments": {
+        "entity_type": "departments",
+        "filters": {
+          "department_name": "Audit"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "departments",
+        "results": [
+          {
+            "budget": 4254088.33,
+            "created_at": "2023-01-29T14:37:50",
+            "department_id": "30",
+            "department_name": "Audit",
+            "manager_id": "46",
+            "status": "active",
+            "updated_at": "2024-03-04T21:30:26"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_job_entities",
+      "arguments": {
+        "entity_type": "job_positions",
+        "filters": {
+          "department_id": "30",
+          "title": "Operations Manager"
+        }
+      },
+      "output": {
+        "count": 2,
+        "entity_type": "job_positions",
+        "results": [
+          {
+            "created_at": "2024-12-08T13:34:30",
+            "department_id": "30",
+            "employment_type": "intern",
+            "hourly_rate_max": 125.0,
+            "hourly_rate_min": 85.0,
+            "job_level": "manager",
+            "position_id": "135",
+            "status": "open",
+            "title": "Operations Manager",
+            "updated_at": "2025-03-07T17:41:07"
+          },
+          {
+            "created_at": "2023-08-13T18:37:52",
+            "department_id": "30",
+            "employment_type": "part_time",
+            "hourly_rate_max": 125.0,
+            "hourly_rate_min": 85.0,
+            "job_level": "manager",
+            "position_id": "139",
+            "status": "open",
+            "title": "Operations Manager",
+            "updated_at": "2024-12-05T06:24:09"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_recruitment_entities",
+      "arguments": {
+        "entity_type": "candidates",
+        "filters": {
+          "email": "david16@company.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "candidates",
+        "results": [
+          {
+            "address": "99389 Zachary Neck Apt. 809, Nathanfurt, NE 18712",
+            "candidate_id": "249",
+            "created_at": "2024-07-05T08:11:31",
+            "email": "david16@company.com",
+            "first_name": "David",
+            "last_name": "Butler",
+            "phone_number": "+16788845876",
+            "source": "referral",
+            "status": "interviewing",
+            "updated_at": "2025-01-04T02:13:00"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_recruitment_entities",
+      "arguments": {
+        "entity_type": "job_applications",
+        "filters": {
+          "candidate_id": "249",
+          "position_id": "135"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "job_applications",
+        "results": [
+          {
+            "ai_screening_score": 71.11,
+            "application_date": "2024-12-14",
+            "application_id": "475",
+            "candidate_id": "249",
+            "created_at": "2024-12-14T01:59:16",
+            "final_decision": null,
+            "position_id": "135",
+            "recruiter_id": "11",
+            "status": "interviewing",
+            "updated_at": "2024-12-20T02:35:13"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_recruitment_entities",
+      "arguments": {
+        "entity_type": "interviews",
+        "filters": {
+          "application_id": "475",
+          "interview_type": "behavioral"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "interviews",
+        "results": [
+          {
+            "application_id": "475",
+            "communication_score": null,
+            "created_at": "2024-12-25T09:57:51",
+            "cultural_fit_score": null,
+            "duration_minutes": 120,
+            "interview_id": "346",
+            "interview_type": "behavioral",
+            "interviewer_id": "7",
+            "overall_rating": null,
+            "recommendation": null,
+            "scheduled_date": "2024-12-28T15:25:40",
+            "status": "scheduled",
+            "technical_score": null,
+            "updated_at": "2025-01-24T04:38:37"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_interview",
+      "arguments": {
+        "action": "update",
+        "interview_data": {
+          "overall_rating": "good",
+          "technical_score": 8.2,
+          "communication_score": 7.5,
+          "cultural_fit_score": 7.8,
+          "recommendation": "hire",
+          "status": "completed"
+        },
+        "interview_id": "346"
+      },
+      "output": {
+        "action": "update",
+        "interview_data": {
+          "application_id": "475",
+          "communication_score": 7.5,
+          "created_at": "2024-12-25T09:57:51",
+          "cultural_fit_score": 7.8,
+          "duration_minutes": 120,
+          "interview_id": "346",
+          "interview_type": "behavioral",
+          "interviewer_id": "7",
+          "overall_rating": "good",
+          "recommendation": "hire",
+          "scheduled_date": "2024-12-28T15:25:40",
+          "status": "completed",
+          "technical_score": 8.2,
+          "updated_at": "2025-10-01T12:00:00"
+        },
+        "interview_id": "346",
+        "message": "Interview 346 outcome recorded successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "handle_job_application",
+      "arguments": {
+        "action": "update",
+        "application_data": {
+          "status": "offer_made",
+          "final_decision": "hire"
+        },
+        "application_id": "475"
+      },
+      "output": {
+        "action": "update",
+        "application_data": {
+          "ai_screening_score": 71.11,
+          "application_date": "2024-12-14",
+          "application_id": "475",
+          "candidate_id": "249",
+          "created_at": "2024-12-14T01:59:16",
+          "final_decision": "hire",
+          "position_id": "135",
+          "recruiter_id": "11",
+          "status": "offer_made",
+          "updated_at": "2025-10-01T12:00:00"
+        },
+        "application_id": "475",
+        "message": "Job application 475 updated successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "overall_rating",
+        "new_value": "good",
+        "operation": "create",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "overall_rating",
+        "log_id": "2885",
+        "new_value": "good",
+        "old_value": null,
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "recommendation",
+        "new_value": "hire",
+        "operation": "create",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "recommendation",
+        "log_id": "2886",
+        "new_value": "hire",
+        "old_value": null,
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "technical_score",
+        "new_value": "8.2",
+        "operation": "create",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "technical_score",
+        "log_id": "2887",
+        "new_value": "8.2",
+        "old_value": null,
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "communication_score",
+        "new_value": "7.5",
+        "operation": "create",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "communication_score",
+        "log_id": "2888",
+        "new_value": "7.5",
+        "old_value": null,
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "cultural_fit_score",
+        "new_value": "7.8",
+        "operation": "create",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "cultural_fit_score",
+        "log_id": "2889",
+        "new_value": "7.8",
+        "old_value": null,
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "status",
+        "new_value": "completed",
+        "old_value": "scheduled",
+        "operation": "create",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "status",
+        "log_id": "2890",
+        "new_value": "completed",
+        "old_value": "scheduled",
+        "reference_id": "346",
+        "reference_type": "interviews",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "status",
+        "new_value": "offer_made",
+        "old_value": "interviewing",
+        "operation": "create",
+        "reference_id": "475",
+        "reference_type": "job_applications",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "status",
+        "log_id": "2891",
+        "new_value": "offer_made",
+        "old_value": "interviewing",
+        "reference_id": "475",
+        "reference_type": "job_applications",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "update",
+        "field_name": "final_decision",
+        "new_value": "hire",
+        "operation": "create",
+        "reference_id": "475",
+        "reference_type": "job_applications",
+        "user_id": "10"
+      },
+      "output": {
+        "action": "update",
+        "field_name": "final_decision",
+        "log_id": "2892",
+        "new_value": "hire",
+        "old_value": null,
+        "reference_id": "475",
+        "reference_type": "job_applications",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "10"
+      }
+    }
+  ],
+    "outputs":[],
+    "edges": [
+        {
+                "from": "instruction",
+                "to": "search_user_employee_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_department_entities",
+                "connection": {
+                    "output": "entity_type, department_name",
+                    "input": "entity_type, filters.department_name"
+                }
+            },
+            {
+                "from": "search_department_entities",
+                "to": "search_job_entities",
+                "connection": {
+                    "output": "results[0].department_id",
+                    "input": "filters.department_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_job_entities",
+                "connection": {
+                    "output": "entity_type, title",
+                    "input": "entity_type, filters.title"
+                }
+            },
+            {
+                "from": "search_job_entities",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "results[0].position_id",
+                    "input": "filters.position_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "results[0].candidate_id",
+                    "input": "filters.candidate_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "results[0].application_id",
+                    "input": "filters.application_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "search_recruitment_entities",
+                "connection": {
+                    "output": "entity_type, interview_type",
+                    "input": "entity_type, filters.interview_type"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "handle_interview",
+                "connection": {
+                    "output": "results[0].interview_id",
+                    "input": "interview_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_interview",
+                "connection": {
+                    "output": "action, overall_rating, technical_score, communication_score, cultural_fit_score, recommendation, status",
+                    "input": "action, interview_data.overall_rating, interview_data.technical_score, interview_data.communication_score, interview_data.cultural_fit_score, interview_data.recommendation, interview_data.status"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "handle_job_application",
+                "connection": {
+                    "output": "results[0].application_id",
+                    "input": "application_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "handle_job_application",
+                "connection": {
+                    "output": "action, status, final_decision",
+                    "input": "action, application_data.status, application_data.final_decision"
+                }
+            },
+            {
+                "from": "search_user_employee_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].user_id",
+                    "input": "user_id"
+                }
+            },
+            {
+                "from": "handle_interview",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "interview_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].overall_rating, results[0].recommendation, results[0].technical_score, results[0].communication_score, results[0].cultural_fit_score, results[0].status",
+                    "input": "old_value, old_value, old_value, old_value, old_value, old_value"
+                }
+            },
+            {
+                "from": "handle_job_application",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "application_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "search_recruitment_entities",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "results[0].status, results[0].final_decision",
+                    "input": "old_value, old_value"
+                }
+            },
+                        {
+                "from": "instruction",
+                "to": "handle_audit_logs",
+                "connection": {
+                    "output": "action, field_name, new_value, operation, reference_type",
+                    "input": "action, field_name, new_value, operation, reference_type"
+                }
+            }
+    ],
+    "num_edges": 20
+  }
+}
