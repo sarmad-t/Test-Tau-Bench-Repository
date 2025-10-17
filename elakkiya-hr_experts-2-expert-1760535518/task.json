@@ -396,14 +396,6 @@
                     "input": "skill_id"
                 }
             },
-             {
-                "from": "instruction",
-                "to": "validate_approval",
-                "connection": {
-                    "output": "action, requester_email",
-                    "input": "action, requester_email"
-                }
-            },
             {
                 "from": "validate_approval",
                 "to": "handle_job_position_skills",
@@ -461,7 +453,7 @@
                 }
             }
         ],
-        "num_edges": 21
+        "num_edges": 20
     }
 }
 
