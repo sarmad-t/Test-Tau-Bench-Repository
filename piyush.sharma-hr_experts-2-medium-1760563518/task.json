@@ -208,8 +208,8 @@
                 "from": "instruction",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output" : "action, operation, field_name, new_value, old_value, refrerence_type",
-                    "input" : "action, operation, field_name, new_value, old_value, reference_type"
+                    "output" : "action, operation, field_name, new_value, refrerence_type",
+                    "input" : "action, operation, field_name, new_value, reference_type"
                 }
             },
             {
@@ -224,8 +224,8 @@
                 "from": "search_job_entities",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output" : "results[0].position_id",
-                    "input" : "reference_id"
+                    "output" : "results[0].position_id, results[0].status",
+                    "input" : "reference_id, status"
                 }
             }
         ],
