@@ -179,8 +179,8 @@
                 "from": "instruction",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output" : "action, action, field_name, reference_type",
-                    "input" : "action, operation , field_name, reference_type"
+                    "output" : "action, operation, reference_type",
+                    "input" : "action, operation, reference_type"
                 }
             },
             {
