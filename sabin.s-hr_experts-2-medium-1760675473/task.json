@@ -1,0 +1,255 @@
+{
+  "env": "hr_experts",
+  "model_provider": "fireworks", 
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 3,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "7",
+    "instruction": "You are Renee Mosley (reneemosley@company.com), an HR Manager. You need to enroll employee Michele Bryant (michelebryant@outlook.com) in the mandatory 'Code of Conduct Training' program, with an enrollment date of 2025-10-17.",
+    "actions": [
+            {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "reneemosley@company.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-01-05T11:36:06",
+            "email": "reneemosley@company.com",
+            "first_name": "Renee",
+            "last_name": "Mosley",
+            "mfa_enabled": false,
+            "phone_number": "+19386974032",
+            "role": "hr_manager",
+            "status": "active",
+            "updated_at": "2025-01-10T07:03:34",
+            "user_id": "7"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "michelebryant@outlook.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "users",
+        "results": [
+          {
+            "created_at": "2024-09-24T21:22:09",
+            "email": "michelebryant@outlook.com",
+            "first_name": "Michele",
+            "last_name": "Bryant",
+            "mfa_enabled": true,
+            "phone_number": "+13344477768",
+            "role": "employee",
+            "status": "active",
+            "updated_at": "2024-10-31T00:51:49",
+            "user_id": "49"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_user_employee_entities",
+      "arguments": {
+        "entity_type": "employees",
+        "filters": {
+          "user_id": "49"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "employees",
+        "results": [
+          {
+            "address": "82125 Erin Mall, Flynnview, OR 98952",
+            "created_at": "2025-07-07T21:14:12",
+            "date_of_birth": "1974-11-11",
+            "employee_id": "3",
+            "employment_status": "active",
+            "hire_date": "2025-06-19",
+            "hourly_rate": 58,
+            "manager_id": null,
+            "position_id": "98",
+            "updated_at": "2025-07-21T20:31:39",
+            "user_id": "49"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "search_training_entities",
+      "arguments": {
+        "entity_type": "training_programs",
+        "filters": {
+          "program_name": "Code of Conduct Training"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entity_type": "training_programs",
+        "results": [
+          {
+            "created_at": "2020-06-09T08:36:35",
+            "delivery_method": "online",
+            "duration_hours": 5,
+            "mandatory": true,
+            "program_id": "6",
+            "program_name": "Code of Conduct Training",
+            "program_type": "compliance",
+            "status": "active",
+            "updated_at": "2020-07-03T10:02:41"
+          }
+        ],
+        "success": true
+      }
+    },
+    {
+      "name": "handle_employee_training",
+      "arguments": {
+        "employee_id": "3",
+        "enrollment_date": "2025-10-17",
+        "operation": "create",
+        "program_id": "6"
+      },
+      "output": {
+        "certificate_issued": false,
+        "completion_date": null,
+        "created_at": "2025-10-01T12:00:00",
+        "employee_id": "3",
+        "enrollment_date": "2025-10-17",
+        "expiry_date": null,
+        "program_id": "6",
+        "score": null,
+        "status": "enrolled",
+        "training_record_id": "343",
+        "updated_at": "2025-10-01T12:00:00"
+      }
+    },
+    {
+      "name": "handle_audit_logs",
+      "arguments": {
+        "action": "create",
+        "operation": "create",
+        "reference_id": "343",
+        "reference_type": "employee_training",
+        "user_id": "7"
+      },
+      "output": {
+        "action": "create",
+        "field_name": null,
+        "log_id": "2885",
+        "new_value": null,
+        "old_value": null,
+        "reference_id": "343",
+        "reference_type": "employee_training",
+        "timestamp": "2025-10-01T12:00:00",
+        "user_id": "7"
+      }
+    }           
+    ],
+    "outputs": [],
+
+    "edges": [
+       {
+      "from": "instruction",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "search_user_employee_entities",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "filters.user_id"
+      }
+    },
+    {
+       "from": "instruction",
+       "to": "search_user_employee_entities",
+       "connection": {
+          "output": "entity_type",
+          "input": "entity_type"
+       }
+    },
+    {
+      "from": "instruction",
+      "to": "search_training_entities",
+      "connection": {
+        "output": "entity_type, program_name",
+        "input": "entity_type, filters.program_name"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_employee_training",
+      "connection": {
+        "output": "results[0].employee_id",
+        "input": "employee_id"
+      }
+    },
+    {
+      "from": "search_training_entities",
+      "to": "handle_employee_training",
+      "connection": {
+        "output": "results[0].program_id",
+        "input": "program_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_employee_training",
+      "connection": {
+        "output": "enrollment_date, operation",
+        "input": "enrollment_date, operation"
+      }
+    },
+    {
+      "from": "handle_employee_training",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "training_record_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "search_user_employee_entities",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "results[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "handle_audit_logs",
+      "connection": {
+        "output": "action, operation, reference_type",
+        "input": "action, operation, reference_type"
+      }
+    }
+   ],
+    "num_edges": 10
+  }
+}
+
