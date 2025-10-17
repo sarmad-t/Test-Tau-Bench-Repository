@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "1",
-        "instruction": "You are Johny Jones (johnny.jones@protonmail.com) and you want to create new department called 'Artifical Intelligence' with an budget of 50000 USD.",
+        "instruction": "You are Johny Jones (johnny.jones@protonmail.com) and you want to create new department called 'Artifical Intelligence' with an budget of 50000.",
         "actions": [
             {
                 "name": "search_user_employee_entities",
@@ -75,8 +75,6 @@
                 "name": "handle_audit_logs",
                 "arguments": {
                     "action": "create",
-                    "field_name": "department_name",
-                    "new_value": "Artificial Intelligence",
                     "operation": "create",
                     "reference_id": "101",
                     "reference_type": "departments",
@@ -100,8 +98,8 @@
                 "from": "instruction",
                 "to": "search_user_employee_entities",
                 "connection": {
-                    "output" : "entity_type, first_name, last_name",
-                    "input" : "entity_type, filters.first_name, filters.last_name"
+                    "output" : "entity_type, email",
+                    "input" : "entity_type, filters.email"
                 }
             },
             {
@@ -140,15 +138,15 @@
                 "from": "instruction",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output" : "action,field_name, new_value, operation, departments",
-                    "input" : "action, field_name, new_value, operation, reference_type"
+                    "output" : "action, operation, departments",
+                    "input" : "action, operation, reference_type"
                 }
             },
             {
                 "from": "handle_department",
                 "to": "handle_audit_logs",
                 "connection": {
-                    "output" : "department_id,manager_id",
+                    "output" : "department_id,department_data.manager_id",
                     "input" : "reference_id, user_id"
                 }
             }
