@@ -1,0 +1,256 @@
+{
+  "env": "hr_talent_management",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 1,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "21",
+    "instruction": "You are Morgan Cunningham (email: morgan.cunningham386@company.com), an HR Manager. On 2025-11-21, you need to create a job posting from the approved requisition of 'Compliance Officer' for the 'Legal' department and publish it to 'internal' portals.",
+    "actions": [
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "email": "morgan.cunningham386@company.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "created_at": "2025-04-17T15:47:56",
+              "email": "morgan.cunningham386@company.com",
+              "employee_id": "33",
+              "employment_status": "active",
+              "first_name": "Morgan",
+              "last_name": "Cunningham",
+              "phone_number": "+19029777795",
+              "role": "hr_manager",
+              "updated_at": "2024-05-04T01:00:01",
+              "user_id": "21"
+            }
+          ],
+          "entity_type": "users",
+          "filters_applied": {
+            "email": "morgan.cunningham386@company.com"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "departments",
+          "filters": {
+            "department_name": "Legal"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "budget": 300000,
+              "created_at": "2020-12-27T06:44:44",
+              "department_code": "DEPT-LEG",
+              "department_id": "7",
+              "department_name": "Legal",
+              "manager_id": "52",
+              "status": "active"
+            }
+          ],
+          "entity_type": "departments",
+          "filters_applied": {
+            "department_name": "Legal"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_job_entities",
+        "arguments": {
+          "entity_type": "job_requisitions",
+          "filters": {
+            "department_id": "7",
+            "job_title": "Compliance Officer",
+            "status": "approved"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "budgeted_salary_max": 93363.25,
+              "budgeted_salary_min": 70022.44,
+              "created_at": "2020-09-08T04:27:56",
+              "created_by": "34",
+              "department_id": "7",
+              "dept_head_approval_date": "2025-03-09",
+              "dept_head_approver": "54",
+              "employment_type": "intern",
+              "finance_manager_approval_date": "2021-12-21",
+              "finance_manager_approver": "43",
+              "grade": "L2",
+              "hiring_manager_id": "24",
+              "hr_manager_approval_date": "2021-06-17",
+              "hr_manager_approver": "24",
+              "job_description": "Job description for Compliance Officer position in Legal",
+              "job_title": "Compliance Officer",
+              "location_id": "9",
+              "remote_indicator": "hybrid",
+              "requisition_id": "12",
+              "shift_type": "rotating",
+              "status": "approved",
+              "updated_at": "2023-04-12T15:02:43"
+            }
+          ],
+          "entity_type": "job_requisitions",
+          "filters_applied": {
+            "department_id": "7",
+            "job_title": "Compliance Officer",
+            "status": "approved"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "administer_job_operations",
+        "arguments": {
+          "budgeted_salary_max": 93363.25,
+          "budgeted_salary_min": 70022.44,
+          "department_id": "7",
+          "employment_type": "intern",
+          "grade": "L2",
+          "hiring_manager_id": "24",
+          "job_description": "Job description for Compliance Officer position in Legal",
+          "job_title": "Compliance Officer",
+          "location_id": "9",
+          "operation_type": "create_posting",
+          "portal_type": "internal",
+          "posted_date": "2020-09-08",
+          "remote_indicator": "hybrid",
+          "requisition_id": "12",
+          "shift_type": "rotating",
+          "status": "approved",
+          "user_id": "21"
+        },
+        "output": {
+          "message": "Job posting 11 created successfully",
+          "posting_id": "11",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "create",
+          "reference_id": "11",
+          "reference_type": "job_posting",
+          "user_id": "21"
+        },
+        "output": {
+          "audit_id": "45",
+          "audit_log": {
+            "action": "create",
+            "audit_id": "45",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "11",
+            "reference_type": "job_posting",
+            "user_id": "21"
+          },
+          "message": "Audit entry 45 created successfully",
+          "success": true
+        }
+      }
+    ],
+    "outputs": [],
+    "edges": [
+      {
+      "from": "instruction",
+      "to": "fetch_reference_entities",
+      "connection": {
+        "output": "entity_type, email",
+        "input": "entity_type, filters.email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "fetch_reference_entities",
+      "connection": {
+        "output": "department_name",
+        "input": "department_name"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "fetch_job_entities",
+      "connection": {
+        "output": "entities[0].department_id",
+        "input": "department_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "fetch_job_entities",
+      "connection": {
+        "output": "job_title, status",
+        "input": "job_title, status"
+      }
+    },
+    {
+      "from": "fetch_job_entities",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "entities[0].budgeted_salary_max, entities[0].budgeted_salary_min, entities[0].department_id, entities[0].employment_type, entities[0].grade, entities[0].hiring_manager_id, entities[0].job_description, entities[0].job_title, entities[0].location_id, entities[0].remote_indicator, entities[0].requisition_id, entities[0].shift_type, entities[0].status",
+        "input": "budgeted_salary_max, budgeted_salary_min, department_id, employment_type, grade, hiring_manager_id, job_description, job_title, location_id, remote_indicator, requisition_id, shift_type, status"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "entities[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "operation_type, portal_type, posted_date",
+        "input": "operation_type, portal_type, posted_date"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "add_audit_entry",
+      "connection": {
+        "output": "action, reference_type",
+        "input": "action, reference_type"
+      }
+    },
+    {
+      "from": "administer_job_operations",
+      "to": "add_audit_entry",
+      "connection": {
+        "output": "posting_id",
+        "input": "reference_id"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "add_audit_entry",
+      "connection": {
+        "output": "entities[0].user_id",
+        "input": "user_id"
+      }
+    }
+    ],
+    "num_edges": 10
+  }
+}
