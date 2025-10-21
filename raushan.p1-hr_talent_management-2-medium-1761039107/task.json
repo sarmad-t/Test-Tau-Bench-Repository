@@ -1,0 +1,241 @@
+{
+    "env": "hr_talent_management",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "23",
+        "instruction": "You are Kelly Mathis (email:kelly.mathis40@internal.company.com), the Hiring Manager. You need to create a new 'internal' job requisition for the 'Operations Director'  position within the 'Operations' department on 2025.11.21. The is the 'L3' grade based in the 'North Katherine Office' location, the employment type is 'full-time' and 'remote' with a salary range of 8000.00 to 10000.00.",
+        "actions": [
+            {
+                "name": "fetch_reference_entities",
+                "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "email": "kelly.mathis40@internal.company.com"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entities": [
+                        {
+                            "created_at": "2023-12-16T08:12:52",
+                            "email": "kelly.mathis40@internal.company.com",
+                            "employee_id": "21",
+                            "employment_status": "active",
+                            "first_name": "Kelly",
+                            "last_name": "Mathis",
+                            "phone_number": "+13862267961",
+                            "role": "hr_manager",
+                            "updated_at": "2021-12-30T02:21:36",
+                            "user_id": "23"
+                        }
+                    ],
+                    "entity_type": "users",
+                    "filters_applied": {
+                        "email": "kelly.mathis40@internal.company.com"
+                    },
+                    "success": true
+                }
+            },
+            {
+                "name": "fetch_reference_entities",
+                "arguments": {
+                    "entity_type": "departments",
+                    "filters": {
+                        "department_name": "Operations"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entities": [
+                        {
+                            "budget": 400000,
+                            "created_at": "2021-07-31T09:32:21",
+                            "department_code": "DEPT-OPS",
+                            "department_id": "6",
+                            "department_name": "Operations",
+                            "manager_id": "51",
+                            "status": "active"
+                        }
+                    ],
+                    "entity_type": "departments",
+                    "filters_applied": {
+                        "department_name": "Operations"
+                    },
+                    "success": true
+                }
+            },
+            {
+                "name": "fetch_reference_entities",
+                "arguments": {
+                    "entity_type": "locations",
+                    "filters": {
+                        "location_name": "North Katherine Office"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entities": [
+                        {
+                            "address": "995 Chad Squares Suite 762",
+                            "city_name": "North Katherine",
+                            "country": "Marshall Islands",
+                            "created_at": "2022-08-12T20:20:20",
+                            "location_id": "7",
+                            "location_name": "North Katherine Office",
+                            "status": "active"
+                        }
+                    ],
+                    "entity_type": "locations",
+                    "filters_applied": {
+                        "location_name": "North Katherine Office"
+                    },
+                    "success": true
+                }
+            },
+            {
+                "name": "administer_job_operations",
+                "arguments": {
+                    "budgeted_salary_max": 10000,
+                    "budgeted_salary_min": 8000,
+                    "created_by": "23",
+                    "department_id": "6",
+                    "employment_type": "full_time",
+                    "grade": "L3",
+                    "hiring_manager_id": "51",
+                    "job_title": "Operations Director",
+                    "location_id": "7",
+                    "operation_type": "create_requisition",
+                    "portal_type": "internal",
+                    "posted_date": "2025.11.21",
+                    "remote_indicator": "remote"
+                },
+                "output": {
+                    "message": "Job requisition 31 created successfully",
+                    "requisition_id": "31",
+                    "success": true
+                }
+            },
+            {
+                "name": "add_audit_entry",
+                "arguments": {
+                    "action": "create",
+                    "reference_id": "31",
+                    "reference_type": "job_requisition",
+                    "user_id": "23"
+                },
+                "output": {
+                    "audit_id": "45",
+                    "audit_log": {
+                        "action": "create",
+                        "audit_id": "45",
+                        "created_at": "2025-10-10T12:00:00",
+                        "field_name": null,
+                        "new_value": null,
+                        "old_value": null,
+                        "reference_id": "31",
+                        "reference_type": "job_requisition",
+                        "user_id": "23"
+                    },
+                    "message": "Audit entry 45 created successfully",
+                    "success": true
+                }
+            }
+        ],
+        "outputs": [],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "entity_type, department_name",
+                    "input": "entity_type, filters.department_name"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "entity_type, location_name",
+                    "input": "entity_type, filters.location_name"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_job_operations",
+                "connection": {
+                    "output": "entities[0].user_id",
+                    "input": "created_by"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_job_operations",
+                "connection": {
+                    "output": "entities[0].department_id",
+                    "input": "department_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_job_operations",
+                "connection": {
+                    "output": "entities[0].manager_id",
+                    "input": "hiring_manager_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_job_operations",
+                "connection": {
+                    "output": "entities[0].location_id",
+                    "input": "location_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_job_operations",
+                "connection": {
+                    "output": "budgeted_salary_max, budgeted_salary_min, employment_type, grade, job_title, operation_type, portal_type, posted_date, remote_indicator",
+                    "input": "budgeted_salary_max, budgeted_salary_min, employment_type, grade, job_title, operation_type, portal_type, posted_date, remote_indicator"
+                }
+            },
+            {
+                "from": "administer_job_operations",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "requisition_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "entities[0].user_id",
+                    "input": "user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "action, reference_type",
+                    "input": "action, reference_type"
+                }
+            }
+        ],
+        "num_edges": 11
+    }
+}
