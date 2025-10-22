@@ -184,7 +184,7 @@
       "to": "fetch_job_entities",
       "connection": {
         "output": "entities[0].department_id",
-        "input": "department_id"
+        "input": "filters.department_id"
       }
     },
     {
@@ -192,7 +192,7 @@
       "to": "fetch_job_entities",
       "connection": {
         "output": "job_title, status",
-        "input": "job_title, status"
+        "input": "filters.job_title, filters.status"
       }
     },
     {
