@@ -27,15 +27,6 @@
           {
             "name": "fetch_reference_entities",
             "kwargs": {
-              "entity_type": "users",
-              "filters": {
-                "user_id": "51"
-              }
-            }
-          },
-          {
-            "name": "fetch_reference_entities",
-            "kwargs": {
               "entity_type": "locations",
               "filters": {
                 "location_name": "North Katherine Office"
@@ -51,7 +42,7 @@
               "department_id": "6",
               "employment_type": "full_time",
               "grade": "L3",
-              "hiring_manager_id": "51",
+              "hiring_manager_id": "23",
               "job_title": "Operations Director",
               "location_id": "7",
               "operation_type": "create_requisition",
@@ -74,8 +65,70 @@
         "outputs": []
       },
       "source": "user",
-      "user_cost": null,
-      "reward_info": null
+      "user_cost": 0.0019225000000000002,
+      "reward_info": {
+        "reward": 0.0,
+        "info": {
+          "r_actions": 0.0,
+          "gt_data_hash": "1045b9609ea8dfe5be13976dd398a59d18b346fbe981e423e699322496902a30"
+        },
+        "actions": [
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "users",
+              "filters": {
+                "email": "kelly.mathis40@internal.company.com"
+              }
+            }
+          },
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "departments",
+              "filters": {
+                "department_name": "Operations"
+              }
+            }
+          },
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "locations",
+              "filters": {
+                "location_name": "North Katherine Office"
+              }
+            }
+          },
+          {
+            "name": "administer_job_operations",
+            "kwargs": {
+              "budgeted_salary_max": 10000,
+              "budgeted_salary_min": 8000,
+              "created_by": "23",
+              "department_id": "6",
+              "employment_type": "full_time",
+              "grade": "L3",
+              "hiring_manager_id": "23",
+              "job_title": "Operations Director",
+              "location_id": "7",
+              "operation_type": "create_requisition",
+              "portal_type": "internal",
+              "posted_date": "2025.11.21",
+              "remote_indicator": "remote"
+            }
+          },
+          {
+            "name": "add_audit_entry",
+            "kwargs": {
+              "action": "create",
+              "reference_id": "31",
+              "reference_type": "job_requisition",
+              "user_id": "23"
+            }
+          }
+        ]
+      }
     },
     "traj": [
       {
@@ -84,31 +137,31 @@
       },
       {
         "role": "user",
-        "content": "Hi there! I'd like your guidance on creating a new job requisition for an internal position."
+        "content": "Hi! I need to create a new internal job requisition for a position within my department."
       },
       {
         "role": "assistant",
-        "content": "I'd be happy to help you create a new job requisition for an internal position. To get started, I'll need some specific information about the role you're looking to fill.\n\nCould you please provide me with the following details:\n\n1. Job title for the position\n2. Department where this position will be located\n3. Location where this position will be based\n4. Employment type (full-time, part-time, contract, or intern)\n5. Who will be the hiring manager for this role\n6. The salary range for this position (minimum and maximum)\n7. Your user ID (to identify who is creating this requisition)\n\nOnce I have this information, I can help you create the job requisition in our system."
+        "content": "I'd be happy to help you create a new internal job requisition for a position within your department. To get started, I'll need some information about the requisition you'd like to create.\n\nCould you please provide me with the following details:\n1. The job title for the position\n2. Your department ID\n3. The location ID where this position will be based\n4. The employment type (full_time, part_time, contract, or intern)\n5. The hiring manager's user ID\n6. The minimum and maximum budgeted salary for this position\n7. Your user ID (as the person creating the requisition)\n\nOnce I have this information, I can create the job requisition for you."
       },
       {
         "role": "user",
-        "content": "Sure! The job title is 'Operations Director', and it will be part of the 'Operations' department."
+        "content": "Sure, I can help with that. The job title for the position is 'Operations Director'."
       },
       {
         "role": "assistant",
-        "content": "Thank you for providing that information. To continue with creating the job requisition for the 'Operations Director' position, I need a few more details:\n\n1. Which location will this position be based in?\n2. What is the employment type (full-time, part-time, contract, or intern)?\n3. Who will be the hiring manager for this role? (I'll need their user ID)\n4. What is the salary range for this position? (minimum and maximum)\n5. What is your user ID (the person creating this requisition)?\n\nOnce I have these details, I can help you create the job requisition in our system."
+        "content": "Thank you for providing the job title. To proceed with creating the job requisition for the 'Operations Director' position, I'll need some additional information:\n\n1. Your department ID\n2. The location ID where this position will be based\n3. The employment type (full_time, part_time, contract, or intern)\n4. The hiring manager's user ID\n5. The minimum and maximum budgeted salary for this position\n6. Your user ID (as the person creating the requisition)\n\nCould you please provide these details so I can create the requisition for you?"
       },
       {
         "role": "user",
-        "content": "The position will be based in the 'North Katherine Office' and it's a full-time role that is remote. The hiring manager is myself, Kelly Mathis, and you can use my email kelly.mathis40@internal.company.com as the user ID. The salary ranges from 8000.00 to 10000.00."
+        "content": "The department is 'Operations,' and the location for this position is the 'North Katherine Office.'"
       },
       {
         "role": "assistant",
-        "content": "Thank you for providing those details. Before I can create the job requisition, I need to look up some information in our system. Let me first find the department ID for 'Operations', the location ID for 'North Katherine Office', and your user ID.",
+        "content": "Thank you for providing that information. To continue creating the job requisition for the 'Operations Director' position, I'll need a few more details:\n\n1. The employment type (full_time, part_time, contract, or intern)\n2. The hiring manager's user ID\n3. The minimum and maximum budgeted salary for this position\n4. Your user ID (as the person creating the requisition)\n\nAlso, I'll need to verify the exact department ID for 'Operations' and the location ID for 'North Katherine Office'. Let me look those up for you.",
         "tool_calls": [
           {
             "index": 0,
-            "id": "call_CmGttphBmWE4sK89bmDY0Jk9",
+            "id": "call_AgUM9vmhchDxnBZdJCBPhBWy",
             "type": "function",
             "function": {
               "name": "fetch_reference_entities",
@@ -120,17 +173,16 @@
       },
       {
         "role": "tool",
-        "tool_call_id": "call_CmGttphBmWE4sK89bmDY0Jk9",
+        "tool_call_id": "call_AgUM9vmhchDxnBZdJCBPhBWy",
         "name": "fetch_reference_entities",
         "content": "{\"success\": true, \"entity_type\": \"departments\", \"count\": 1, \"entities\": [{\"department_id\": \"6\", \"department_name\": \"Operations\", \"department_code\": \"DEPT-OPS\", \"manager_id\": \"51\", \"budget\": 400000, \"status\": \"active\", \"created_at\": \"2021-07-31T09:32:21\"}], \"filters_applied\": {\"department_name\": \"Operations\"}}"
       },
       {
         "role": "assistant",
-        "content": "Now let me look up the location ID for 'North Katherine Office'.",
         "tool_calls": [
           {
             "index": 0,
-            "id": "call_FTs72PkEpLfDgosj05JNWizq",
+            "id": "call_ZpFxoqyQnl2G2bW7wAtHu6RN",
             "type": "function",
             "function": {
               "name": "fetch_reference_entities",
@@ -142,21 +194,37 @@
       },
       {
         "role": "tool",
-        "tool_call_id": "call_FTs72PkEpLfDgosj05JNWizq",
+        "tool_call_id": "call_ZpFxoqyQnl2G2bW7wAtHu6RN",
         "name": "fetch_reference_entities",
         "content": "{\"success\": true, \"entity_type\": \"locations\", \"count\": 1, \"entities\": [{\"location_id\": \"7\", \"location_name\": \"North Katherine Office\", \"address\": \"995 Chad Squares Suite 762\", \"city_name\": \"North Katherine\", \"country\": \"Marshall Islands\", \"status\": \"active\", \"created_at\": \"2022-08-12T20:20:20\"}], \"filters_applied\": {\"location_name\": \"North Katherine Office\"}}"
       },
       {
         "role": "assistant",
-        "content": "Now let me find your user ID using your email address.",
+        "content": "Thank you for your patience. I've found the department and location information:\n\n- Department: Operations (department_id: 6)\n- Location: North Katherine Office (location_id: 7)\n\nTo complete the job requisition creation, I still need the following information:\n\n1. The employment type (full_time, part_time, contract, or intern)\n2. The hiring manager's user ID\n3. The minimum and maximum budgeted salary for this position\n4. Your user ID (as the person creating the requisition)\n\nOnce you provide these details, I can create the job requisition for you."
+      },
+      {
+        "role": "user",
+        "content": "The employment type is 'full-time' and 'remote'."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing the employment type. I see you mentioned it's 'full-time' and 'remote'. For the requisition, I'll need to know if there's a specific user who will serve as the hiring manager for this position. \n\nI also still need the following information to complete the requisition:\n\n1. The hiring manager's user ID\n2. The minimum and maximum budgeted salary for this position\n3. Your user ID (as the person creating the requisition)\n\nCould you please provide these details so I can create the requisition for the Operations Director position?"
+      },
+      {
+        "role": "user",
+        "content": "I am the hiring manager, Kelly Mathis, and the salary range is between 8000.00 to 10000.00."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing that information. To proceed with creating the job requisition, I'll need to look up your user ID as the hiring manager. Let me search for your information.",
         "tool_calls": [
           {
             "index": 0,
-            "id": "call_NWbuOP8uxnCc8hhygTZr92Vm",
+            "id": "call_aZJ3gRdmQ9d0kEggyrV6i2W3",
             "type": "function",
             "function": {
               "name": "fetch_reference_entities",
-              "arguments": "{\"entity_type\": \"users\", \"filters\": {\"email\": \"kelly.mathis40@internal.company.com\"}}"
+              "arguments": "{\"entity_type\": \"users\", \"filters\": {\"first_name\": \"Kelly\", \"last_name\": \"Mathis\"}}"
             },
             "name": null
           }
@@ -164,17 +232,25 @@
       },
       {
         "role": "tool",
-        "tool_call_id": "call_NWbuOP8uxnCc8hhygTZr92Vm",
+        "tool_call_id": "call_aZJ3gRdmQ9d0kEggyrV6i2W3",
         "name": "fetch_reference_entities",
-        "content": "{\"success\": true, \"entity_type\": \"users\", \"count\": 1, \"entities\": [{\"user_id\": \"23\", \"employee_id\": \"21\", \"first_name\": \"Kelly\", \"last_name\": \"Mathis\", \"email\": \"kelly.mathis40@internal.company.com\", \"phone_number\": \"+13862267961\", \"role\": \"hr_manager\", \"employment_status\": \"active\", \"created_at\": \"2023-12-16T08:12:52\", \"updated_at\": \"2021-12-30T02:21:36\"}], \"filters_applied\": {\"email\": \"kelly.mathis40@internal.company.com\"}}"
+        "content": "{\"success\": true, \"entity_type\": \"users\", \"count\": 1, \"entities\": [{\"user_id\": \"23\", \"employee_id\": \"21\", \"first_name\": \"Kelly\", \"last_name\": \"Mathis\", \"email\": \"kelly.mathis40@internal.company.com\", \"phone_number\": \"+13862267961\", \"role\": \"hr_manager\", \"employment_status\": \"active\", \"created_at\": \"2023-12-16T08:12:52\", \"updated_at\": \"2021-12-30T02:21:36\"}], \"filters_applied\": {\"first_name\": \"Kelly\", \"last_name\": \"Mathis\"}}"
       },
       {
         "role": "assistant",
-        "content": "Thank you for your patience. I've gathered all the necessary information to create the job requisition. I notice that you mentioned the salary range is from 8000.00 to 10000.00. I want to confirm if these are monthly or annual figures, as typically job requisitions use annual salary ranges. For now, I'll proceed with these figures as annual amounts.\n\nLet me create the job requisition for you:",
+        "content": "Thank you for providing that information. I've found your user details, Kelly. \n\nTo complete the job requisition for the Operations Director position, I'll need to know who will be creating this requisition. Is there another user who will be creating this requisition, or would you like me to proceed with creating it for you?\n\nAlso, I noticed that the salary range you provided ($8,000.00 to $10,000.00) seems quite low for an Operations Director position. Could you please confirm if these figures are correct, or if they might be missing some digits?"
+      },
+      {
+        "role": "user",
+        "content": "I will be the one creating the requisition, and the salary figures are correct as provided."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for confirming. I'll proceed with creating the job requisition for the Operations Director position with the information provided.",
         "tool_calls": [
           {
             "index": 0,
-            "id": "call_cDqajWKs3IDNsWgSlmFd54sc",
+            "id": "call_hB5ObpqIDNkQ2kPpwvzZEP4J",
             "type": "function",
             "function": {
               "name": "administer_job_operations",
@@ -186,9 +262,25 @@
       },
       {
         "role": "tool",
-        "tool_call_id": "call_cDqajWKs3IDNsWgSlmFd54sc",
+        "tool_call_id": "call_hB5ObpqIDNkQ2kPpwvzZEP4J",
         "name": "administer_job_operations",
         "content": "{\"success\": true, \"requisition_id\": \"31\", \"message\": \"Job requisition 31 created successfully\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "Great news! I've successfully created the job requisition for you. Here are the details:\n\n- Requisition ID: 31\n- Job Title: Operations Director\n- Department: Operations (ID: 6)\n- Location: North Katherine Office (ID: 7)\n- Employment Type: Full-time\n- Remote: Yes\n- Hiring Manager: Kelly Mathis (User ID: 23)\n- Salary Range: $8,000.00 - $10,000.00\n- Created By: Kelly Mathis (User ID: 23)\n\nThe job requisition has been created successfully and is now in the system. Is there anything else you would like to do with this requisition, such as creating a job posting for it?"
+      },
+      {
+        "role": "user",
+        "content": "No, that's all I needed for now. Thank you for your help!"
+      },
+      {
+        "role": "assistant",
+        "content": "You're very welcome! I'm glad I could help you create the job requisition for the Operations Director position. The requisition (ID: 31) is now in the system and ready for use whenever you need to proceed with the next steps in your hiring process.\n\nIf you need any further assistance with this requisition or any other HR-related tasks in the future, please don't hesitate to reach out. Have a great day!"
+      },
+      {
+        "role": "user",
+        "content": "###STOP###"
       }
     ],
     "trial": 0
