@@ -1,0 +1,288 @@
+[
+  {
+    "task_id": 0,
+    "reward": 0.0,
+    "info": {
+      "task": {
+        "user_id": "23",
+        "actions": [
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "users",
+              "filters": {
+                "email": "kelly.mathis40@internal.company.com"
+              }
+            }
+          },
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "departments",
+              "filters": {
+                "department_name": "Operations"
+              }
+            }
+          },
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "locations",
+              "filters": {
+                "location_name": "North Katherine Office"
+              }
+            }
+          },
+          {
+            "name": "administer_job_operations",
+            "kwargs": {
+              "budgeted_salary_max": 10000,
+              "budgeted_salary_min": 8000,
+              "created_by": "23",
+              "department_id": "6",
+              "employment_type": "full_time",
+              "grade": "L3",
+              "hiring_manager_id": "23",
+              "job_title": "Operations Director",
+              "location_id": "7",
+              "operation_type": "create_requisition",
+              "portal_type": "internal",
+              "posted_date": "2025.11.21",
+              "remote_indicator": "remote"
+            }
+          },
+          {
+            "name": "add_audit_entry",
+            "kwargs": {
+              "action": "create",
+              "reference_id": "31",
+              "reference_type": "job_requisition",
+              "user_id": "23"
+            }
+          }
+        ],
+        "instruction": "You are Kelly Mathis (email:kelly.mathis40@internal.company.com), the Hiring Manager. You need to create a new 'internal' job requisition for the 'Operations Director'  position within the 'Operations' department on 2025.11.21. This is the 'L3' grade based in the 'North Katherine Office' location, the employment type is 'full-time' and 'remote' with a salary range of 8000.00 to 10000.00.",
+        "outputs": []
+      },
+      "source": "user",
+      "user_cost": 0.0019225000000000002,
+      "reward_info": {
+        "reward": 0.0,
+        "info": {
+          "r_actions": 0.0,
+          "gt_data_hash": "1045b9609ea8dfe5be13976dd398a59d18b346fbe981e423e699322496902a30"
+        },
+        "actions": [
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "users",
+              "filters": {
+                "email": "kelly.mathis40@internal.company.com"
+              }
+            }
+          },
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "departments",
+              "filters": {
+                "department_name": "Operations"
+              }
+            }
+          },
+          {
+            "name": "fetch_reference_entities",
+            "kwargs": {
+              "entity_type": "locations",
+              "filters": {
+                "location_name": "North Katherine Office"
+              }
+            }
+          },
+          {
+            "name": "administer_job_operations",
+            "kwargs": {
+              "budgeted_salary_max": 10000,
+              "budgeted_salary_min": 8000,
+              "created_by": "23",
+              "department_id": "6",
+              "employment_type": "full_time",
+              "grade": "L3",
+              "hiring_manager_id": "23",
+              "job_title": "Operations Director",
+              "location_id": "7",
+              "operation_type": "create_requisition",
+              "portal_type": "internal",
+              "posted_date": "2025.11.21",
+              "remote_indicator": "remote"
+            }
+          },
+          {
+            "name": "add_audit_entry",
+            "kwargs": {
+              "action": "create",
+              "reference_id": "31",
+              "reference_type": "job_requisition",
+              "user_id": "23"
+            }
+          }
+        ]
+      }
+    },
+    "traj": [
+      {
+        "role": "system",
+        "content": "# HR Talent Management Domain Database Wiki\n\n## Overview\n\nThe HR Talent Management Database supports comprehensive human resources operations across five specialized interfaces, providing end-to-end HR management capabilities from recruitment and hiring through employee lifecycle management, payroll processing, and compliance oversight. This system manages complex HR operations with strict regulatory compliance, comprehensive audit trails, and sophisticated workflow management.\n\n### Regulatory Framework\n\nThe system operates under strict compliance with:\n\n- **Labor Laws and Employment Regulations**\n- **Equal Employment Opportunity (EEO) Requirements**\n- **Data Protection Laws (GDPR, CCPA)**\n- **Workplace Safety Standards (OSHA)**\n- **Fair Labor Standards Act (FLSA)**\n- **Family and Medical Leave Act (FMLA)**\n- **Americans with Disabilities Act (ADA)**\n\n### Interface Architecture\n\nThe HR Talent Management Domain is organized into five specialized interfaces:\n\n1. **Interface 1: Recruitment & Hiring Operations**\n\n   - Job requisition creation and management\n   - Candidate sourcing and application processing\n   - Interview scheduling and evaluation\n   - Offer creation and management\n   - Employee onboarding initiation\n\n2. **Interface 2: Employee Lifecycle Management**\n\n   - Employee record management and updates\n   - Application processing and status tracking\n   - Onboarding checklist management\n   - Employee data change management\n   - Performance and development tracking\n\n3. **Interface 3: Recruitment & Candidate Management**\n\n   - Job posting creation and management\n   - Candidate profile management\n   - Interview operations and panel management\n   - Offer processing and acceptance tracking\n   - Recruitment analytics and reporting\n\n4. **Interface 4: Payroll & Benefits Operations**\n\n   - Payroll cycle management and processing\n   - Payroll input validation and approval\n   - Benefit plan creation and management\n   - Benefit enrollment processing\n   - Payment processing and tracking\n\n5. **Interface 5: Compliance & Analytics Operations**\n   - Employee exit processing and clearance\n   - Document management and verification\n   - Notification and communication management\n   - Compliance monitoring and reporting\n   - Audit trail management and analytics\n\n## Database Schema\n\n### Users\n\nMaintains user profiles for HR system access.\n\n- **Fields:** user_id, first_name, last_name, email, phone_number, role, employment_status, timezone, created_at, updated_at\n- **Roles:** hr_manager, hr_admin, hr_recruiter, hr_director, department_manager, compliance_officer, finance_manager, employee\n- **Status:** active, inactive, suspended\n\n### Job Requisitions\n\nStores information about job openings and requirements.\n\n- **Fields:** requisition_id, job_title, department_id, location_id, employment_type, hiring_manager_id, budgeted_salary_min, budgeted_salary_max, job_description, grade, shift_type, remote_indicator, status, hr_manager_approver, dept_head_approver, hr_manager_approval_date, dept_head_approval_date, posted_date, created_by, created_at, updated_at\n- **Employment Types:** full_time, part_time, contractor, intern\n- **Status:** draft, pending_approval, approved, closed\n\n### Job Postings\n\nTracks published job openings.\n\n- **Fields:** posting_id, requisition_id, posted_date, portal_type, status, closed_date, created_at, updated_at\n- **Portal Types:** internal, external, both\n- **Status:** active, closed, cancelled\n\n### Candidates\n\nDetails individual job applicants.\n\n- **Fields:** candidate_id, first_name, last_name, email_address, contact_number, source_of_application, country_of_residence, linkedin_profile, current_ctc, status, created_at, updated_at\n- **Status:** active, inactive, hired, rejected\n\n### Applications\n\nRecords candidate applications to job postings.\n\n- **Fields:** application_id, candidate_id, posting_id, resume_file_id, cover_letter_file_id, application_date, status, screened_by, screened_date, shortlist_approved_by, shortlist_approval_date, created_at, updated_at\n- **Status:** applied, screened, shortlisted, rejected, hired\n\n### Interviews\n\nTracks interview scheduling and evaluation.\n\n- **Fields:** interview_id, application_id, interview_type, scheduled_date, interview_status, rating, recommendation, completed_by, completed_date, created_at, updated_at\n- **Interview Types:** phone, video, in_person, technical, behavioral, panel\n- **Status:** scheduled, completed, cancelled, rescheduled\n\n### Interview Panel Members\n\nRecords interview panel assignments.\n\n- **Fields:** interview_id, user_id, created_at\n\n### Offers\n\nManages job offers and acceptance tracking.\n\n- **Fields:** offer_id, candidate_id, requisition_id, position, start_date, base_salary, stock_options_amount, signing_bonus_amount, relocation_allowance_amount, reporting_manager_id, offer_status, compliance_approved_by, compliance_approval_date, hr_manager_approved_by, hr_manager_approval_date, issue_date, acceptance_date, offer_accepted_date, created_at, updated_at\n- **Status:** draft, pending_compliance, pending_approval, approved_for_issue, issued, accepted, rejected, withdrawn\n\n### Offer Benefits\n\nTracks benefits associated with offers.\n\n- **Fields:** offer_id, benefit_type, benefit_description, created_at\n\n### Employees\n\nStores comprehensive employee information.\n\n- **Fields:** employee_id, candidate_id, first_name, last_name, employee_type, department_id, location_id, job_title, start_date, tax_id, bank_account_number, routing_number, work_email, phone_number, manager_id, tax_filing_status, employment_status, created_at, updated_at\n- **Employee Types:** full_time, part_time, contractor, intern\n- **Employment Status:** active, inactive, terminated, on_leave\n\n### Onboarding Checklists\n\nTracks employee onboarding progress.\n\n- **Fields:** checklist_id, employee_id, candidate_name, start_date, position, hiring_manager_id, pre_onboarding_status, background_check_status, background_check_cleared_date, document_verification_status, it_provisioning_status, orientation_completed, orientation_date, benefits_enrollment_status, overall_status, created_at, updated_at\n- **Status:** pending, in_progress, completed, delayed\n\n### Documents\n\nManages document storage and verification.\n\n- **Fields:** document_id, document_category, related_entity_type, related_entity_id, file_name, upload_date, uploaded_by, document_status, expiry_date, verification_status, verified_by, verified_date, created_at, updated_at\n- **Document Categories:** resume, cover_letter, offer_letter, contract, verification_id_proof, verification_address_proof, verification_educational_certificate, verification_experience_letter, verification_work_visa, verification_pr_card, verification_bank_proof, budget_approval, headcount_justification, policy_acknowledgment, promotion_letter, transfer_memo, insurance_form, tax_form, other\n- **Status:** active, archived, expired, deleted\n\n### IT Provisioning Tasks\n\nTracks IT setup and equipment provisioning.\n\n- **Fields:** task_id, employee_id, task_type, assigned_to, task_status, completion_date, created_at, updated_at\n- **Task Types:** account_creation, equipment_setup, software_installation, access_provisioning, email_setup\n- **Status:** pending, in_progress, completed, failed\n\n### Payroll Cycles\n\nManages payroll processing periods.\n\n- **Fields:** cycle_id, cycle_start_date, cycle_end_date, frequency, cutoff_date, status, created_at, updated_at\n- **Frequency:** weekly, bi_weekly, semi_monthly, monthly\n- **Status:** draft, open, processing, completed, closed\n\n### Payroll Inputs\n\nRecords employee time and attendance data.\n\n- **Fields:** input_id, employee_id, cycle_id, hours_worked, overtime_hours, manager_approval_status, manager_approved_by, manager_approval_date, input_status, created_at, updated_at\n- **Status:** draft, pending_approval, approved, processed\n\n### Payroll Earnings\n\nTracks additional earnings and bonuses.\n\n- **Fields:** earning_id, payroll_input_id, employee_id, earning_type, amount, approval_status, approved_by, approval_date, created_at, updated_at\n- **Earning Types:** bonus, incentive, reimbursement, overtime, commission\n- **Status:** pending, approved, processed\n\n### Payslips\n\nManages employee pay statements.\n\n- **Fields:** payslip_id, employee_id, cycle_id, gross_pay, base_salary, bonus_earned, incentives_earned, reimbursements, total_deductions, net_pay, proration_status, payslip_status, released_date, created_at, updated_at\n- **Status:** generated, verified, released, archived\n\n### Payments\n\nTracks actual payment processing.\n\n- **Fields:** payment_id, employee_id, cycle_id, payslip_id, amount, payment_date, payment_method, payment_status, transaction_id, bank_confirmation_date, created_at, updated_at\n- **Payment Methods:** direct_deposit, check, wire_transfer\n- **Status:** pending, completed, failed, refunded\n\n### Benefit Plans\n\nDefines available benefit options.\n\n- **Fields:** plan_id, benefit_type, plan_name, provider_name, description, effective_from, effective_until, default_employee_contribution, default_employer_contribution, plan_status, created_at, updated_at\n- **Benefit Types:** health_insurance, dental_insurance, vision_insurance, life_insurance, disability_insurance, retirement_401k, flexible_spending_account, health_savings_account\n- **Status:** active, inactive, expired\n\n### Benefit Enrollments\n\nTracks employee benefit selections.\n\n- **Fields:** enrollment_id, employee_id, plan_id, effective_date, employee_contribution, employer_contribution, enrollment_window_start, enrollment_window_end, selection_date, enrollment_status, hr_manager_approval_status, approved_by, approval_date, created_at, updated_at\n- **Status:** pending, active, cancelled, expired\n\n### Employee Exits\n\nManages employee separation processes.\n\n- **Fields:** exit_id, employee_id, exit_date, exit_reason, manager_clearance, it_equipment_return, finance_settlement_status, clearance_status, approved_by, approval_date, final_pay_amount, leave_encashment_amount, paid_date, created_at, updated_at\n- **Exit Reasons:** resignation, termination, retirement, layoff, contract_end\n- **Status:** initiated, in_progress, completed\n\n### Notifications\n\nSystem notifications and alerts.\n\n- **Fields:** notification_id, recipient_user_id, recipient_email, notification_type, reference_type, reference_id, message, notification_status, sent_at, created_at\n- **Notification Types:** alert, reminder, report, policy_update, benefit_enrollment, payroll_notification, onboarding_reminder\n- **Status:** pending, sent, failed, read\n\n### Audit Trails\n\nComprehensive activity logging.\n\n- **Fields:** audit_id, reference_id, reference_type, action, user_id, field_name, old_value, new_value, timestamp, ip_address, user_agent\n- **Reference Types:** employee, candidate, job_requisition, job_posting, application, interview, offer, document, payroll_cycle, payroll_input, payroll_earning, payslip, payment, benefit_plan, benefit_enrollment, employee_exit, notification, user, department, location\n- **Actions:** create, update, delete, approve, reject, verify, process, send, upload, download\n\n### Departments\n\nOrganizational structure management.\n\n- **Fields:** department_id, department_name, department_code, manager_id, budget, status, created_at, updated_at\n- **Status:** active, inactive, merged, dissolved\n\n### Locations\n\nOffice and facility management.\n\n- **Fields:** location_id, location_name, address, city_name, country, status, created_at, updated_at\n- **Status:** active, inactive, closed\n\n## API Interactions\n\nThe HR Talent Management Domain provides 160+ specialized tools across five interfaces, representing the exclusive means for agents to interact with the database. All operations maintain strict audit trails, role-based access controls, and regulatory compliance.\n\n### Interface 1: Recruitment & Hiring Operations (~32 Tools)\n\n**Core Functions:**\n\n- **Entity Discovery:** discover_reference_entities, discover_job_entities, discover_candidate_entities, discover_interview_offer_entities, discover_employee_entities, discover_document_task_entities, discover_payroll_entities, discover_benefit_entities, discover_payment_entities, discover_system_entities\n- **Job Operations:** manage_job_operations (create_requisition, update_requisition, approve_requisition, create_posting, update_posting)\n- **Candidate Operations:** manage_candidate_operations (create_candidate, update_candidate)\n- **Application Operations:** manage_application_operations (create_application, update_application_status)\n- **Interview Operations:** manage_interview_operations (schedule_interview, add_panel_member, conduct_evaluation)\n- **Offer Operations:** manage_offer_operations (create_offer, add_benefit, verify_compliance, approve_offer, issue_offer, record_acceptance)\n- **Employee Operations:** manage_employee_operations (create_employee, update_employee_data)\n- **Onboarding Operations:** manage_onboarding_operations (create_checklist, update_checklist)\n- **Document Operations:** manage_document_operations (upload_document, verify_document, update_document_status)\n- **IT Operations:** manage_it_provisioning_operations (create_task, update_task)\n- **Notification Operations:** manage_notification_operations (create_notification)\n- **Audit Operations:** create_audit_entry\n- **Human Transfer:** transfer_to_human\n\n### Interface 2: Employee Lifecycle Management (~32 Tools)\n\n**Core Functions:**\n\n- **Entity Discovery:** discover_reference_entities, discover_job_entities, discover_candidate_entities, discover_interview_offer_entities, discover_employee_entities, discover_document_task_entities, discover_payroll_entities, discover_benefit_entities, discover_payment_entities, discover_system_entities\n- **Job Operations:** administer_job_operations (create_requisition, update_requisition, approve_requisition, create_posting, update_posting)\n- **Candidate Operations:** administer_candidate_operations (create_candidate, update_candidate)\n- **Application Operations:** administer_application_operations (create_application, update_application_status)\n- **Interview Operations:** administer_interview_operations (schedule_interview, add_panel_member, conduct_evaluation)\n- **Offer Operations:** administer_offer_operations (create_offer, add_benefit, verify_compliance, approve_offer, issue_offer, record_acceptance)\n- **Employee Operations:** administer_employee_operations (create_employee, update_employee_data)\n- **Onboarding Operations:** administer_onboarding_operations (create_checklist, update_checklist)\n- **Document Operations:** administer_document_operations (upload_document, verify_document, update_document_status)\n- **IT Operations:** administer_it_provisioning_operations (create_task, update_task)\n- **Notification Operations:** administer_notification_operations (create_notification)\n- **Audit Operations:** add_audit_entry\n- **Human Transfer:** transfer_to_human\n\n### Interface 3: Recruitment & Candidate Management (~32 Tools)\n\n**Core Functions:**\n\n- **Entity Discovery:** discover_reference_entities, discover_job_entities, discover_candidate_entities, discover_interview_offer_entities, discover_employee_entities, discover_document_task_entities, discover_payroll_entities, discover_benefit_entities, discover_payment_entities, discover_system_entities\n- **Job Operations:** administer_job_operations (create_requisition, update_requisition, approve_requisition, create_posting, update_posting)\n- **Candidate Operations:** administer_candidate_operations (create_candidate, update_candidate)\n- **Application Operations:** administer_application_operations (create_application, update_application_status)\n- **Interview Operations:** administer_interview_operations (schedule_interview, add_panel_member, conduct_evaluation)\n- **Offer Operations:** administer_offer_operations (create_offer, add_benefit, verify_compliance, approve_offer, issue_offer, record_acceptance)\n- **Employee Operations:** administer_employee_operations (create_employee, update_employee_data)\n- **Onboarding Operations:** administer_onboarding_operations (create_checklist, update_checklist)\n- **Document Operations:** administer_document_operations (upload_document, verify_document, update_document_status)\n- **IT Operations:** administer_it_provisioning_operations (create_task, update_task)\n- **Notification Operations:** administer_notification_operations (create_notification)\n- **Audit Operations:** add_audit_entry\n- **Human Transfer:** transfer_to_human\n\n### Interface 4: Payroll & Benefits Operations (~32 Tools)\n\n**Core Functions:**\n\n- **Entity Discovery:** get_reference_entities, get_job_entities, get_candidate_entities, get_interview_offer_entities, get_employee_entities, get_document_task_entities, get_payroll_entities, get_benefit_entities, get_payment_entities, get_system_entities\n- **Job Operations:** process_job_operations (create_requisition, update_requisition, approve_requisition, create_posting, update_posting)\n- **Candidate Operations:** process_candidate_operations (create_candidate, update_candidate)\n- **Application Operations:** process_application_operations (create_application, update_application_status)\n- **Interview Operations:** process_interview_operations (schedule_interview, add_panel_member, conduct_evaluation)\n- **Offer Operations:** process_offer_operations (create_offer, add_benefit, verify_compliance, approve_offer, issue_offer, record_acceptance)\n- **Employee Operations:** process_employee_operations (create_employee, update_employee_data)\n- **Onboarding Operations:** process_onboarding_operations (create_checklist, update_checklist)\n- **Document Operations:** process_document_operations (upload_document, verify_document, update_document_status)\n- **IT Operations:** process_it_provisioning_operations (create_task, update_task)\n- **Payroll Operations:** process_payroll_cycle_operations, process_payroll_input_operations, process_payroll_earning_operations, process_payslip_operations, process_payment_operations\n- **Benefit Operations:** process_benefit_plan_operations, process_benefit_enrollment_operations\n- **Notification Operations:** process_notification_operations (create_notification)\n- **Audit Operations:** build_audit_entry\n- **Human Transfer:** transfer_to_human\n\n### Interface 5: Compliance & Analytics Operations (~32 Tools)\n\n**Core Functions:**\n\n- **Entity Discovery:** get_reference_entities, get_job_entities, get_candidate_entities, get_interview_offer_entities, get_employee_entities, get_document_task_entities, get_payroll_entities, get_benefit_entities, get_payment_entities, get_system_entities\n- **Job Operations:** process_job_operations (create_requisition, update_requisition, approve_requisition, create_posting, update_posting)\n- **Candidate Operations:** process_candidate_operations (create_candidate, update_candidate)\n- **Application Operations:** process_application_operations (create_application, update_application_status)\n- **Interview Operations:** process_interview_operations (schedule_interview, add_panel_member, conduct_evaluation)\n- **Offer Operations:** process_offer_operations (create_offer, add_benefit, verify_compliance, approve_offer, issue_offer, record_acceptance)\n- **Employee Operations:** process_employee_operations (create_employee, update_employee_data)\n- **Onboarding Operations:** process_onboarding_operations (create_checklist, update_checklist)\n- **Document Operations:** process_document_operations (upload_document, verify_document, update_document_status)\n- **IT Operations:** process_it_provisioning_operations (create_task, update_task)\n- **Payroll Operations:** process_payroll_cycle_operations, process_payroll_input_operations, process_payroll_earning_operations, process_payslip_operations, process_payment_operations\n- **Benefit Operations:** process_benefit_plan_operations, process_benefit_enrollment_operations\n- **Exit Operations:** process_employee_exit_operations (create_exit, update_clearance, process_settlement)\n- **Location Operations:** process_location_operations (create_location, update_location)\n- **Department Operations:** process_department_operations (create_department, update_department)\n- **Notification Operations:** process_notification_operations (create_notification)\n- **Audit Operations:** build_audit_entry\n- **Human Transfer:** transfer_to_human\n\n### Key Requirements\n\n- All HR operations require appropriate role-based authorization\n- Employee data changes must maintain proper audit trails\n- Payroll processing requires manager approval workflows\n- Benefit enrollments must validate eligibility periods\n- All document operations require proper categorization\n- Compliance operations must follow regulatory requirements\n- All communications require appropriate authorization\n- Exit processes must complete clearance requirements\n\n## Core Business Rules\n\n### Authorization Matrix\n\n- **HR Manager:** Full access to HR operations, policy enforcement, and employee management\n- **HR Admin:** Administrative functions, data management, and routine processing\n- **HR Recruiter:** Recruitment operations, candidate management, and hiring processes\n- **HR Director:** Strategic oversight, policy decisions, and high-level reporting\n- **Department Manager:** Team management, approval workflows, and department operations\n- **Compliance Officer:** Regulatory oversight, policy compliance, and audit management\n- **Finance Manager:** Payroll operations, financial approvals, and budget management\n\n### HR Controls\n\n- **Dual Authorization:** Sensitive operations require dual approval\n- **Reconciliation:** Regular reconciliation of payroll and benefit data\n- **Audit Trails:** Comprehensive logging of all HR activities\n- **Policy Enforcement:** Automated enforcement of HR policies and procedures\n\n### Regulatory Compliance\n\n- **Data Privacy:** Strict protection of employee personal information\n- **Equal Opportunity:** Compliance with EEO and anti-discrimination laws\n- **Labor Standards:** Adherence to wage and hour regulations\n- **Benefits Compliance:** Proper administration of benefit programs\n\n## HR Talent Management Agent Policy Framework\n\nThe HR Talent Management Domain operates under a comprehensive policy framework ensuring regulatory compliance, operational excellence, and employee privacy protection across all human resources activities.\n\n### General Principles\n\n1. **Employee Privacy and Data Protection**\n   - Protect employee personal information and maintain confidentiality\n   - Ensure compliance with data protection regulations (GDPR, CCPA)\n   - Implement appropriate access controls and security measures\n\n2. **Regulatory Compliance**\n   - Strict adherence to labor laws and employment regulations\n   - Compliance with Equal Employment Opportunity requirements\n   - Maintenance of comprehensive audit trails for all HR activities\n\n3. **Operational Excellence**\n   - Accurate and timely processing of all HR operations\n   - Comprehensive documentation and record-keeping\n   - Continuous improvement of HR processes and controls\n\n4. **Fair Employment Practices**\n   - Ensure equal opportunity in all hiring and employment decisions\n   - Maintain diversity and inclusion in recruitment processes\n   - Provide fair and consistent treatment of all employees\n\n### Role-Based Authorization\n\n**HR Manager Responsibilities:**\n- Employee lifecycle management and policy enforcement\n- Recruitment oversight and hiring decisions\n- Performance management and development programs\n- Compliance monitoring and policy implementation\n\n**HR Admin Functions:**\n- Administrative data management and system maintenance\n- Routine HR processing and documentation\n- Employee record management and updates\n- Support for HR operations and reporting\n\n**HR Recruiter Duties:**\n- Candidate sourcing and recruitment activities\n- Interview coordination and evaluation\n- Offer management and hiring processes\n- Recruitment analytics and reporting\n\n**HR Director Authority:**\n- Strategic HR planning and policy development\n- High-level oversight and decision making\n- Compliance and regulatory management\n- Organizational development and change management\n\n**Department Manager Functions:**\n- Team management and performance oversight\n- Approval workflows for team-related operations\n- Budget management and resource allocation\n- Employee development and career guidance\n\n**Compliance Officer Authority:**\n- Regulatory compliance monitoring and reporting\n- Policy enforcement and audit management\n- Risk assessment and mitigation\n- Legal and regulatory guidance\n\n**Finance Manager Duties:**\n- Payroll operations and financial processing\n- Budget management and cost control\n- Financial approvals and expense management\n- Compensation and benefits administration\n\n### Security and Compliance Framework\n\n#### Data Protection and Security\n- **Encryption:** All sensitive employee data encrypted at rest and in transit\n- **Access Controls:** Role-based access with multi-factor authentication\n- **Audit Logging:** Comprehensive logging of all system activities and user actions\n- **Data Backup:** Regular automated backups with disaster recovery procedures\n\n#### Regulatory Compliance Controls\n- **Labor Law Compliance:** Automated compliance monitoring and reporting\n- **EEO Compliance:** Adherence to equal employment opportunity requirements\n- **Data Privacy:** Protection of employee personal information\n- **Benefits Administration:** Proper administration of benefit programs\n\n#### Risk Management Framework\n- **Operational Risk:** Process controls and exception monitoring\n- **Compliance Risk:** Regulatory compliance monitoring and reporting\n- **Data Security Risk:** Protection of sensitive employee information\n- **Legal Risk:** Adherence to employment laws and regulations\n"
+      },
+      {
+        "role": "user",
+        "content": "Hi! I need to create a new internal job requisition for a position within my department."
+      },
+      {
+        "role": "assistant",
+        "content": "I'd be happy to help you create a new internal job requisition for a position within your department. To get started, I'll need some information about the requisition you'd like to create.\n\nCould you please provide me with the following details:\n1. The job title for the position\n2. Your department ID\n3. The location ID where this position will be based\n4. The employment type (full_time, part_time, contract, or intern)\n5. The hiring manager's user ID\n6. The minimum and maximum budgeted salary for this position\n7. Your user ID (as the person creating the requisition)\n\nOnce I have this information, I can create the job requisition for you."
+      },
+      {
+        "role": "user",
+        "content": "Sure, I can help with that. The job title for the position is 'Operations Director'."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing the job title. To proceed with creating the job requisition for the 'Operations Director' position, I'll need some additional information:\n\n1. Your department ID\n2. The location ID where this position will be based\n3. The employment type (full_time, part_time, contract, or intern)\n4. The hiring manager's user ID\n5. The minimum and maximum budgeted salary for this position\n6. Your user ID (as the person creating the requisition)\n\nCould you please provide these details so I can create the requisition for you?"
+      },
+      {
+        "role": "user",
+        "content": "The department is 'Operations,' and the location for this position is the 'North Katherine Office.'"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing that information. To continue creating the job requisition for the 'Operations Director' position, I'll need a few more details:\n\n1. The employment type (full_time, part_time, contract, or intern)\n2. The hiring manager's user ID\n3. The minimum and maximum budgeted salary for this position\n4. Your user ID (as the person creating the requisition)\n\nAlso, I'll need to verify the exact department ID for 'Operations' and the location ID for 'North Katherine Office'. Let me look those up for you.",
+        "tool_calls": [
+          {
+            "index": 0,
+            "id": "call_AgUM9vmhchDxnBZdJCBPhBWy",
+            "type": "function",
+            "function": {
+              "name": "fetch_reference_entities",
+              "arguments": "{\"entity_type\": \"departments\", \"filters\": {\"department_name\": \"Operations\"}}"
+            },
+            "name": null
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_AgUM9vmhchDxnBZdJCBPhBWy",
+        "name": "fetch_reference_entities",
+        "content": "{\"success\": true, \"entity_type\": \"departments\", \"count\": 1, \"entities\": [{\"department_id\": \"6\", \"department_name\": \"Operations\", \"department_code\": \"DEPT-OPS\", \"manager_id\": \"51\", \"budget\": 400000, \"status\": \"active\", \"created_at\": \"2021-07-31T09:32:21\"}], \"filters_applied\": {\"department_name\": \"Operations\"}}"
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "index": 0,
+            "id": "call_ZpFxoqyQnl2G2bW7wAtHu6RN",
+            "type": "function",
+            "function": {
+              "name": "fetch_reference_entities",
+              "arguments": "{\"entity_type\": \"locations\", \"filters\": {\"location_name\": \"North Katherine Office\"}}"
+            },
+            "name": null
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_ZpFxoqyQnl2G2bW7wAtHu6RN",
+        "name": "fetch_reference_entities",
+        "content": "{\"success\": true, \"entity_type\": \"locations\", \"count\": 1, \"entities\": [{\"location_id\": \"7\", \"location_name\": \"North Katherine Office\", \"address\": \"995 Chad Squares Suite 762\", \"city_name\": \"North Katherine\", \"country\": \"Marshall Islands\", \"status\": \"active\", \"created_at\": \"2022-08-12T20:20:20\"}], \"filters_applied\": {\"location_name\": \"North Katherine Office\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for your patience. I've found the department and location information:\n\n- Department: Operations (department_id: 6)\n- Location: North Katherine Office (location_id: 7)\n\nTo complete the job requisition creation, I still need the following information:\n\n1. The employment type (full_time, part_time, contract, or intern)\n2. The hiring manager's user ID\n3. The minimum and maximum budgeted salary for this position\n4. Your user ID (as the person creating the requisition)\n\nOnce you provide these details, I can create the job requisition for you."
+      },
+      {
+        "role": "user",
+        "content": "The employment type is 'full-time' and 'remote'."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing the employment type. I see you mentioned it's 'full-time' and 'remote'. For the requisition, I'll need to know if there's a specific user who will serve as the hiring manager for this position. \n\nI also still need the following information to complete the requisition:\n\n1. The hiring manager's user ID\n2. The minimum and maximum budgeted salary for this position\n3. Your user ID (as the person creating the requisition)\n\nCould you please provide these details so I can create the requisition for the Operations Director position?"
+      },
+      {
+        "role": "user",
+        "content": "I am the hiring manager, Kelly Mathis, and the salary range is between 8000.00 to 10000.00."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing that information. To proceed with creating the job requisition, I'll need to look up your user ID as the hiring manager. Let me search for your information.",
+        "tool_calls": [
+          {
+            "index": 0,
+            "id": "call_aZJ3gRdmQ9d0kEggyrV6i2W3",
+            "type": "function",
+            "function": {
+              "name": "fetch_reference_entities",
+              "arguments": "{\"entity_type\": \"users\", \"filters\": {\"first_name\": \"Kelly\", \"last_name\": \"Mathis\"}}"
+            },
+            "name": null
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_aZJ3gRdmQ9d0kEggyrV6i2W3",
+        "name": "fetch_reference_entities",
+        "content": "{\"success\": true, \"entity_type\": \"users\", \"count\": 1, \"entities\": [{\"user_id\": \"23\", \"employee_id\": \"21\", \"first_name\": \"Kelly\", \"last_name\": \"Mathis\", \"email\": \"kelly.mathis40@internal.company.com\", \"phone_number\": \"+13862267961\", \"role\": \"hr_manager\", \"employment_status\": \"active\", \"created_at\": \"2023-12-16T08:12:52\", \"updated_at\": \"2021-12-30T02:21:36\"}], \"filters_applied\": {\"first_name\": \"Kelly\", \"last_name\": \"Mathis\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for providing that information. I've found your user details, Kelly. \n\nTo complete the job requisition for the Operations Director position, I'll need to know who will be creating this requisition. Is there another user who will be creating this requisition, or would you like me to proceed with creating it for you?\n\nAlso, I noticed that the salary range you provided ($8,000.00 to $10,000.00) seems quite low for an Operations Director position. Could you please confirm if these figures are correct, or if they might be missing some digits?"
+      },
+      {
+        "role": "user",
+        "content": "I will be the one creating the requisition, and the salary figures are correct as provided."
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for confirming. I'll proceed with creating the job requisition for the Operations Director position with the information provided.",
+        "tool_calls": [
+          {
+            "index": 0,
+            "id": "call_hB5ObpqIDNkQ2kPpwvzZEP4J",
+            "type": "function",
+            "function": {
+              "name": "administer_job_operations",
+              "arguments": "{\"operation_type\": \"create_requisition\", \"job_title\": \"Operations Director\", \"department_id\": \"6\", \"location_id\": \"7\", \"employment_type\": \"full_time\", \"hiring_manager_id\": \"23\", \"budgeted_salary_min\": 8000, \"budgeted_salary_max\": 10000, \"created_by\": \"23\", \"remote_indicator\": \"Yes\"}"
+            },
+            "name": null
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_hB5ObpqIDNkQ2kPpwvzZEP4J",
+        "name": "administer_job_operations",
+        "content": "{\"success\": true, \"requisition_id\": \"31\", \"message\": \"Job requisition 31 created successfully\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "Great news! I've successfully created the job requisition for you. Here are the details:\n\n- Requisition ID: 31\n- Job Title: Operations Director\n- Department: Operations (ID: 6)\n- Location: North Katherine Office (ID: 7)\n- Employment Type: Full-time\n- Remote: Yes\n- Hiring Manager: Kelly Mathis (User ID: 23)\n- Salary Range: $8,000.00 - $10,000.00\n- Created By: Kelly Mathis (User ID: 23)\n\nThe job requisition has been created successfully and is now in the system. Is there anything else you would like to do with this requisition, such as creating a job posting for it?"
+      },
+      {
+        "role": "user",
+        "content": "No, that's all I needed for now. Thank you for your help!"
+      },
+      {
+        "role": "assistant",
+        "content": "You're very welcome! I'm glad I could help you create the job requisition for the Operations Director position. The requisition (ID: 31) is now in the system and ready for use whenever you need to proceed with the next steps in your hiring process.\n\nIf you need any further assistance with this requisition or any other HR-related tasks in the future, please don't hesitate to reach out. Have a great day!"
+      },
+      {
+        "role": "user",
+        "content": "###STOP###"
+      }
+    ],
+    "trial": 0
+  }
+]
