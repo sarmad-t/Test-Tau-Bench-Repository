@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "27",
-    "instruction": "You are Elizabeth Cowan (email: elizabeth.cowan274@internal.company.com), an HR Admin. On 2025-10-22, you need to update your existing job requisition for the 'HR Director' role in the 'Human Resources' department, based at the 'North Kylie Office'. Please update these details as employment type 'full-time' and 'hybrid'; grade 'L3'; 'day' shift; salary range '90,000'–'110,000'; and the updated description: 'Lead cross-functional operations'. You also need to attach the updated budget approval document named 'HR_Dir_budget_approval.pdf'. You also need not change the requisition’s current status to pending approval.",
+    "instruction": "You are Elizabeth Cowan (email: elizabeth.cowan274@internal.company.com), an HR Admin. On 2025-10-22, you need to update your existing job requisition for the 'HR Director' role in the 'Human Resources' department, based at the 'North Kylie Office'. Please update these details as employment type 'full-time' and 'hybrid'; grade 'L3'; 'day' shift; salary range '90,000'–'110,000'; and the updated description: 'Lead cross-functional operations'. You also need to attach the updated budget approval document named 'HR_Dir_budget_approval.pdf'. You also need to change the requisition’s current status to pending approval.",
     "actions": [
       {
         "name": "fetch_reference_entities",
