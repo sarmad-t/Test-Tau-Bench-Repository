@@ -7,7 +7,7 @@
     "interface_num": 2,
     "task": {
         "user_id": "23",
-        "instruction": "You are Kelly Mathis (email:kelly.mathis40@internal.company.com), the Hiring Manager. You need to create a new 'internal' job requisition for the 'Operations Director'  position within the 'Operations' department on 2025.11.21. The is the 'L3' grade based in the 'North Katherine Office' location, the employment type is 'full-time' and 'remote' with a salary range of 8000.00 to 10000.00.",
+        "instruction": "You are Kelly Mathis (email:kelly.mathis40@internal.company.com), the Hiring Manager. You need to create a new 'internal' job requisition for the 'Operations Director'  position within the 'Operations' department on 2025.11.21. This is the 'L3' grade based in the 'North Katherine Office' location, the employment type is 'full-time' and 'remote' with a salary range of 8000.00 to 10000.00.",
         "actions": [
             {
                 "name": "fetch_reference_entities",
@@ -71,6 +71,37 @@
             {
                 "name": "fetch_reference_entities",
                 "arguments": {
+                    "entity_type": "users",
+                    "filters": {
+                        "user_id": "51"
+                    }
+                },
+                "output": {
+                    "count": 1,
+                    "entities": [
+                        {
+                            "created_at": "2022-06-13T15:13:59",
+                            "email": "michael.morrison217@outlook.com",
+                            "employee_id": "15",
+                            "employment_status": "active",
+                            "first_name": "Michael",
+                            "last_name": "Morrison",
+                            "phone_number": "+12579949464",
+                            "role": "department_manager",
+                            "updated_at": "2025-10-04T13:15:12",
+                            "user_id": "51"
+                        }
+                    ],
+                    "entity_type": "users",
+                    "filters_applied": {
+                        "user_id": "51"
+                    },
+                    "success": true
+                }
+            },
+            {
+                "name": "fetch_reference_entities",
+                "arguments": {
                     "entity_type": "locations",
                     "filters": {
                         "location_name": "North Katherine Office"
@@ -96,6 +127,7 @@
                     "success": true
                 }
             },
+            
             {
                 "name": "administer_job_operations",
                 "arguments": {
@@ -147,68 +179,41 @@
         ],
         "outputs": [],
         "edges": [
+
             {
                 "from": "instruction",
                 "to": "fetch_reference_entities",
                 "connection": {
-                    "output": "entity_type, email",
-                    "input": "entity_type, filters.email"
+                    "output": "entity_type, email, department_name, location_name",
+                    "input": "entity_type, filters.email, filters.department_name, filters.location_name"
                 }
-            },
+            }, 
+            
             {
-                "from": "instruction",
+                "from": "fetch_reference_entities",
                 "to": "fetch_reference_entities",
-                "connection": {
-                    "output": "entity_type, department_name",
-                    "input": "entity_type, filters.department_name"
-                }
-            },
-            {
-                "from": "instruction",
-                "to": "fetch_reference_entities",
-                "connection": {
-                    "output": "entity_type, location_name",
-                    "input": "entity_type, filters.location_name"
-                }
-            },
-            {
-                "from": "fetch_reference_entities",
-                "to": "administer_job_operations",
-                "connection": {
-                    "output": "entities[0].user_id",
-                    "input": "created_by"
-                }
-            },
-            {
-                "from": "fetch_reference_entities",
-                "to": "administer_job_operations",
-                "connection": {
-                    "output": "entities[0].department_id",
-                    "input": "department_id"
-                }
-            },
-            {
-                "from": "fetch_reference_entities",
-                "to": "administer_job_operations",
                 "connection": {
                     "output": "entities[0].manager_id",
-                    "input": "hiring_manager_id"
+                    "input": "filters.user_id"
                 }
             },
+            
             {
                 "from": "fetch_reference_entities",
                 "to": "administer_job_operations",
                 "connection": {
-                    "output": "entities[0].location_id",
-                    "input": "location_id"
+                    "output": "entities[0].user_id, entities[0].department_id, entities[0].user_id, entities[0].location_id",
+                    "input": "created_by, department_id, location_id, hiring_manager_id"
                 }
             },
+            
+            
             {
                 "from": "instruction",
                 "to": "administer_job_operations",
                 "connection": {
-                    "output": "budgeted_salary_max, budgeted_salary_min, employment_type, grade, job_title, operation_type, portal_type, posted_date, remote_indicator",
-                    "input": "budgeted_salary_max, budgeted_salary_min, employment_type, grade, job_title, operation_type, portal_type, posted_date, remote_indicator"
+                    "output": "operation_type, job_title, budgeted_salary_min, budgeted_salary_max, employment_type, grade, portal_type, posted_date, remote_indicator",
+                    "input": "operation_type, job_title, budgeted_salary_min, budgeted_salary_max, employment_type, grade, portal_type, posted_date, remote_indicator"
                 }
             },
             {
@@ -236,6 +241,6 @@
                 }
             }
         ],
-        "num_edges": 11
+        "num_edges": 7
     }
 }
