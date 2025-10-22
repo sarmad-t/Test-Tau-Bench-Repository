@@ -174,18 +174,11 @@
       "from": "instruction",
       "to": "fetch_reference_entities",
       "connection": {
-        "output": "entity_type, email",
-        "input": "entity_type, filters.email"
+        "output": "entity_type, email, department_name",
+        "input": "entity_type, filters.email, filters.department_name"
       }
     },
-    {
-      "from": "instruction",
-      "to": "fetch_reference_entities",
-      "connection": {
-        "output": "department_name",
-        "input": "department_name"
-      }
-    },
+    
     {
       "from": "fetch_reference_entities",
       "to": "fetch_job_entities",
@@ -251,6 +244,6 @@
       }
     }
     ],
-    "num_edges": 10
+    "num_edges": 9
   }
 }
