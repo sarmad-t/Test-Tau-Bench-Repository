@@ -1,0 +1,472 @@
+{
+  "env": "hr_talent_management",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 1,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "23",
+    "instruction": "You are Kelly Mathis (email: kelly.mathis40@internal.company.com), an HR Director. On 2025-10-22, you need to document the 'technical' interview results for candidate Jill Ruiz (email: jill.ruiz856@yahoo.com) for the 'CFO' position in the 'Finance' department at the 'Erikaville Office'.  A recording with a minimum overall rating of 4.5 out of 5 and a hiring recommendation is required for submission.",
+    "actions": [
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "email": "kelly.mathis40@internal.company.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "created_at": "2023-12-16T08:12:52",
+              "email": "kelly.mathis40@internal.company.com",
+              "employee_id": "21",
+              "employment_status": "active",
+              "first_name": "Kelly",
+              "last_name": "Mathis",
+              "phone_number": "+13862267961",
+              "role": "hr_manager",
+              "updated_at": "2021-12-30T02:21:36",
+              "user_id": "23"
+            }
+          ],
+          "entity_type": "users",
+          "filters_applied": {
+            "email": "kelly.mathis40@internal.company.com"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "departments",
+          "filters": {
+            "department_name": "Finance"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "budget": 800000,
+              "created_at": "2024-09-22T21:53:40",
+              "department_code": "DEPT-FIN",
+              "department_id": "3",
+              "department_name": "Finance",
+              "manager_id": "53",
+              "status": "active"
+            }
+          ],
+          "entity_type": "departments",
+          "filters_applied": {
+            "department_name": "Finance"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "locations",
+          "filters": {
+            "location_name": "Erikaville Office"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "address": "2714 Long Grove Suite 635",
+              "city_name": "Erikaville",
+              "country": "Sweden",
+              "created_at": "2021-06-16T04:30:46",
+              "location_id": "6",
+              "location_name": "Erikaville Office",
+              "status": "active"
+            }
+          ],
+          "entity_type": "locations",
+          "filters_applied": {
+            "location_name": "Erikaville Office"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_job_entities",
+        "arguments": {
+          "entity_type": "job_requisitions",
+          "filters": {
+            "department_id": "3",
+            "job_title": "CFO",
+            "location_id": "6"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "budgeted_salary_max": 157893.24,
+              "budgeted_salary_min": 118419.93,
+              "created_at": "2023-07-25T21:16:47",
+              "created_by": "5",
+              "department_id": "3",
+              "dept_head_approval_date": "2024-04-10",
+              "dept_head_approver": "53",
+              "employment_type": "full_time",
+              "finance_manager_approval_date": "2024-01-12",
+              "finance_manager_approver": "43",
+              "grade": "L3",
+              "hiring_manager_id": "23",
+              "hr_manager_approval_date": "2024-02-15",
+              "hr_manager_approver": "27",
+              "job_description": "Job description for CFO position in Finance",
+              "job_title": "CFO",
+              "location_id": "6",
+              "remote_indicator": "onsite",
+              "requisition_id": "13",
+              "shift_type": "day",
+              "status": "approved",
+              "updated_at": "2024-04-06T02:03:49"
+            }
+          ],
+          "entity_type": "job_requisitions",
+          "filters_applied": {
+            "department_id": "3",
+            "job_title": "CFO",
+            "location_id": "6"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_job_entities",
+        "arguments": {
+          "entity_type": "job_postings",
+          "filters": {
+            "requisition_id": "13"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "created_at": "2024-02-17T15:36:58",
+              "portal_type": "both",
+              "posted_date": "2024-04-12",
+              "posting_id": "3",
+              "requisition_id": "13",
+              "status": "active"
+            }
+          ],
+          "entity_type": "job_postings",
+          "filters_applied": {
+            "requisition_id": "13"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_candidate_entities",
+        "arguments": {
+          "entity_type": "candidates",
+          "filters": {
+            "email_address": "jill.ruiz856@yahoo.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "candidate_id": "40",
+              "contact_number": "+15072762170",
+              "country_of_residence": "Senegal",
+              "created_at": "2020-10-27T18:11:28",
+              "current_ctc": 38892.88,
+              "email_address": "jill.ruiz856@yahoo.com",
+              "first_name": "Jill",
+              "last_name": "Ruiz",
+              "linkedin_profile": "https://linkedin.com/in/jill-ruiz-147",
+              "source_of_application": "Other",
+              "status": "active",
+              "updated_at": "2020-07-13T11:36:19"
+            }
+          ],
+          "entity_type": "candidates",
+          "filters_applied": {
+            "email_address": "jill.ruiz856@yahoo.com"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_candidate_entities",
+        "arguments": {
+          "entity_type": "applications",
+          "filters": {
+            "posting_id": "3",
+            "candidate_id": "40"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "application_date": "2025-03-07",
+              "application_id": "37",
+              "candidate_id": "40",
+              "cover_letter_file_id": "74",
+              "created_at": "2020-09-14T01:25:41",
+              "posting_id": "3",
+              "resume_file_id": "73",
+              "screened_by": "23",
+              "screened_date": "2025-06-04",
+              "shortlist_approval_date": "2025-07-03",
+              "shortlist_approved_by": "24",
+              "status": "shortlisted"
+            }
+          ],
+          "entity_type": "applications",
+          "filters_applied": {
+            "candidate_id": "40",
+            "posting_id": "3"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_interview_offer_entities",
+        "arguments": {
+          "entity_type": "interviews",
+          "filters": {
+            "application_id": "37",
+            "interview_type": "technical"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "application_id": "37",
+              "cancelled_date": null,
+              "completed_by": null,
+              "completed_date": null,
+              "created_at": "2022-11-08T13:13:30",
+              "interview_id": "2",
+              "interview_status": "scheduled",
+              "interview_type": "technical",
+              "rating": null,
+              "recommendation": null,
+              "scheduled_date": "2025-09-10T18:41:24"
+            }
+          ],
+          "entity_type": "interviews",
+          "filters_applied": {
+            "application_id": "37",
+            "interview_type": "technical"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "administer_interview_operations",
+        "arguments": {
+          "completed_by": "23",
+          "completed_date": "2025-10-22",
+          "interview_id": "2",
+          "interview_type": "technical",
+          "operation_type": "conduct_evaluation",
+          "rating": 4.5,
+          "recommendation": "yes"
+        },
+        "output": {
+          "interview_id": "2",
+          "message": "Interview 2 evaluation recorded successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "rating",
+          "new_value": "4.5",
+          "reference_id": "2",
+          "reference_type": "interview",
+          "user_id": "23"
+        },
+        "output": {
+          "audit_id": "45",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "45",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "rating",
+            "new_value": "4.5",
+            "old_value": null,
+            "reference_id": "2",
+            "reference_type": "interview",
+            "user_id": "23"
+          },
+          "message": "Audit entry 45 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "recommendation",
+          "new_value": "yes",
+          "reference_id": "2",
+          "reference_type": "interview",
+          "user_id": "23"
+        },
+        "output": {
+          "audit_id": "46",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "46",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "recommendation",
+            "new_value": "yes",
+            "old_value": null,
+            "reference_id": "2",
+            "reference_type": "interview",
+            "user_id": "23"
+          },
+          "message": "Audit entry 46 created successfully",
+          "success": true
+        }
+      }
+    ],
+    "outputs": [],
+    "edges": [
+       {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "entity_type, email, department_name, location_name",
+                    "input": "entity_type, filters.email, filters.department_name, filters.location_name"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "fetch_job_entities",
+                "connection": {
+                    "output": "entities[0].department_id, entities[0].location_id",
+                    "input": "filters.department_id, filters.location_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_job_entities",
+                "connection": {
+                    "output": "entity_type, job_title",
+                    "input": "entity_type, filters.job_title"
+                }
+            },
+            {
+                "from": "fetch_job_entities",
+                "to": "fetch_job_entities",
+                "connection": {
+                    "output": "entities[0].requisition_id",
+                    "input": "filters.requisition_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_candidate_entities",
+                "connection": {
+                    "output": "entity_type, email_address",
+                    "input": "entity_type, filters.email_address"
+                }
+            },
+            {
+                "from": "fetch_candidate_entities",
+                "to": "fetch_candidate_entities",
+                "connection": {
+                    "output": "entities[0].candidate_id",
+                    "input": "filters.candidate_id"
+                }
+            },
+            {
+                "from": "fetch_job_entities",
+                "to": "fetch_candidate_entities",
+                "connection": {
+                    "output": "entities[0].posting_id",
+                    "input": "filters.posting_id"
+                }
+            },
+            {
+                "from": "fetch_candidate_entities",
+                "to": "fetch_interview_offer_entities",
+                "connection": {
+                    "output": "entities[0].application_id",
+                    "input": "filters.application_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_interview_offer_entities",
+                "connection": {
+                    "output": "interview_type",
+                    "input": "filters.interview_type"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_interview_operations",
+                "connection": {
+                    "output": "entities[0].user_id",
+                    "input": "completed_by"
+                }
+            },
+            {
+                "from": "fetch_interview_offer_entities",
+                "to": "administer_interview_operations",
+                "connection": {
+                    "output": "entities[0].interview_id, entities[0].interview_type",
+                    "input": "interview_id, interview_type"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_interview_operations",
+                "connection": {
+                    "output": "completed_date, rating, recommendation, operation_type",
+                    "input": "completed_date, rating, recommendation, operation_type"
+                }
+            },
+            {
+                "from": "fetch_interview_offer_entities",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "entities[0].interview_id, entities[0].rating, entities[0].recommendation",
+                    "input": "reference_id, old_value, old_value"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "action, field_name, new_value, reference_type",
+                    "input": "action, field_name, new_value, reference_type"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "entities[0].user_id",
+                    "input": "user_id"
+                }
+            }
+    ],
+    "num_edges": 15
+  }
+}
