@@ -1,0 +1,654 @@
+{
+    "env": "hr_talent_management",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+        "user_id": "32",
+        "instruction": "You are Justin Sloan (email: justin.sloan666@hr.company.com), an HR Director. On 2025-10-23, you need to create an offer package for candidate Samuel Powers (email: samuel.powers200@company.com) under the approved 'remote' requisition for 'Accountant' in the 'Finance' department. The offer should start on 2025-11-23 with a base salary of 105000.00 USD, reporting to Andrew Perez (email: andrew.perez447@yahoo.com) with the attachments of the offer letter (Offer_Letter_v1.pdf) and the employment contract (Employment_Contract_v1.pdf). You also need to allot benefit plans for Medical Plan 1 and Life_Insurance Plan 5, effective from 2025-10-24.",
+        "actions": [
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "justin.sloan666@hr.company.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2021-09-01T05:33:37",
+            "email": "justin.sloan666@hr.company.com",
+            "employee_id": null,
+            "employment_status": "active",
+            "first_name": "Justin",
+            "last_name": "Sloan",
+            "phone_number": "+12263291436",
+            "role": "hr_director",
+            "updated_at": "2023-07-08T21:25:25",
+            "user_id": "32"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "justin.sloan666@hr.company.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_candidate_entities",
+      "arguments": {
+        "entity_type": "candidates",
+        "filters": {
+          "email_address": "heather.andrews752@hotmail.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "candidate_id": "73",
+            "contact_number": "+14925771637",
+            "country_of_residence": "Tokelau",
+            "created_at": "2020-05-29T20:52:11",
+            "current_ctc": 60820.99,
+            "email_address": "heather.andrews752@hotmail.com",
+            "first_name": "Heather",
+            "last_name": "Andrews",
+            "linkedin_profile": "https://linkedin.com/in/heather-andrews-714",
+            "source_of_application": "Referral",
+            "status": "active",
+            "updated_at": "2020-12-25T10:54:56"
+          }
+        ],
+        "entity_type": "candidates",
+        "filters_applied": {
+          "email_address": "heather.andrews752@hotmail.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "departments",
+        "filters": {
+          "department_name": "Finance"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "budget": 800000,
+            "created_at": "2024-09-22T21:53:40",
+            "department_code": "DEPT-FIN",
+            "department_id": "3",
+            "department_name": "Finance",
+            "manager_id": "53",
+            "status": "active"
+          }
+        ],
+        "entity_type": "departments",
+        "filters_applied": {
+          "department_name": "Finance"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_job_entities",
+      "arguments": {
+        "entity_type": "job_requisitions",
+        "filters": {
+          "department_id": "3",
+          "job_title": "Accountant",
+          "remote_indicator": "remote"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "budgeted_salary_max": 129405.7,
+            "budgeted_salary_min": 97054.28,
+            "created_at": "2022-04-07T09:41:33",
+            "created_by": "5",
+            "department_id": "3",
+            "dept_head_approval_date": "2023-11-15",
+            "dept_head_approver": "54",
+            "employment_type": "part_time",
+            "finance_manager_approval_date": "2025-04-18",
+            "finance_manager_approver": "43",
+            "grade": "L4",
+            "hiring_manager_id": "54",
+            "hr_manager_approval_date": "2024-03-18",
+            "hr_manager_approver": "21",
+            "job_description": "Job description for Accountant position in Finance",
+            "job_title": "Accountant",
+            "location_id": "7",
+            "remote_indicator": "remote",
+            "requisition_id": "14",
+            "shift_type": "night",
+            "status": "approved",
+            "updated_at": "2024-05-26T09:39:10"
+          }
+        ],
+        "entity_type": "job_requisitions",
+        "filters_applied": {
+          "department_id": "3",
+          "job_title": "Accountant",
+          "remote_indicator": "remote"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "andrew.perez447@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2023-06-30T20:28:20",
+            "email": "andrew.perez447@yahoo.com",
+            "employee_id": null,
+            "employment_status": "active",
+            "first_name": "Andrew",
+            "last_name": "Perez",
+            "phone_number": "+19357032487",
+            "role": "hr_manager",
+            "updated_at": "2021-06-18T08:28:02",
+            "user_id": "24"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "andrew.perez447@yahoo.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "administer_offer_operations",
+      "arguments": {
+        "base_salary": 105000,
+        "candidate_id": "73",
+        "operation_type": "create_offer",
+        "position": "Accountant",
+        "reporting_manager_id": "24",
+        "requisition_id": "14",
+        "start_date": "2025-10-23",
+        "user_id": "32"
+      },
+      "output": {
+        "message": "Offer 56 created successfully",
+        "offer_id": "56",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_document_operations",
+      "arguments": {
+        "document_category": "offer_letter",
+        "file_name": "Offer_Letter_v1.pdf",
+        "operation_type": "upload_document",
+        "related_entity_id": "56",
+        "related_entity_type": "offer",
+        "uploaded_by": "32"
+      },
+      "output": {
+        "document_data": {
+          "created_at": "2025-10-10T12:00:00",
+          "document_category": "offer_letter",
+          "document_id": "417",
+          "document_status": "active",
+          "expiry_date": null,
+          "file_format": "pdf",
+          "file_name": "Offer_Letter_v1.pdf",
+          "related_entity_id": "56",
+          "related_entity_type": "offer",
+          "upload_date": "2025-10-10",
+          "uploaded_by": "32",
+          "verification_status": null,
+          "verified_by": null,
+          "verified_date": null
+        },
+        "document_id": "417",
+        "message": "Document 417 uploaded successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_document_operations",
+      "arguments": {
+        "document_category": "contract",
+        "file_name": "Employment_Contract_v1.pdf",
+        "operation_type": "upload_document",
+        "related_entity_id": "56",
+        "related_entity_type": "offer",
+        "uploaded_by": "32"
+      },
+      "output": {
+        "document_data": {
+          "created_at": "2025-10-10T12:00:00",
+          "document_category": "contract",
+          "document_id": "418",
+          "document_status": "active",
+          "expiry_date": null,
+          "file_format": "pdf",
+          "file_name": "Employment_Contract_v1.pdf",
+          "related_entity_id": "56",
+          "related_entity_type": "offer",
+          "upload_date": "2025-10-10",
+          "uploaded_by": "32",
+          "verification_status": null,
+          "verified_by": null,
+          "verified_date": null
+        },
+        "document_id": "418",
+        "message": "Document 418 uploaded successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_benefit_entities",
+      "arguments": {
+        "entity_type": "benefit_plans",
+        "filters": {
+          "plan_name": "Medical Plan 1"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": {
+          "1": {
+            "benefit_type": "medical",
+            "created_at": "2022-05-16T18:15:03",
+            "default_employee_contribution": 115.01,
+            "default_employer_contribution": 401.72,
+            "description": "Comprehensive medical coverage plan 1",
+            "effective_from": "2024-02-14",
+            "effective_until": null,
+            "plan_id": "1",
+            "plan_name": "Medical Plan 1",
+            "plan_status": "active",
+            "provider_name": "Guerrero, Holloway and Harris",
+            "updated_at": "2020-10-05T06:09:54"
+          }
+        },
+        "entity_type": "benefit_plans",
+        "filters_applied": {
+          "plan_name": "Medical Plan 1"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_benefit_entities",
+      "arguments": {
+        "entity_type": "benefit_plans",
+        "filters": {
+          "plan_name": "Life_Insurance Plan 5"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": {
+          "5": {
+            "benefit_type": "life_insurance",
+            "created_at": "2025-05-30T18:14:38",
+            "default_employee_contribution": 25.59,
+            "default_employer_contribution": 31.03,
+            "description": "Comprehensive life_insurance coverage plan 5",
+            "effective_from": "2024-11-25",
+            "effective_until": null,
+            "plan_id": "5",
+            "plan_name": "Life_Insurance Plan 5",
+            "plan_status": "active",
+            "provider_name": "Brown-Mills",
+            "updated_at": "2022-10-22T07:06:15"
+          }
+        },
+        "entity_type": "benefit_plans",
+        "filters_applied": {
+          "plan_name": "Life_Insurance Plan 5"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "administer_offer_operations",
+      "arguments": {
+        "benefit_description": "Comprehensive medical coverage plan 1",
+        "benefit_type": "medical",
+        "offer_id": "56",
+        "operation_type": "add_benefit",
+        "start_date": "2025-10-24",
+        "user_id": "32"
+      },
+      "output": {
+        "message": "Benefit 143 added to offer 56 successfully",
+        "offer_id": "56",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_offer_operations",
+      "arguments": {
+        "benefit_description": "Comprehensive life_insurance coverage plan 5",
+        "benefit_type": "life_insurance",
+        "offer_id": "56",
+        "operation_type": "add_benefit",
+        "start_date": "2025-10-24",
+        "user_id": "32"
+      },
+      "output": {
+        "message": "Benefit 144 added to offer 56 successfully",
+        "offer_id": "56",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "56",
+        "reference_type": "offer",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "45",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "45",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "56",
+          "reference_type": "offer",
+          "user_id": "32"
+        },
+        "message": "Audit entry 45 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "417",
+        "reference_type": "document",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "46",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "46",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "417",
+          "reference_type": "document",
+          "user_id": "32"
+        },
+        "message": "Audit entry 46 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "418",
+        "reference_type": "document",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "47",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "47",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "418",
+          "reference_type": "document",
+          "user_id": "32"
+        },
+        "message": "Audit entry 47 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "143",
+        "reference_type": "offer_benefit",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "48",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "48",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "143",
+          "reference_type": "offer_benefit",
+          "user_id": "32"
+        },
+        "message": "Audit entry 48 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "144",
+        "reference_type": "offer_benefit",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "49",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "49",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "144",
+          "reference_type": "offer_benefit",
+          "user_id": "32"
+        },
+        "message": "Audit entry 49 created successfully",
+        "success": true
+      }
+    }
+  ],
+        "outputs": [],
+        "edges": [
+            {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "entity_type, email, department_name",
+                    "input": "entity_type, filters.email, filters.department_name"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_candidate_entities",
+                "connection": {
+                    "output": "entity_type, email_address",
+                    "input": "entity_type, filters.email_address"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "fetch_job_entities",
+                "connection": {
+                    "output": "entities[0].department_id",
+                    "input": "filters.department_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_job_entities",
+                "connection": {
+                    "output": "entity_type, job_title, remote_indicator",
+                    "input": "entity_type, filters.job_title, filters.remote_indicator"
+                }
+            },
+            {
+                "from": "fetch_candidate_entities",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "entities[0].candidate_id",
+                    "input": "candidate_id"
+                }
+            },
+            {
+                "from": "fetch_job_entities",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "entities[0].job_title, entities[0].requisition_id",
+                    "input": "position, requisition_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id",
+                    "input": "reporting_manager_id, user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "base_salary, operation_type, start_date",
+                    "input": "base_salary, operation_type, start_date"
+                }
+            },
+            {
+                "from": "administer_offer_operations",
+                "to": "administer_document_operations",
+                "connection": {
+                    "output": "offer_id, offer_id",
+                    "input": "related_entity_id, related_entity_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_document_operations",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id",
+                    "input": "uploaded_by, uploaded_by"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_document_operations",
+                "connection": {
+                    "output": "document_category, file_name, operation_type, related_entity_type, document_category, file_name, operation_type, related_entity_type",
+                    "input": "document_category, file_name, operation_type, related_entity_type, document_category, file_name, operation_type, related_entity_type"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_benefit_entities",
+                "connection": {
+                    "output": "entity_type, plan_name",
+                    "input": "entity_type, filters.plan_name"
+                }
+            },
+            {
+                "from": "fetch_benefit_entities",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "entities.3.description, entities.3.benefit_type, entities.2.description, entities.2.benefit_type",
+                    "input": "benefit_description, benefit_type, benefit_description, benefit_type"
+                }
+            },
+            {
+                "from": "administer_offer_operations",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "offer_id, offer_id",
+                    "input": "offer_id, offer_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id",
+                    "input": "user_id, user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_offer_operations",
+                "connection": {
+                    "output": "operation_type, start_date",
+                    "input": "operation_type, start_date"
+                }
+            },
+            {
+                "from": "administer_offer_operations",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "offer_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "administer_document_operations",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "document_id, document_id",
+                    "input": "reference_id, reference_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "action, reference_type",
+                    "input": "action, reference_type"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id, entities[0].user_id, entities[0].user_id, entities[0].user_id",
+                    "input": "user_id, user_id, user_id, user_id, user_id"
+                }
+            }
+        ],
+    "num_edges": 20
+  }
+}
+ 
