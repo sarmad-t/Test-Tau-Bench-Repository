@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "23",
-    "instruction": "You are Kelly Mathis (email: kelly.mathis40@internal.company.com), an HR Director. On 2025-10-22, you need to document the interview results for candidate Jill Ruiz (email: jill.ruiz856@yahoo.com) for the 'CFO' position in 'Finance' department at the 'Erikaville Office' to support the hiring decision, including an overall rating 4.5 and a clear hire recommendation.",
+    "instruction": "You are Kelly Mathis (email: kelly.mathis40@internal.company.com), an HR Director. On 2025-10-22, you need to evaluate the technical interview results for candidate Jill Ruiz (email: jill.ruiz856@yahoo.com) for the 'CFO' position in the 'Finance' department at the 'Erikaville Office' to support the hiring decision, including an overall rating of 4.5 and a clear hire recommendation.",
     "actions": [
       {
         "name": "fetch_reference_entities",
@@ -292,7 +292,7 @@
       {
         "name": "add_audit_entry",
         "arguments": {
-          "action": "update",
+          "action": "create",
           "field_name": "rating",
           "new_value": "4.5",
           "reference_id": "2",
@@ -302,7 +302,7 @@
         "output": {
           "audit_id": "45",
           "audit_log": {
-            "action": "update",
+            "action": "create",
             "audit_id": "45",
             "created_at": "2025-10-10T12:00:00",
             "field_name": "rating",
@@ -319,7 +319,7 @@
       {
         "name": "add_audit_entry",
         "arguments": {
-          "action": "update",
+          "action": "create",
           "field_name": "recommendation",
           "new_value": "yes",
           "reference_id": "2",
@@ -329,7 +329,7 @@
         "output": {
           "audit_id": "46",
           "audit_log": {
-            "action": "update",
+            "action": "create",
             "audit_id": "46",
             "created_at": "2025-10-10T12:00:00",
             "field_name": "recommendation",
