@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "27",
-    "instruction": "You are Elizabeth Cowan (email: elizabeth.cowan274@internal.company.com), an HR Admin. On 2025-10-22, you need to update your existing 'HR Director' requisition in the 'Human Resources' department at the 'North Kylie Office' to reflect the new requirements: 'full time' with 'hybrid' work, grade 'L3', 'day' shift, salary range between 90,000 to 110,000 and the description ‘Lead cross-functional operations’. You also need to attach the updated budget approval document ('HR_Dir_budget_approval.pdf') and initiate the standard approval by setting the requisition to pending approval.",
+    "instruction": "You are Elizabeth Cowan (elizabeth.cowan274@internal.company.com), an HR Admin. On 10-22-2025, you need the existing 'HR Director' requisition for the 'Human Resources' department at the 'North Kylie Office' updated so that it reflects a full-time, hybrid role with a day/night shift, a salary range of USD 115,711 to USD 150,000, and the description 'Lead cross-functional operations', and you need to the supporting documents for these changes recorded with the same update.",
     "actions": [
       {
         "name": "fetch_reference_entities",
@@ -69,51 +69,6 @@
         }
       },
       {
-        "name": "fetch_job_entities",
-        "arguments": {
-          "entity_type": "job_requisitions",
-          "filters": {
-            "department_id": "1",
-            "job_title": "HR Director"
-          }
-        },
-        "output": {
-          "count": 1,
-          "entities": [
-            {
-              "budgeted_salary_max": 125974.44,
-              "budgeted_salary_min": 94480.83,
-              "created_at": "2022-09-20T00:01:38",
-              "created_by": "24",
-              "department_id": "1",
-              "dept_head_approval_date": null,
-              "dept_head_approver": null,
-              "employment_type": "part_time",
-              "finance_manager_approval_date": null,
-              "finance_manager_approver": null,
-              "grade": "L2",
-              "hiring_manager_id": "52",
-              "hr_manager_approval_date": null,
-              "hr_manager_approver": null,
-              "job_description": "Job description for HR Director position in Human Resources",
-              "job_title": "HR Director",
-              "location_id": "2",
-              "remote_indicator": "remote",
-              "requisition_id": "2",
-              "shift_type": "night",
-              "status": "draft",
-              "updated_at": "2024-04-21T07:53:54"
-            }
-          ],
-          "entity_type": "job_requisitions",
-          "filters_applied": {
-            "department_id": "1",
-            "job_title": "HR Director"
-          },
-          "success": true
-        }
-      },
-      {
         "name": "fetch_reference_entities",
         "arguments": {
           "entity_type": "locations",
@@ -146,10 +101,9 @@
         "arguments": {
           "entity_type": "job_requisitions",
           "filters": {
-            "job_title": "HR Director",
             "department_id": "1",
             "location_id": "2",
-            "hiring_manager_id": "52"
+            "job_title": "HR Director"
           }
         },
         "output": {
@@ -183,7 +137,6 @@
           "entity_type": "job_requisitions",
           "filters_applied": {
             "department_id": "1",
-            "hiring_manager_id": "52",
             "job_title": "HR Director",
             "location_id": "2"
           },
@@ -193,20 +146,15 @@
       {
         "name": "administer_job_operations",
         "arguments": {
-          "budgeted_salary_max": 110000,
-          "budgeted_salary_min": 90000,
-          "department_id": "1",
+          "budgeted_salary_max": 150000,
+          "budgeted_salary_min": 115711,
           "employment_type": "full_time",
           "grade": "L3",
-          "hiring_manager_id": "52",
           "job_description": "Lead cross-functional operations",
-          "location_id": "2",
           "operation_type": "update_requisition",
-          "posted_date": "2025-10-22",
           "remote_indicator": "hybrid",
           "requisition_id": "2",
-          "shift_type": "day",
-          "status": "pending_approval",
+          "shift_type": "rotating",
           "user_id": "27"
         },
         "output": {
@@ -219,7 +167,7 @@
         "name": "administer_document_operations",
         "arguments": {
           "document_category": "budget_approval",
-          "file_name": "HR_Dir_budget_approval.pdf",
+          "file_name": "Budget_Approval_HR.pdf",
           "operation_type": "upload_document",
           "related_entity_id": "2",
           "related_entity_type": "job_requisition",
@@ -233,7 +181,7 @@
             "document_status": "active",
             "expiry_date": null,
             "file_format": "pdf",
-            "file_name": "HR_Dir_budget_approval.pdf",
+            "file_name": "Budget_Approval_HR.pdf",
             "related_entity_id": "2",
             "related_entity_type": "job_requisition",
             "upload_date": "2025-10-10",
@@ -248,12 +196,44 @@
         }
       },
       {
+        "name": "administer_document_operations",
+        "arguments": {
+          "document_category": "budget_justification",
+          "file_name": "Headcount_Justification.pdf",
+          "operation_type": "upload_document",
+          "related_entity_id": "2",
+          "related_entity_type": "job_requisition",
+          "uploaded_by": "27"
+        },
+        "output": {
+          "document_data": {
+            "created_at": "2025-10-10T12:00:00",
+            "document_category": "budget_justification",
+            "document_id": "418",
+            "document_status": "active",
+            "expiry_date": null,
+            "file_format": "pdf",
+            "file_name": "Headcount_Justification.pdf",
+            "related_entity_id": "2",
+            "related_entity_type": "job_requisition",
+            "upload_date": "2025-10-10",
+            "uploaded_by": "27",
+            "verification_status": null,
+            "verified_by": null,
+            "verified_date": null
+          },
+          "document_id": "418",
+          "message": "Document 418 uploaded successfully",
+          "success": true
+        }
+      },
+      {
         "name": "add_audit_entry",
         "arguments": {
           "action": "update",
-          "field_name": "status",
-          "new_value": "pending_approval",
-          "old_value": "draft",
+          "field_name": "employment_type",
+          "new_value": "full_time",
+          "old_value": "part_time",
           "reference_id": "2",
           "reference_type": "job_requisition",
           "user_id": "27"
@@ -264,14 +244,154 @@
             "action": "update",
             "audit_id": "45",
             "created_at": "2025-10-10T12:00:00",
-            "field_name": "status",
-            "new_value": "pending_approval",
-            "old_value": "draft",
+            "field_name": "employment_type",
+            "new_value": "full_time",
+            "old_value": "part_time",
             "reference_id": "2",
             "reference_type": "job_requisition",
             "user_id": "27"
           },
           "message": "Audit entry 45 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "remote_indicator",
+          "new_value": "hybrid",
+          "old_value": "remote",
+          "reference_id": "2",
+          "reference_type": "job_requisition",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "46",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "46",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "remote_indicator",
+            "new_value": "hybrid",
+            "old_value": "remote",
+            "reference_id": "2",
+            "reference_type": "job_requisition",
+            "user_id": "27"
+          },
+          "message": "Audit entry 46 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "grade",
+          "new_value": "L3",
+          "old_value": "L2",
+          "reference_id": "2",
+          "reference_type": "job_requisition",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "47",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "47",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "grade",
+            "new_value": "L3",
+            "old_value": "L2",
+            "reference_id": "2",
+            "reference_type": "job_requisition",
+            "user_id": "27"
+          },
+          "message": "Audit entry 47 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "shift",
+          "new_value": "rotating",
+          "old_value": "night",
+          "reference_id": "2",
+          "reference_type": "job_requisition",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "48",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "48",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "shift",
+            "new_value": "rotating",
+            "old_value": "night",
+            "reference_id": "2",
+            "reference_type": "job_requisition",
+            "user_id": "27"
+          },
+          "message": "Audit entry 48 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "budgeted_salary_min",
+          "new_value": "115711",
+          "old_value": "94480.83",
+          "reference_id": "2",
+          "reference_type": "job_requisition",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "49",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "49",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "budgeted_salary_min",
+            "new_value": "115711",
+            "old_value": "94480.83",
+            "reference_id": "2",
+            "reference_type": "job_requisition",
+            "user_id": "27"
+          },
+          "message": "Audit entry 49 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "budgeted_salary_max",
+          "new_value": "150000",
+          "old_value": "125974.44",
+          "reference_id": "2",
+          "reference_type": "job_requisition",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "50",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "50",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "budgeted_salary_max",
+            "new_value": "150000",
+            "old_value": "125974.44",
+            "reference_id": "2",
+            "reference_type": "job_requisition",
+            "user_id": "27"
+          },
+          "message": "Audit entry 50 created successfully",
           "success": true
         }
       },
@@ -284,10 +404,10 @@
           "user_id": "27"
         },
         "output": {
-          "audit_id": "46",
+          "audit_id": "51",
           "audit_log": {
             "action": "create",
-            "audit_id": "46",
+            "audit_id": "51",
             "created_at": "2025-10-10T12:00:00",
             "field_name": null,
             "new_value": null,
@@ -296,7 +416,32 @@
             "reference_type": "document",
             "user_id": "27"
           },
-          "message": "Audit entry 46 created successfully",
+          "message": "Audit entry 51 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "create",
+          "reference_id": "418",
+          "reference_type": "document",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "52",
+          "audit_log": {
+            "action": "create",
+            "audit_id": "52",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "418",
+            "reference_type": "document",
+            "user_id": "27"
+          },
+          "message": "Audit entry 52 created successfully",
           "success": true
         }
       }
@@ -315,8 +460,8 @@
         "from": "fetch_reference_entities",
         "to": "fetch_job_entities",
         "connection": {
-          "output": "entities[0].department_id",
-          "input": "filters.department_id"
+          "output": "entities[0].department_id, entities[0].location_id",
+          "input": "filters.department_id, filters.location_id"
         }
       },
       {
@@ -329,18 +474,10 @@
       },
       {
         "from": "fetch_job_entities",
-        "to": "fetch_job_entities",
-        "connection": {
-          "output": "entities[0].department_id, entities[0].location_id, entities[0].hiring_manager_id, entities[0].job_title",
-          "input": "filters.department_id, filters.location_id, filters.hiring_manager_id, filters.job_title"
-        }
-      },
-      {
-        "from": "fetch_job_entities",
         "to": "administer_job_operations",
         "connection": {
-          "output": "entities[0].requisition_id, entities[0].hiring_manager_id, entities[0].department_id, entities[0].location_id",
-          "input": "requisition_id, hiring_manager_id, department_id, location_id"
+          "output": "entities[0].requisition_id",
+          "input": "requisition_id"
         }
       },
       {
@@ -355,15 +492,15 @@
         "from": "instruction",
         "to": "administer_job_operations",
         "connection": {
-          "output": "employment_type, grade, budgeted_salary_min, budgeted_salary_max, job_description, remote_indicator, shift_type, status, posted_date, operation_type",
-          "input": "employment_type, grade, budgeted_salary_min, budgeted_salary_max, job_description, remote_indicator, shift_type, status, posted_date, operation_type"
+          "output": "budgeted_salary_max, budgeted_salary_min, employment_type, grade, job_description, operation_type, remote_indicator, shift_type",
+          "input": "budgeted_salary_max, budgeted_salary_min, employment_type, grade, job_description, operation_type, remote_indicator, shift_type"
         }
       },
       {
-        "from": "administer_job_operations",
+        "from": "fetch_job_entities",
         "to": "administer_document_operations",
         "connection": {
-          "output": "requisition_id",
+          "output": "entities[0].requisition_id",
           "input": "related_entity_id"
         }
       },
@@ -384,19 +521,11 @@
         }
       },
       {
-        "from": "administer_job_operations",
-        "to": "add_audit_entry",
-        "connection": {
-          "output": "requisition_id",
-          "input": "reference_id"
-        }
-      },
-      {
         "from": "fetch_job_entities",
         "to": "add_audit_entry",
         "connection": {
-          "output": "entities[0].status",
-          "input": "old_value"
+          "output": "entities[0].requisition_id, entities[0].employment_type, entities[0].remote_indicator, entities[0].grade, entities[0].shift_type, entities[0].budgeted_salary_min, entities[0].budgeted_salary_max",
+          "input": "reference_id, old_value, old_value, old_value, old_value, old_value, old_value"
         }
       },
       {
@@ -424,6 +553,6 @@
         }
       }
     ],
-    "num_edges": 15
+    "num_edges": 13
   }
 }
