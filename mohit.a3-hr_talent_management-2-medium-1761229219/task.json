@@ -1,0 +1,251 @@
+{
+    "env": "hr_talent_management",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+      "user_id": "17",
+      "instruction": "You are Maria Gonzalez (email: maria.gonzalez44@internal.company.com) a hr_payroll_administrator. You need to ensure Alejandra Carrillo (email: alejandra.carrillo465@gmail.com) receives complete payroll processing for the period 2025-11-01 to 2025-11-30, including proper overtime compensation and payment processing.",
+    "actions": [
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "first_name": "Maria",
+            "last_name": "Gonzalez",
+            "email": "maria.gonzalez44@internal.company.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "created_at": "2020-08-15T07:23:49",
+              "email": "maria.gonzalez44@internal.company.com",
+              "employee_id": null,
+              "employment_status": "active",
+              "first_name": "Maria",
+              "last_name": "Gonzalez",
+              "phone_number": "+14938474852",
+              "role": "hr_payroll_administrator",
+              "updated_at": "2024-06-11T16:18:56",
+              "user_id": "17"
+            }
+          ],
+          "entity_type": "users",
+          "filters_applied": {
+            "email": "maria.gonzalez44@internal.company.com",
+            "first_name": "Maria",
+            "last_name": "Gonzalez"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_employee_entities",
+        "arguments": {
+          "entity_type": "employees",
+          "filters": {
+            "first_name": "Alejandra",
+            "last_name": "Carrillo",
+            "email": "alejandra.carrillo465@gmail.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "bank_account_number": "19758464024736109",
+              "candidate_id": null,
+              "created_at": "2025-02-14T21:32:04",
+              "department_id": "6",
+              "employee_id": "5",
+              "employee_type": "contractor",
+              "employment_status": "active",
+              "first_name": "Alejandra",
+              "job_title": "HR Recruiter",
+              "last_name": "Carrillo",
+              "location_id": "3",
+              "manager_id": null,
+              "phone_number": "+15915378141",
+              "routing_number": "672637915",
+              "start_date": "2025-11-18",
+              "tax_filing_status": "surviving_spouse",
+              "tax_id": "110-64-8595",
+              "updated_at": "2022-05-09T05:07:09",
+              "work_email": "alejandra.carrillo465@gmail.com"
+            }
+          ],
+          "entity_type": "employees",
+          "filters_applied": {
+            "email": "alejandra.carrillo465@gmail.com",
+            "first_name": "Alejandra",
+            "last_name": "Carrillo"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "administer_payroll_cycle_operations",
+        "arguments": {
+          "cutoff_date": "2025-11-17",
+          "cycle_end_date": "2025-11-30",
+          "cycle_start_date": "2025-11-01",
+          "frequency": "weekly",
+          "operation_type": "create_cycle",
+          "requesting_user_id": "17"
+        },
+        "output": {
+          "cycle_data": {
+            "created_at": "2025-10-01T12:00:00",
+            "cutoff_date": "2025-11-17",
+            "cycle_end_date": "2025-11-30",
+            "cycle_id": "29",
+            "cycle_start_date": "2025-11-01",
+            "frequency": "weekly",
+            "status": "open",
+            "updated_at": "2025-10-01T12:00:00"
+          },
+          "cycle_id": "29",
+          "message": "Payroll cycle 29 created successfully",
+          "operation": "create_cycle",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "create",
+          "reference_id": "3",
+          "reference_type": "payroll_cycle",
+          "user_id": "17"
+        },
+        "output": {
+          "audit_id": "46",
+          "audit_log": {
+            "action": "create",
+            "audit_id": "46",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "3",
+            "reference_type": "payroll_cycle",
+            "user_id": "17"
+          },
+          "message": "Audit entry 46 created successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_payroll_entities",
+        "arguments": {
+          "entity_type": "payroll_cycles",
+          "filters": {
+            "cycle_id": "2"
+          },
+          "requesting_user_id": "17"
+        },
+        "output": {
+          "count": 1,
+          "entities": {
+            "2": {
+              "created_at": "2024-08-17T07:05:56",
+              "cutoff_date": "2024-10-17",
+              "cycle_end_date": "2024-10-14",
+              "cycle_id": "2",
+              "cycle_start_date": "2024-10-08",
+              "frequency": "weekly",
+              "status": "open",
+              "updated_at": "2023-06-12T21:12:15"
+            }
+          },
+          "entity_type": "payroll_cycles",
+          "filters_applied": {
+            "cycle_id": "2"
+          },
+          "success": true
+        }
+      }
+    ],
+    "outputs": [],
+    "edges": [
+      {
+        "from": "instruction",
+        "to": "fetch_reference_entities",
+        "connection": {
+          "output": "entity_type, first_name, last_name, email",
+          "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_employee_entities",
+        "connection": {
+          "output": "entity_type, first_name, last_name, email",
+          "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "administer_payroll_cycle_operations",
+        "connection": {
+          "output": "output.entities[0].user_id",
+          "input": "requesting_user_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "administer_payroll_cycle_operations",
+        "connection": {
+          "output": "cutoff_date, cycle_end_date, cycle_start_date, frequency, operation_type",
+          "input": "cutoff_date, cycle_end_date, cycle_start_date, frequency, operation_type"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "output.entities[0].user_id",
+          "input": "user_id"
+        }
+      },
+      {
+        "from": "administer_payroll_cycle_operations",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "cycle_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "action, reference_type",
+          "input": "action, reference_type"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "fetch_payroll_entities",
+        "connection": {
+          "output": "output.entities[0].user_id",
+          "input": "requesting_user_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_payroll_entities",
+        "connection": {
+          "output": "entity_type, cycle_id",
+          "input": "entity_type, filters.cycle_id"
+        }
+      }
+    ],
+    "num_edges": 9
+    }
+  }
