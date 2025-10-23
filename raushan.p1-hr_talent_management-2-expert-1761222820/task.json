@@ -1,0 +1,608 @@
+{
+  "env": "hr_talent_management",
+  "model_provider": "fireworks",
+  "model": "qwen3-coder-480b-a35b-instruct",
+  "num_trials": 1,
+  "temperature": 1,
+  "interface_num": 2,
+  "task": {
+    "user_id": "32",
+    "instruction": "You are Justin Sloan (justin.sloan666@hr.company.com), an HR Director at the company. A new employee, Heather Gonzalez (heather.gonzalez803@outlook.com), is starting as an 'Engineering Manager' in the 'Engineering' department on 2025-10-25. You need to create a new onboarding checklist for her, assign Julia Smith (julia.smith892@yahoo.com) as her hiring manager, and upload her verified ID (Heather_id.pdf) and bank details (Heather_bank.pdf) to her file. You also need to send a welcome email to Heather Gonzalez  with the checklist and notify Julia that the checklist is ready.",
+
+    "actions": [
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "justin.sloan666@hr.company.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2021-09-01T05:33:37",
+            "email": "justin.sloan666@hr.company.com",
+            "employee_id": null,
+            "employment_status": "active",
+            "first_name": "Justin",
+            "last_name": "Sloan",
+            "phone_number": "+12263291436",
+            "role": "hr_director",
+            "updated_at": "2023-07-08T21:25:25",
+            "user_id": "32"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "justin.sloan666@hr.company.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "julia.smith892@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2024-10-10T21:40:36",
+            "email": "julia.smith892@yahoo.com",
+            "employee_id": "45",
+            "employment_status": "active",
+            "first_name": "Julia",
+            "last_name": "Smith",
+            "phone_number": "+13696139176",
+            "role": "hiring_manager",
+            "updated_at": "2024-02-16T11:55:14",
+            "user_id": "7"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "julia.smith892@yahoo.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "departments",
+        "filters": {
+          "department_name": "Engineering"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "budget": 2000000,
+            "created_at": "2022-08-27T05:46:12",
+            "department_code": "DEPT-ENG",
+            "department_id": "2",
+            "department_name": "Engineering",
+            "manager_id": "52",
+            "status": "active"
+          }
+        ],
+        "entity_type": "departments",
+        "filters_applied": {
+          "department_name": "Engineering"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "heather.gonzalez803@outlook.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2021-03-26T10:07:34",
+            "email": "heather.gonzalez803@outlook.com",
+            "employee_id": "26",
+            "employment_status": "active",
+            "first_name": "Heather",
+            "last_name": "Gonzalez",
+            "phone_number": "+15269531899",
+            "role": "employee",
+            "updated_at": "2020-03-06T07:53:04",
+            "user_id": "77"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "heather.gonzalez803@outlook.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_employee_entities",
+      "arguments": {
+        "entity_type": "employees",
+        "filters": {
+          "employee_id": "26"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "bank_account_number": "96940103464433221",
+            "candidate_id": null,
+            "created_at": "2024-11-08T23:51:14",
+            "department_id": "2",
+            "employee_id": "26",
+            "employee_type": "contractor",
+            "employment_status": "active",
+            "first_name": "Heather",
+            "job_title": "Employee",
+            "last_name": "Gonzalez",
+            "location_id": "18",
+            "manager_id": null,
+            "phone_number": "+15269531899",
+            "routing_number": "493300379",
+            "start_date": "2024-05-30",
+            "tax_filing_status": "single",
+            "tax_id": "545-34-3773",
+            "updated_at": "2020-08-12T14:37:56",
+            "work_email": "heather.gonzalez803@outlook.com"
+          }
+        ],
+        "entity_type": "employees",
+        "filters_applied": {
+          "employee_id": "26"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "administer_onboarding_operations",
+      "arguments": {
+        "employee_id": "26",
+        "hiring_manager_id": "7",
+        "operation_type": "create_checklist",
+        "position": "Engineering Manager",
+        "start_date": "2025-10-25",
+        "user_id": "32"
+      },
+      "output": {
+        "checklist": {
+          "background_check_cleared_date": null,
+          "background_check_status": "pending",
+          "benefits_enrollment_status": "pending",
+          "checklist_id": "16",
+          "created_at": "2025-10-10T12:00:00",
+          "document_verification_status": "pending",
+          "employee_id": "26",
+          "hiring_manager_id": "7",
+          "it_provisioning_status": "pending",
+          "orientation_completed": false,
+          "orientation_date": null,
+          "overall_status": "not_started",
+          "position": "Engineering Manager",
+          "pre_onboarding_status": "pending",
+          "start_date": "2025-10-25",
+          "updated_at": "2025-10-10T12:00:00"
+        },
+        "message": "Onboarding checklist 16 created successfully for employee 26",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_notification_operations",
+      "arguments": {
+        "notification_type": "onboarding_welcome",
+        "operation_type": "create_notification",
+        "recipient_user_id": "77",
+        "reference_id": "26",
+        "reference_type": "employee",
+        "sender_user_id": "32",
+        "subject": "Welcome,Your Onboarding Checklist is ready"
+      },
+      "output": {
+        "message": "Notification 22 created successfully",
+        "notification_data": {
+          "created_at": "2025-10-10T12:00:00",
+          "failed_reason": null,
+          "notification_id": "22",
+          "notification_status": "pending",
+          "notification_type": "onboarding_welcome",
+          "recipient_email": "heather.gonzalez803@outlook.com",
+          "recipient_user_id": "77",
+          "reference_id": "26",
+          "reference_type": "employee",
+          "sender_user_id": "32",
+          "sent_at": null,
+          "subject": "Welcome,Your Onboarding Checklist is ready"
+        },
+        "notification_id": "22",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_notification_operations",
+      "arguments": {
+        "notification_type": "other",
+        "operation_type": "create_notification",
+        "recipient_user_id": "7",
+        "reference_id": "26",
+        "reference_type": "employee",
+        "sender_user_id": "32",
+        "subject": "Onboarding checklist has been created for Heather Gonzalez"
+      },
+      "output": {
+        "message": "Notification 23 created successfully",
+        "notification_data": {
+          "created_at": "2025-10-10T12:00:00",
+          "failed_reason": null,
+          "notification_id": "23",
+          "notification_status": "pending",
+          "notification_type": "other",
+          "recipient_email": "julia.smith892@yahoo.com",
+          "recipient_user_id": "7",
+          "reference_id": "26",
+          "reference_type": "employee",
+          "sender_user_id": "32",
+          "sent_at": null,
+          "subject": "Onboarding checklist has been created for Heather Gonzalez"
+        },
+        "notification_id": "23",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_document_operations",
+      "arguments": {
+        "document_category": "verification_id_proof",
+        "file_name": "Heather_id.pdf",
+        "operation_type": "upload_document",
+        "related_entity_id": "16",
+        "related_entity_type": "onboarding",
+        "uploaded_by": "32"
+      },
+      "output": {
+        "document_data": {
+          "created_at": "2025-10-10T12:00:00",
+          "document_category": "verification_id_proof",
+          "document_id": "417",
+          "document_status": "active",
+          "expiry_date": null,
+          "file_format": "pdf",
+          "file_name": "Heather_id.pdf",
+          "related_entity_id": "16",
+          "related_entity_type": "onboarding",
+          "upload_date": "2025-10-10",
+          "uploaded_by": "32",
+          "verification_status": "pending",
+          "verified_by": null,
+          "verified_date": null
+        },
+        "document_id": "417",
+        "message": "Document 417 uploaded successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "administer_document_operations",
+      "arguments": {
+        "document_category": "verification_bank_proof",
+        "file_name": "Heather_bank.pdf",
+        "operation_type": "upload_document",
+        "related_entity_id": "16",
+        "related_entity_type": "onboarding",
+        "uploaded_by": "32"
+      },
+      "output": {
+        "document_data": {
+          "created_at": "2025-10-10T12:00:00",
+          "document_category": "verification_bank_proof",
+          "document_id": "418",
+          "document_status": "active",
+          "expiry_date": null,
+          "file_format": "pdf",
+          "file_name": "Heather_bank.pdf",
+          "related_entity_id": "16",
+          "related_entity_type": "onboarding",
+          "upload_date": "2025-10-10",
+          "uploaded_by": "32",
+          "verification_status": "pending",
+          "verified_by": null,
+          "verified_date": null
+        },
+        "document_id": "418",
+        "message": "Document 418 uploaded successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "16",
+        "reference_type": "onboarding_checklist",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "45",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "45",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "16",
+          "reference_type": "onboarding_checklist",
+          "user_id": "32"
+        },
+        "message": "Audit entry 45 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "22",
+        "reference_type": "notification",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "46",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "46",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "22",
+          "reference_type": "notification",
+          "user_id": "32"
+        },
+        "message": "Audit entry 46 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "23",
+        "reference_type": "notification",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "47",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "47",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "23",
+          "reference_type": "notification",
+          "user_id": "32"
+        },
+        "message": "Audit entry 47 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "417",
+        "reference_type": "document",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "48",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "48",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "417",
+          "reference_type": "document",
+          "user_id": "32"
+        },
+        "message": "Audit entry 48 created successfully",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "418",
+        "reference_type": "document",
+        "user_id": "32"
+      },
+      "output": {
+        "audit_id": "49",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "49",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "418",
+          "reference_type": "document",
+          "user_id": "32"
+        },
+        "message": "Audit entry 49 created successfully",
+        "success": true
+      }
+    }
+  ],
+    "outputs":[],
+    "edges": [
+            {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "entity_type, email",
+                    "input": "entity_type, filters.email"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_reference_entities",
+                "connection": {
+                    "output": "department_name",
+                    "input": "filters.department_name"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "fetch_employee_entities",
+                "connection": {
+                    "output": "entities[0].employee_id",
+                    "input": "filters.employee_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "fetch_employee_entities",
+                "connection": {
+                    "output": "entity_type",
+                    "input": "entity_type"
+                }
+            },
+            {
+                "from": "fetch_employee_entities",
+                "to": "administer_onboarding_operations",
+                "connection": {
+                    "output": "entities[0].employee_id",
+                    "input": "employee_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_onboarding_operations",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id",
+                    "input": "hiring_manager_id, user_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_onboarding_operations",
+                "connection": {
+                    "output": "operation_type, position, start_date",
+                    "input": "operation_type, position, start_date"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_notification_operations",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id, entities[0].user_id, entities[0].user_id",
+                    "input": "recipient_user_id, sender_user_id, recipient_user_id, sender_user_id"
+                }
+            },
+            {
+                "from": "fetch_employee_entities",
+                "to": "administer_notification_operations",
+                "connection": {
+                    "output": "entities[0].employee_id, entities[0].employee_id",
+                    "input": "reference_id, reference_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_notification_operations",
+                "connection": {
+                    "output": "notification_type, operation_type, reference_type, subject",
+                    "input": "notification_type, operation_type, reference_type, subject"
+                }
+            },
+            {
+                "from": "administer_onboarding_operations",
+                "to": "administer_document_operations",
+                "connection": {
+                    "output": "checklist.checklist_id, checklist.checklist_id",
+                    "input": "related_entity_id, related_entity_id"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "administer_document_operations",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id",
+                    "input": "uploaded_by, uploaded_by"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "administer_document_operations",
+                "connection": {
+                    "output": "document_category, file_name, operation_type, related_entity_type",
+                    "input": "document_category, file_name, operation_type, related_entity_type"
+                }
+            },
+            {
+                "from": "administer_onboarding_operations",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "checklist.checklist_id",
+                    "input": "reference_id"
+                }
+            },
+            {
+                "from": "administer_notification_operations",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "notification_id, notification_id",
+                    "input": "reference_id, reference_id"
+                }
+            },
+            {
+                "from": "administer_document_operations",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "document_id, document_id",
+                    "input": "reference_id, reference_id"
+                }
+            },
+            {
+                "from": "instruction",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "action, reference_type",
+                    "input": "action, reference_type"
+                }
+            },
+            {
+                "from": "fetch_reference_entities",
+                "to": "add_audit_entry",
+                "connection": {
+                    "output": "entities[0].user_id, entities[0].user_id, entities[0].user_id, entities[0].user_id, entities[0].user_id",
+                    "input": "user_id, user_id, user_id, user_id, user_id"
+                }
+            }
+        ],
+    "num_edges": 18
+  }
+}
