@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "27",
-    "instruction": "You are Elizabeth Cowan (elizabeth.cowan274@internal.company.com), an HR Admin. On 10-22-2025, you need the existing 'HR Director' requisition for the 'Human Resources' department at the 'North Kylie Office' updated so that it reflects a full-time, hybrid role with a day/night shift, a salary range of USD 115,711 to USD 150,000, and the description 'Lead cross-functional operations', and you need to the supporting documents for these changes recorded with the same update.",
+    "instruction": "You are Elizabeth Cowan (elizabeth.cowan274@internal.company.com), an HR Admin. On 10-22-2025, you need the existing 'HR Director' requisition for the 'Human Resources' department at the 'North Kylie Office' updated so that it reflects a full-time, hybrid role with a rotating shift, a salary range of USD 115,711 to USD 150,000, and the description 'Lead cross-functional operations', and you need to the supporting documents (Budget_Approval_HR.pdf, Headcount_Justification.pdf) for these changes recorded with the same update.",
     "actions": [
       {
         "name": "fetch_reference_entities",
