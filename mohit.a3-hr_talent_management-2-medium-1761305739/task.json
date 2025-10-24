@@ -1,0 +1,235 @@
+{
+    "env": "hr_talent_management",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+      "user_id": "27",
+      "instruction": "You are Elizabeth Cowan (email: elizabeth.cowan274@internal.company.com) a hr_admin. You need to update Donald Yu(email: donald.yu913@hr.company.com) candidate profile to reflect his new contact number as +1-555-0123 and update his current CTC to $85,000.",
+     "actions": [
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "first_name": "Elizabeth",
+            "last_name": "Cowan",
+            "email": "elizabeth.cowan274@internal.company.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "created_at": "2021-06-13T09:58:00",
+              "email": "elizabeth.cowan274@internal.company.com",
+              "employee_id": "11",
+              "employment_status": "active",
+              "first_name": "Elizabeth",
+              "last_name": "Cowan",
+              "phone_number": "+14323355329",
+              "role": "hr_admin",
+              "updated_at": "2020-09-30T09:07:36",
+              "user_id": "27"
+            }
+          ],
+          "entity_type": "users",
+          "filters_applied": {
+            "email": "elizabeth.cowan274@internal.company.com",
+            "first_name": "Elizabeth",
+            "last_name": "Cowan"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_candidate_entities",
+        "arguments": {
+          "entity_type": "candidates",
+          "filters": {
+            "first_name": "Donald",
+            "last_name": "Yu",
+            "email_address": "donald.yu913@hr.company.com",
+            "country_of_residence": "Micronesia",
+            "linkedin_profile": "https://linkedin.com/in/donald-yu-667"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "candidate_id": "1",
+              "contact_number": "+14722001637",
+              "country_of_residence": "Micronesia",
+              "created_at": "2024-06-10T23:51:27",
+              "current_ctc": 144809.09,
+              "email_address": "donald.yu913@hr.company.com",
+              "first_name": "Donald",
+              "last_name": "Yu",
+              "linkedin_profile": "https://linkedin.com/in/donald-yu-667",
+              "source_of_application": "Referral",
+              "status": "active",
+              "updated_at": "2024-04-11T01:21:52"
+            }
+          ],
+          "entity_type": "candidates",
+          "filters_applied": {
+            "country_of_residence": "Micronesia",
+            "email_address": "donald.yu913@hr.company.com",
+            "first_name": "Donald",
+            "last_name": "Yu",
+            "linkedin_profile": "https://linkedin.com/in/donald-yu-667"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_document_task_entities",
+        "arguments": {
+          "entity_type": "documents",
+          "filters": {
+            "document_category": "resume",
+            "related_entity_type": "candidate",
+            "related_entity_id": "16",
+            "file_name": "resume_16_1.pdf"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": {
+            "1": {
+              "created_at": "2025-10-03T18:28:17",
+              "document_category": "resume",
+              "document_id": "1",
+              "document_status": "active",
+              "file_format": "pdf",
+              "file_name": "resume_16_1.pdf",
+              "related_entity_id": "16",
+              "related_entity_type": "candidate",
+              "upload_date": "2025-09-21T22:41:12",
+              "uploaded_by": "74",
+              "verification_status": "failed",
+              "verified_by": null
+            }
+          },
+          "entity_type": "documents",
+          "filters_applied": {
+            "document_category": "resume",
+            "file_name": "resume_16_1.pdf",
+            "related_entity_id": "16",
+            "related_entity_type": "candidate"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "administer_candidate_operations",
+        "arguments": {
+          "candidate_id": "1",
+          "operation_type": "update_candidate",
+          "user_id": "1"
+        },
+        "output": {
+          "candidate_id": "1",
+          "message": "Candidate 1 updated successfully",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "reference_id": "11",
+          "reference_type": "user",
+          "user_id": "27"
+        },
+        "output": {
+          "audit_id": "45",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "45",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "11",
+            "reference_type": "user",
+            "user_id": "27"
+          },
+          "message": "Audit entry 45 created successfully",
+          "success": true
+        }
+      }
+    ],
+    "outputs": [],
+    "edges": [
+      {
+        "from": "instruction",
+        "to": "fetch_reference_entities",
+        "connection": {
+          "output": "entity_type, first_name, last_name, email",
+          "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_candidate_entities",
+        "connection": {
+          "output": "entity_type, first_name, last_name, email_address, country_of_residence, linkedin_profile",
+          "input": "entity_type, filters.first_name, filters.last_name, filters.email_address, filters.country_of_residence, filters.linkedin_profile"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_document_task_entities",
+        "connection": {
+          "output": "entity_type, document_category, related_entity_type, related_entity_id, file_name",
+          "input": "entity_type, filters.document_category, filters.related_entity_type, filters.related_entity_id, filters.file_name"
+        }
+      },
+      {
+        "from": "fetch_candidate_entities",
+        "to": "administer_candidate_operations",
+        "connection": {
+          "output": "entities[0].candidate_id",
+          "input": "candidate_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "administer_candidate_operations",
+        "connection": {
+          "output": "operation_type, user_id",
+          "input": "operation_type, user_id"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "entities[0].user_id",
+          "input": "user_id"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "entities[0].employee_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "action, reference_type",
+          "input": "action, reference_type"
+        }
+      }
+    ],
+    "num_edges": 8
+    }
+  }
