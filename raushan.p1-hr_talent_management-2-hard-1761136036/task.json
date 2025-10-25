@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "23",
-    "instruction": "You are Kelly Mathis (email: kelly.mathis40@internal.company.com), an HR Director. On 2025-10-22, you need to evaluate the technical interview results for candidate Jill Ruiz (email: jill.ruiz856@yahoo.com) for the 'CFO' position in the 'Finance' department at the 'Erikaville Office' to support the hiring decision, including an overall rating of 4.5 and a clear hire recommendation.",
+    "instruction": "You are Kelly Mathis (email: kelly.mathis40@internal.company.com), an HR Director. On 2025-10-22, you need to evaluate the technical interview results for candidate Jill Ruiz (email: jill.ruiz856@yahoo.com) for the 'CFO' position in the 'Finance' department at the 'Erikaville Office' to support the hiring decision, including an overall rating of 4.5 and a clear hire recommendation. The interview completion date is 2025-10-20.",
     "actions": [
       {
         "name": "fetch_reference_entities",
@@ -276,7 +276,7 @@
         "name": "administer_interview_operations",
         "arguments": {
           "completed_by": "23",
-          "completed_date": "2025-10-22",
+          "completed_date": " 2025-10-20",
           "interview_id": "2",
           "interview_type": "technical",
           "operation_type": "conduct_evaluation",
@@ -344,130 +344,158 @@
           "message": "Audit entry 46 created successfully",
           "success": true
         }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "update",
+          "field_name": "completed_date",
+          "new_value": "2025-10-20",
+          "old_value": null,
+          "reference_id": "2",
+          "reference_type": "interview",
+          "user_id": "23"
+        },
+        "output": {
+          "audit_id": "47",
+          "audit_log": {
+            "action": "update",
+            "audit_id": "47",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": "completed_date",
+            "new_value": "2025-10-20",
+            "old_value": "null",
+            "reference_id": "2",
+            "reference_type": "interview",
+            "user_id": "23"
+          },
+          "message": "Audit entry 47 created successfully",
+          "success": true
+        }
       }
     ],
     "outputs": [],
     "edges": [
-       {
-                "from": "instruction",
-                "to": "fetch_reference_entities",
-                "connection": {
-                    "output": "entity_type, email, department_name, location_name",
-                    "input": "entity_type, filters.email, filters.department_name, filters.location_name"
-                }
-            },
-            {
-                "from": "fetch_reference_entities",
-                "to": "fetch_job_entities",
-                "connection": {
-                    "output": "entities[0].department_id, entities[0].location_id",
-                    "input": "filters.department_id, filters.location_id"
-                }
-            },
-            {
-                "from": "instruction",
-                "to": "fetch_job_entities",
-                "connection": {
-                    "output": "entity_type, job_title",
-                    "input": "entity_type, filters.job_title"
-                }
-            },
-            {
-                "from": "fetch_job_entities",
-                "to": "fetch_job_entities",
-                "connection": {
-                    "output": "entities[0].requisition_id",
-                    "input": "filters.requisition_id"
-                }
-            },
-            {
-                "from": "instruction",
-                "to": "fetch_candidate_entities",
-                "connection": {
-                    "output": "entity_type, email_address",
-                    "input": "entity_type, filters.email_address"
-                }
-            },
-            {
-                "from": "fetch_candidate_entities",
-                "to": "fetch_candidate_entities",
-                "connection": {
-                    "output": "entities[0].candidate_id",
-                    "input": "filters.candidate_id"
-                }
-            },
-            {
-                "from": "fetch_job_entities",
-                "to": "fetch_candidate_entities",
-                "connection": {
-                    "output": "entities[0].posting_id",
-                    "input": "filters.posting_id"
-                }
-            },
-            {
-                "from": "fetch_candidate_entities",
-                "to": "fetch_interview_offer_entities",
-                "connection": {
-                    "output": "entities[0].application_id",
-                    "input": "filters.application_id"
-                }
-            },
-            {
-                "from": "instruction",
-                "to": "fetch_interview_offer_entities",
-                "connection": {
-                    "output": "interview_type",
-                    "input": "filters.interview_type"
-                }
-            },
-            {
-                "from": "fetch_reference_entities",
-                "to": "administer_interview_operations",
-                "connection": {
-                    "output": "entities[0].user_id",
-                    "input": "completed_by"
-                }
-            },
-            {
-                "from": "fetch_interview_offer_entities",
-                "to": "administer_interview_operations",
-                "connection": {
-                    "output": "entities[0].interview_id, entities[0].interview_type",
-                    "input": "interview_id, interview_type"
-                }
-            },
-            {
-                "from": "instruction",
-                "to": "administer_interview_operations",
-                "connection": {
-                    "output": "completed_date, rating, recommendation, operation_type",
-                    "input": "completed_date, rating, recommendation, operation_type"
-                }
-            },
-            {
-                "from": "fetch_interview_offer_entities",
-                "to": "add_audit_entry",
-                "connection": {
-                    "output": "entities[0].interview_id, entities[0].rating, entities[0].recommendation",
-                    "input": "reference_id, old_value, old_value"
-                }
-            },
-            {
-                "from": "instruction",
-                "to": "add_audit_entry",
-                "connection": {
-                    "output": "action, field_name, new_value, reference_type",
-                    "input": "action, field_name, new_value, reference_type"
-                }
-            },
-            {
-                "from": "fetch_reference_entities",
-                "to": "add_audit_entry",
-                "connection": {
-                    "output": "entities[0].user_id",
-                    "input": "user_id"
-                }
-            }
+      {
+        "from": "instruction",
+        "to": "fetch_reference_entities",
+        "connection": {
+          "output": "entity_type, email, department_name, location_name",
+          "input": "entity_type, filters.email, filters.department_name, filters.location_name"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "fetch_job_entities",
+        "connection": {
+          "output": "entities[0].department_id, entities[0].location_id",
+          "input": "filters.department_id, filters.location_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_job_entities",
+        "connection": {
+          "output": "entity_type, job_title",
+          "input": "entity_type, filters.job_title"
+        }
+      },
+      {
+        "from": "fetch_job_entities",
+        "to": "fetch_job_entities",
+        "connection": {
+          "output": "entities[0].requisition_id",
+          "input": "filters.requisition_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_candidate_entities",
+        "connection": {
+          "output": "entity_type, email_address",
+          "input": "entity_type, filters.email_address"
+        }
+      },
+      {
+        "from": "fetch_candidate_entities",
+        "to": "fetch_candidate_entities",
+        "connection": {
+          "output": "entities[0].candidate_id",
+          "input": "filters.candidate_id"
+        }
+      },
+      {
+        "from": "fetch_job_entities",
+        "to": "fetch_candidate_entities",
+        "connection": {
+          "output": "entities[0].posting_id",
+          "input": "filters.posting_id"
+        }
+      },
+      {
+        "from": "fetch_candidate_entities",
+        "to": "fetch_interview_offer_entities",
+        "connection": {
+          "output": "entities[0].application_id",
+          "input": "filters.application_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_interview_offer_entities",
+        "connection": {
+          "output": "interview_type",
+          "input": "filters.interview_type"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "administer_interview_operations",
+        "connection": {
+          "output": "entities[0].user_id",
+          "input": "completed_by"
+        }
+      },
+      {
+        "from": "fetch_interview_offer_entities",
+        "to": "administer_interview_operations",
+        "connection": {
+          "output": "entities[0].interview_id, entities[0].interview_type",
+          "input": "interview_id, interview_type"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "administer_interview_operations",
+        "connection": {
+          "output": "completed_date, rating, recommendation, operation_type",
+          "input": "completed_date, rating, recommendation, operation_type"
+        }
+      },
+      {
+        "from": "fetch_interview_offer_entities",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "entities[0].interview_id, entities[0].rating, entities[0].recommendation",
+          "input": "reference_id, old_value, old_value"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "action, field_name, new_value, reference_type",
+          "input": "action, field_name, new_value, reference_type"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "entities[0].user_id",
+          "input": "user_id"
+        }
+      }
     ],
     "num_edges": 15
   }
