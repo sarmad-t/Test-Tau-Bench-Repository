@@ -7,7 +7,7 @@
   "interface_num": 2,
   "task": {
     "user_id": "17",
-    "instruction": "You are Maria Gonzalez (email: maria.gonzalez44@internal.company.com) an HR payroll administrator. You need to ensure Alejandra Carrillo (email: alejandra.carrillo465@gmail.com) receives complete payroll processing for the period 2025-11-18 to 2025-11-30, by maintaining cutoff date 2025-11-25.",
+    "instruction": "You are Maria Gonzalez (email: maria.gonzalez44@internal.company.com), an HR Payroll Administrator. You need to ensure that Alejandra Carrillo (email: alejandra.carrillo465@gmail.com) receives complete payroll processing for the period November 18, 2025, to November 30, 2025, maintaining the cutoff date of November 25, 2025. The payroll cycle will be weekly.",
   "actions": [
   {
     "name": "fetch_reference_entities",
@@ -173,8 +173,8 @@
     "from": "fetch_employee_entities",
     "to": "fetch_payroll_entities",
     "connection": {
-      "output": "entities[0].start_date",
-      "input": "filters.cycle_start_date_from"
+      "output": "entity_type,entities[0].start_date",
+      "input": "entity_type,filters.cycle_start_date_from"
     }
   },
   {
