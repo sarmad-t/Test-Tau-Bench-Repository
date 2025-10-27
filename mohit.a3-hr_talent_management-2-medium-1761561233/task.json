@@ -1,0 +1,273 @@
+{
+    "env": "hr_talent_management",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+      "user_id": "3",
+      "instruction": "You are Alejandra Carrillo (email: alejandra.carrillo465@gmail.com), an HR recruiter. You need to create a new job requisition for the position of Operations Director in the Operations Department for North Kylie Office under hiring manager Julia Smith(email: julia.smith892@yahoo.com), with a budgeted salary range between $82,109 and $109,479.",
+     "actions": [
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "alejandra.carrillo465@gmail.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2024-01-02T05:04:55",
+            "email": "alejandra.carrillo465@gmail.com",
+            "employee_id": "5",
+            "employment_status": "active",
+            "first_name": "Alejandra",
+            "last_name": "Carrillo",
+            "phone_number": "+15915378141",
+            "role": "hr_recruiter",
+            "updated_at": "2021-07-05T19:11:16",
+            "user_id": "3"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "alejandra.carrillo465@gmail.com",
+          "first_name": "Alejandra",
+          "last_name": "Carrillo"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "departments",
+        "filters": {
+          "department_name": "Operations",
+          "department_code": "DEPT-OPS"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "budget": 400000,
+            "created_at": "2021-07-31T09:32:21",
+            "department_code": "DEPT-OPS",
+            "department_id": "6",
+            "department_name": "Operations",
+            "manager_id": "51",
+            "status": "active"
+          }
+        ],
+        "entity_type": "departments",
+        "filters_applied": {
+          "department_code": "DEPT-OPS",
+          "department_name": "Operations"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "locations",
+        "filters": {
+          "location_name": "North Kylie Office"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "address": "9540 Smith Brook Apt. 493",
+            "city_name": "North Kylie",
+            "country": "Pakistan",
+            "created_at": "2023-10-14T10:59:41",
+            "location_id": "2",
+            "location_name": "North Kylie Office",
+            "status": "active"
+          }
+        ],
+        "entity_type": "locations",
+        "filters_applied": {
+          "location_name": "North Kylie Office"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "fetch_reference_entities",
+      "arguments": {
+        "entity_type": "users",
+        "filters": {
+          "email": "julia.smith892@yahoo.com"
+        }
+      },
+      "output": {
+        "count": 1,
+        "entities": [
+          {
+            "created_at": "2024-10-10T21:40:36",
+            "email": "julia.smith892@yahoo.com",
+            "employee_id": "45",
+            "employment_status": "active",
+            "first_name": "Julia",
+            "last_name": "Smith",
+            "phone_number": "+13696139176",
+            "role": "hiring_manager",
+            "updated_at": "2024-02-16T11:55:14",
+            "user_id": "7"
+          }
+        ],
+        "entity_type": "users",
+        "filters_applied": {
+          "email": "julia.smith892@yahoo.com"
+        },
+        "success": true
+      }
+    },
+    {
+      "name": "administer_job_operations",
+      "arguments": {
+        "budgeted_salary_max": 109479,
+        "budgeted_salary_min": 82109,
+        "created_by": "3",
+        "department_id": "6",
+        "employment_type": "full_time",
+        "hiring_manager_id": "7",
+        "job_description": "Operations Director position in Operations",
+        "job_title": "Operations Director",
+        "location_id": "2",
+        "operation_type": "create_requisition"
+      },
+      "output": {
+        "message": "Job requisition 31 created successfully",
+        "requisition_id": "31",
+        "success": true
+      }
+    },
+    {
+      "name": "add_audit_entry",
+      "arguments": {
+        "action": "create",
+        "reference_id": "12",
+        "reference_type": "job_requisition",
+        "user_id": "3"
+      },
+      "output": {
+        "audit_id": "45",
+        "audit_log": {
+          "action": "create",
+          "audit_id": "45",
+          "created_at": "2025-10-10T12:00:00",
+          "field_name": null,
+          "new_value": null,
+          "old_value": null,
+          "reference_id": "12",
+          "reference_type": "job_requisition",
+          "user_id": "3"
+        },
+        "message": "Audit entry 45 created successfully",
+        "success": true
+      }
+    }
+  ],
+    "outputs": [],
+    "edges": [
+    {
+      "from": "instruction",
+      "to": "fetch_reference_entities",
+      "connection": {
+        "output": "entity_type, first_name, last_name, email",
+        "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "fetch_reference_entities",
+      "connection": {
+        "output": "entity_type, department_name, department_code",
+        "input": "entity_type, filters.department_name, filters.department_code"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "fetch_reference_entities",
+      "connection": {
+        "output": "entity_type, location_name, address, city_name",
+        "input": "entity_type, filters.location_name, filters.address, filters.city_name"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "fetch_reference_entities",
+      "connection": {
+        "output": "entity_type, first_name, last_name, email",
+        "input": "entity_type, filters.first_name, filters.last_name, filters.email"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "output.entities[0].user_id",
+        "input": "created_by"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "output.entities[0].department_id",
+        "input": "department_id"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "output.entities[0].location_id",
+        "input": "location_id"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "output.entities[0].user_id",
+        "input": "hiring_manager_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "administer_job_operations",
+      "connection": {
+        "output": "budgeted_salary_min, budgeted_salary_max, employment_type, job_description, job_title, operation_type",
+        "input": "budgeted_salary_min, budgeted_salary_max, employment_type, job_description, job_title, operation_type"
+      }
+    },
+    {
+      "from": "fetch_reference_entities",
+      "to": "add_audit_entry",
+      "connection": {
+        "output": "output.entities[0].user_id",
+        "input": "user_id"
+      }
+    },
+    {
+      "from": "instruction",
+      "to": "add_audit_entry",
+      "connection": {
+        "output": "action, reference_id, reference_type",
+        "input": "action, reference_id, reference_type"
+      }
+    }
+  ],
+    "num_edges": 11
+    }
+  }
