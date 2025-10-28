@@ -1,0 +1,254 @@
+{
+    "env": "hr_talent_management",
+    "model_provider": "fireworks",
+    "model": "qwen3-coder-480b-a35b-instruct",
+    "num_trials": 1,
+    "temperature": 1,
+    "interface_num": 2,
+    "task": {
+      "user_id": "23",
+      "instruction": "You are Kelly Mathis (email: kelly.mathis40@internal.company.com), an HR Manager. On 2025-10-29, you need to create a job posting from the approved requisition of 'Tech Lead' for the 'Engineering' department and publish it to external portal.",
+    "actions":  [
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "users",
+          "filters": {
+            "email": "kelly.mathis40@internal.company.com"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "created_at": "2023-12-16T08:12:52",
+              "email": "kelly.mathis40@internal.company.com",
+              "employee_id": "21",
+              "employment_status": "active",
+              "first_name": "Kelly",
+              "last_name": "Mathis",
+              "phone_number": "+13862267961",
+              "role": "hr_manager",
+              "updated_at": "2021-12-30T02:21:36",
+              "user_id": "23"
+            }
+          ],
+          "entity_type": "users",
+          "filters_applied": {
+            "email": "kelly.mathis40@internal.company.com"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_reference_entities",
+        "arguments": {
+          "entity_type": "departments",
+          "filters": {
+            "department_name": "Engineering"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "budget": 2000000,
+              "created_at": "2022-08-27T05:46:12",
+              "department_code": "DEPT-ENG",
+              "department_id": "2",
+              "department_name": "Engineering",
+              "manager_id": "52",
+              "status": "active"
+            }
+          ],
+          "entity_type": "departments",
+          "filters_applied": {
+            "department_name": "Engineering"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "fetch_job_entities",
+        "arguments": {
+          "entity_type": "job_requisitions",
+          "filters": {
+            "job_title": "Tech Lead",
+            "department_id": "2",
+            "status": "approved"
+          }
+        },
+        "output": {
+          "count": 1,
+          "entities": [
+            {
+              "budgeted_salary_max": 89244.48,
+              "budgeted_salary_min": 66933.36,
+              "created_at": "2021-04-05T06:31:25",
+              "created_by": "29",
+              "department_id": "2",
+              "dept_head_approval_date": "2023-10-09",
+              "dept_head_approver": "51",
+              "employment_type": "contract",
+              "finance_manager_approval_date": "2024-02-15",
+              "finance_manager_approver": "45",
+              "grade": "L5",
+              "hiring_manager_id": "52",
+              "hr_manager_approval_date": "2023-01-14",
+              "hr_manager_approver": "21",
+              "job_description": "Job description for Tech Lead position in Engineering",
+              "job_title": "Tech Lead",
+              "location_id": "3",
+              "remote_indicator": "hybrid",
+              "requisition_id": "15",
+              "shift_type": "rotating",
+              "status": "approved",
+              "updated_at": "2025-08-03T15:44:53"
+            }
+          ],
+          "entity_type": "job_requisitions",
+          "filters_applied": {
+            "department_id": "2",
+            "job_title": "Tech Lead",
+            "status": "approved"
+          },
+          "success": true
+        }
+      },
+      {
+        "name": "administer_job_operations",
+        "arguments": {
+          "budgeted_salary_max": 103363.25,
+          "budgeted_salary_min": 80012,
+          "department_id": "2",
+          "employment_type": "contract",
+          "grade": "L5",
+          "hiring_manager_id": "52",
+          "job_description": "Job description for Tech Lead position in Engineering",
+          "job_title": "Tech Lead",
+          "location_id": "3",
+          "operation_type": "create_posting",
+          "portal_type": "external",
+          "posted_date": "2015-10-28",
+          "requisition_id": "15",
+          "shift_type": "rotating",
+          "user_id": "23"
+        },
+        "output": {
+          "message": "Job posting 11 created successfully",
+          "posting_id": "11",
+          "success": true
+        }
+      },
+      {
+        "name": "add_audit_entry",
+        "arguments": {
+          "action": "create",
+          "reference_id": "15",
+          "reference_type": "job_posting",
+          "user_id": "23"
+        },
+        "output": {
+          "audit_id": "45",
+          "audit_log": {
+            "action": "create",
+            "audit_id": "45",
+            "created_at": "2025-10-10T12:00:00",
+            "field_name": null,
+            "new_value": null,
+            "old_value": null,
+            "reference_id": "15",
+            "reference_type": "job_posting",
+            "user_id": "23"
+          },
+          "message": "Audit entry 45 created successfully",
+          "success": true
+        }
+      }
+    ],
+    "outputs": [],
+    "edges": [
+      {
+        "from": "instruction",
+        "to": "fetch_reference_entities",
+        "connection": {
+          "output": "entity_type, filters.email",
+          "input": "entity_type, filters.email"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_reference_entities",
+        "connection": {
+          "output": "entity_type, filters.department_name",
+          "input": "entity_type, filters.department_name"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "fetch_job_entities",
+        "connection": {
+          "output": "entity_type, filters.job_title, filters.status",
+          "input": "entity_type, filters.job_title, filters.status"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "fetch_job_entities",
+        "connection": {
+          "output": "output.entities[0].department_id",
+          "input": "filters.department_id"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "administer_job_operations",
+        "connection": {
+          "output": "output.entities[0].user_id",
+          "input": "user_id"
+        }
+      },
+      {
+        "from": "fetch_job_entities",
+        "to": "administer_job_operations",
+        "connection": {
+          "output": "output.entities[0].requisition_id, output.entities[0].department_id, output.entities[0].employment_type, output.entities[0].grade, output.entities[0].hiring_manager_id, output.entities[0].job_description, output.entities[0].job_title, output.entities[0].location_id, output.entities[0].shift_type, output.entities[0].budgeted_salary_min, output.entities[0].budgeted_salary_max",
+          "input": "requisition_id, department_id, employment_type, grade, hiring_manager_id, job_description, job_title, location_id, shift_type, budgeted_salary_min, budgeted_salary_max"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "administer_job_operations",
+        "connection": {
+          "output": "operation_type, portal_type, posted_date",
+          "input": "operation_type, portal_type, posted_date"
+        }
+      },
+      {
+        "from": "administer_job_operations",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "output.posting_id",
+          "input": "reference_id"
+        }
+      },
+      {
+        "from": "fetch_reference_entities",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "output.entities[0].user_id",
+          "input": "user_id"
+        }
+      },
+      {
+        "from": "instruction",
+        "to": "add_audit_entry",
+        "connection": {
+          "output": "action, reference_type",
+          "input": "action, reference_type"
+        }
+      }
+    ],
+    "num_edges": 10
+    }
+  }
